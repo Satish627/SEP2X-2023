@@ -8,4 +8,8 @@ import java.sql.SQLException;
 
 import static java.sql.DriverManager.registerDriver;
 
-public class DataBaseConnection{}
+public class DataBaseConnection{
+    public static Connection getConnection() {
+        return DriverManager.getConnection();
+    }
+}
