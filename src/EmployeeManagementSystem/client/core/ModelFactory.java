@@ -1,14 +1,15 @@
 package EmployeeManagementSystem.client.core;
 
+import EmployeeManagementSystem.client.model.Employee.EmployeeImpl;
 import EmployeeManagementSystem.client.model.Login.LoginModel;
 import EmployeeManagementSystem.client.model.Login.LoginModelImpl;
 import EmployeeManagementSystem.client.model.MainView.MainModelImpl;
-import EmployeeManagementSystem.client.view.MainView.MainViewModel;
 
 public class ModelFactory {
     private final ClientFactory clientFactory;
     public LoginModelImpl loginModelImpl;
     public MainModelImpl mainModelImpl;
+    public EmployeeImpl addEmployeeImpl;
 
 
     public ModelFactory(ClientFactory clientFactory) {
@@ -26,6 +27,12 @@ public class ModelFactory {
             mainModelImpl = new MainModelImpl(clientFactory.getMainClient());
         }
         return mainModelImpl;
+    }
+    public EmployeeImpl getAddEmployee() {
+        if (addEmployeeImpl == null) {
+            addEmployeeImpl = new EmployeeImpl(clientFactory.getEmployeeClient());
+        }
+        return addEmployeeImpl;
     }
 
 

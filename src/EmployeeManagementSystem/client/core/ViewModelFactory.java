@@ -1,5 +1,6 @@
 package EmployeeManagementSystem.client.core;
 
+import EmployeeManagementSystem.client.view.EmployeeView.EmployeeViewModel;
 import EmployeeManagementSystem.client.view.LoginView.LoginViewModel;
 import EmployeeManagementSystem.client.view.MainView.MainViewModel;
 
@@ -9,6 +10,7 @@ public class ViewModelFactory {
 
     private LoginViewModel loginViewModel;
     private MainViewModel mainViewModel;
+    private EmployeeViewModel employeeViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
@@ -26,5 +28,14 @@ public class ViewModelFactory {
             mainViewModel = new MainViewModel(modelFactory.getMainModel());
         }
         return mainViewModel;
+    }
+
+    public EmployeeViewModel getEmployeeViewModel()
+    {
+        if(employeeViewModel == null)
+        {
+            employeeViewModel = new EmployeeViewModel(modelFactory.getAddEmployee());
+        }
+        return employeeViewModel;
     }
 }
