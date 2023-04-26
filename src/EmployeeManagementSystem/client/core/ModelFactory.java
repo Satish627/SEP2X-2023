@@ -1,5 +1,6 @@
 package EmployeeManagementSystem.client.core;
 
+import EmployeeManagementSystem.client.model.AddEmployee.AddEmployeeImpl;
 import EmployeeManagementSystem.client.model.Employee.EmployeeImpl;
 import EmployeeManagementSystem.client.model.Login.LoginModel;
 import EmployeeManagementSystem.client.model.Login.LoginModelImpl;
@@ -10,9 +11,11 @@ public class ModelFactory {
     public LoginModelImpl loginModelImpl;
     public MainModelImpl mainModelImpl;
     public EmployeeImpl addEmployeeImpl;
+    public AddEmployeeImpl addNewEmployeeImpl;
 
 
-    public ModelFactory(ClientFactory clientFactory) {
+    public ModelFactory(ClientFactory clientFactory)
+    {
         this.clientFactory = clientFactory;
     }
     public LoginModel getLoginModel(){
@@ -34,6 +37,13 @@ public class ModelFactory {
         }
         return addEmployeeImpl;
     }
+    public AddEmployeeImpl getAddNewEmployee() {
+        if (addNewEmployeeImpl == null) {
+            addNewEmployeeImpl = new AddEmployeeImpl(clientFactory.geAddEmployeeClient());
+        }
+        return addNewEmployeeImpl;
+    }
+
 
 
 }

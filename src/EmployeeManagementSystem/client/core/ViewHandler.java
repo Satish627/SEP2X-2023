@@ -13,7 +13,7 @@ public class ViewHandler {
     private Stage stage;
     private final ViewModelFactory viewModelFactory;
 
-    private Scene loginScene, mainScene,employeeScene;
+    private Scene loginScene, mainScene,employeeScene, addEmployeeScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -84,6 +84,31 @@ public class ViewHandler {
 
     public void leaveRequest()
     {
+
+    }
+
+    public void addEmployeeBtn()
+    {
+        if(addEmployeeScene == null){
+            Parent root = loadFXMLFile("../view/AddEmployee/AddEmployee.fxml");
+            addEmployeeScene = new Scene(root);
+            stage.setTitle("Add Employee");
+        }
+        stage.setScene(addEmployeeScene);
+        stage.show();
+    }
+
+    public void openBackPage()
+    {
+        {
+            if(mainScene == null){
+                Parent root = loadFXMLFile("../view/EmployeeView/ViewEmployee.fxml");
+                mainScene = new Scene(root);
+                stage.setTitle("Main view ma jane feri..");
+            }
+            stage.setScene(mainScene);
+            stage.show();
+        }
 
     }
 }
