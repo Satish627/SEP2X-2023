@@ -6,5 +6,6 @@ import java.sql.SQLException;
 
 public interface LoginDao
 {
-    Request login(String username,String password) throws SQLException;
+
+    Request login(int userId, String password) throws SQLException;
 }

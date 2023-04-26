@@ -1,13 +1,31 @@
 package Shared;
 
-public class Admin {
-    private String adminName;
-    private String password;
-    private String username;
+import java.io.Serializable;
 
-    public Admin(String adminName, String password, String username) {
-        this.adminName = adminName;
-        this.password = password;
-        this.username = username;
+public class Admin extends Users implements Serializable {
+    private String userType;
+    private int userId;
+    private String password;
+
+    public Admin(int userId, String password) {
+       super(userId,password);
+       this.userType = "Admin";
+    }
+
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
