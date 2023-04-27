@@ -1,10 +1,10 @@
-package Server.Login;
+package server.Login;
 
-import Shared.Request;
+import shared.Request;
 
 import java.sql.SQLException;
 
-public interface LoginDao
+public interface LoginDAO
 {
 
     Request login(int userId, String password) throws SQLException;

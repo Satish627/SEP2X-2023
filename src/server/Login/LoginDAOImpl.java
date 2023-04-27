@@ -1,14 +1,14 @@
-package Server.Login;
+package server.Login;
 
-import Server.DataBaseConnection;
-import Shared.Admin;
-import Shared.Employee;
-import Shared.Request;
-import Shared.Usertype;
+import server.DataBaseConnection;
+import shared.Admin;
+import shared.Employee;
+import shared.Request;
+import shared.Usertype;
 
 import java.sql.*;
 
-public class LoginDAOImpl implements LoginDao {
+public class LoginDAOImpl implements LoginDAO {
     public LoginDAOImpl() throws SQLException
     {
         DriverManager.registerDriver(new org.postgresql.Driver());

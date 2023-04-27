@@ -1,4 +1,4 @@
-package Shared;
+package shared;
 
 public class Employee extends Users{
     private int userId;
