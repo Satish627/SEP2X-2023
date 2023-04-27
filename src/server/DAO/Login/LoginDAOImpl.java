@@ -1,14 +1,6 @@
-package server.Login;
+package server.DAO.Login;
 
-import server.DataBaseConnection;
-import shared.Admin;
-import shared.Employee;
-import shared.Request;
-import shared.Usertype;
-
-import java.sql.*;
-
-public class LoginDAOImpl implements LoginDAO {
+/*public class LoginDAOImpl implements LoginDAO {
     public LoginDAOImpl() throws SQLException
     {
         DriverManager.registerDriver(new org.postgresql.Driver());
@@ -48,3 +40,4 @@ public class LoginDAOImpl implements LoginDAO {
             return new Request("Something went wrong in database",null);
     }
 }
+*/

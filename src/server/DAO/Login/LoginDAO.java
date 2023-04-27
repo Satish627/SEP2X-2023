@@ -1,6 +1,6 @@
-package server.Login;
+package server.DAO.Login;
 
-import shared.Request;
+import shared.model.Request;
 
 import java.sql.SQLException;
 
