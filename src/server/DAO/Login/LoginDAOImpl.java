@@ -1,5 +1,12 @@
 package server.DAO.Login;
 
+import server.DataBaseConnection;
+import shared.model.Request;
+import shared.model.Users;
+import shared.model.Usertype;
+
+import java.sql.*;
+
 /*public class LoginDAOImpl implements LoginDAO {
     public LoginDAOImpl() throws SQLException
     {
@@ -7,37 +14,40 @@ package server.DAO.Login;
    }
 
    @Override
-    public Request login(int userId, String password) throws SQLException {
+    public Users login(int userId, String password) throws SQLException {
        try( Connection connection= DataBaseConnection.getConnection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM  \"Users\" Where \"userId\"=? and \"password\"=?; ");
-            statement.setInt(1, Integer.parseInt(String.valueOf(userId)));
+            statement.setInt(1, userId);
            statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
-
-                String accessType = resultSet.getString("access_type");
+                int id = resultSet.getInt("userid");
+                String passwd = resultSet.getString("passwd");
                 connection.close();
-                return getUserType(userId,password,accessType);
+
+
+                return new Users(id,passwd);
             }
-            else {
+            else{
                 connection.close();
-               return new Request("Invalid Credentials",null);
-            }}
-       catch(SQLException e){
-                return new Request(e.getMessage(),null);
-           }
-        }
+                return new User("Username or password incorrect",null);
+            }
+       }catch (SQLException e)
+       {
+           return new User(e.getMessage(),null);
+       }
+   }
 
 
-    private Request getUserType(int userId,String password, String accessType) {
-            if (accessType.equals(Usertype.ADMIN.toString())){
-           return new Request(Usertype.ADMIN.toString(), new Admin(userId,password).toString());
+    private Users getUserType(int userId,String password, String userType) {
+            if (userType.equals(Usertype.ADMIN.toString())){
+           return new Users(userId,password) {
+           };
 
 
-        } else if(accessType.equals(Usertype.EMPLOYEE.toString())){
-            return new Request(Usertype.EMPLOYEE.toString(),new Employee(userId,password).toString());
+        } else if(userType.equals(Usertype.EMPLOYEE.toString())){
+            return new Users(userId,password);
         }else
-            return new Request("Something went wrong in database",null);
+            return new Users(Integer.valueOf(e.getMessage()),null);
     }
-}
-*/
+}*/
