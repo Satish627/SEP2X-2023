@@ -1,4 +1,4 @@
-package shared.model;
+package EmployeeManagementSystem.shared.model;
 
 public abstract class Users {
     private int userId;

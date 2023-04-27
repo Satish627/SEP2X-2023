@@ -1,4 +1,4 @@
-package shared.networking;
+package EmployeeManagementSystem.shared.networking;
 
 import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;

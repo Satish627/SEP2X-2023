@@ -1,11 +1,4 @@
-package server.DAO.Login;
-
-import server.DataBaseConnection;
-import shared.model.Request;
-import shared.model.Users;
-import shared.model.Usertype;
-
-import java.sql.*;
+package EmployeeManagementSystem.server.DAO.Login;
 
 /*public class LoginDAOImpl implements LoginDAO {
     public LoginDAOImpl() throws SQLException

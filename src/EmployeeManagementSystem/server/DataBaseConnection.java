@@ -1,4 +1,4 @@
-package server;
+package EmployeeManagementSystem.server;
 
 //import org.postgresql.Driver;
 

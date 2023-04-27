@@ -1,7 +1,6 @@
-package server.DAO.Login;
+package EmployeeManagementSystem.server.DAO.Login;
 
-import shared.model.Request;
-import shared.model.Users;
+import EmployeeManagementSystem.shared.model.Request;
 
 import java.sql.SQLException;
 

@@ -1,4 +1,4 @@
-package shared.model;
+package EmployeeManagementSystem.shared.model;
 
 import java.util.Date;
 
