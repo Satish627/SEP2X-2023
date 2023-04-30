@@ -1,10 +1,13 @@
 package EmployeeManagementSystem.server.DAO.Employee;
 
-import EmployeeManagementSystem.client.model.Employee.Employee;
+import EmployeeManagementSystem.shared.model.Users;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface EmployeeDAO {
-    String addEmployee(String firstName,String lastName, String UserId,String email, String address,String phoneNum, String DateOfBirth);
-    ArrayList<Employee> viewAllEmployees();
+
+    Users addEmployee(String firstName, String lastName, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException;
+
+    ArrayList<Users> viewAllEmployees();
 }

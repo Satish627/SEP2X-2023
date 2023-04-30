@@ -1,8 +1,8 @@
 package EmployeeManagementSystem.client.view.EmployeeView;
 
-import EmployeeManagementSystem.client.model.Employee.EmployeeImpl;
+import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
 
 public class EmployeeViewModel {
-    public EmployeeViewModel(EmployeeImpl addEmployee) {
+    public EmployeeViewModel(EmployeeModelImpl addEmployee) {
     }
 }

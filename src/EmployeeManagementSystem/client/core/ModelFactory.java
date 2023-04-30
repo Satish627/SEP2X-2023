@@ -1,7 +1,6 @@
 package EmployeeManagementSystem.client.core;
 
-import EmployeeManagementSystem.client.model.AddEmployee.AddEmployeeImpl;
-import EmployeeManagementSystem.client.model.Employee.EmployeeImpl;
+import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
 import EmployeeManagementSystem.client.model.Login.LoginModel;
 import EmployeeManagementSystem.client.model.Login.LoginModelImpl;
 import EmployeeManagementSystem.client.model.MainView.MainModelImpl;
@@ -10,8 +9,7 @@ public class ModelFactory {
     private final ClientFactory clientFactory;
     public LoginModelImpl loginModelImpl;
     public MainModelImpl mainModelImpl;
-    public EmployeeImpl addEmployeeImpl;
-    public AddEmployeeImpl addNewEmployeeImpl;
+    public EmployeeModelImpl employeeModelImpl;
 
 
     public ModelFactory(ClientFactory clientFactory)
@@ -31,17 +29,12 @@ public class ModelFactory {
         }
         return mainModelImpl;
     }
-    public EmployeeImpl getAddEmployee() {
-        if (addEmployeeImpl == null) {
-            addEmployeeImpl = new EmployeeImpl(clientFactory.getEmployeeClient());
+
+    public EmployeeModelImpl getEmployeeModel() {
+        if (employeeModelImpl == null) {
+            employeeModelImpl = new EmployeeModelImpl(clientFactory.getEmployeeClient());
         }
-        return addEmployeeImpl;
-    }
-    public AddEmployeeImpl getAddNewEmployee() {
-        if (addNewEmployeeImpl == null) {
-            addNewEmployeeImpl = new AddEmployeeImpl(clientFactory.geAddEmployeeClient());
-        }
-        return addNewEmployeeImpl;
+        return employeeModelImpl;
     }
 
 

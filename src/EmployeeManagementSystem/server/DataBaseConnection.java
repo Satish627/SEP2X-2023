@@ -15,7 +15,7 @@ public class DataBaseConnection{
         String password = "0885";
         Connection connection= DriverManager.getConnection(url,userName,password);
         if (connection !=  null){
-            System.out.println("Connected to db successfully");
+            System.out.println("Database connection successfully");
         }
         return connection;
     }

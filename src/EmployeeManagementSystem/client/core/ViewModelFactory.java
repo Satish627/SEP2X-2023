@@ -32,19 +32,19 @@ public class ViewModelFactory {
         return mainViewModel;
     }
 
-    public EmployeeViewModel getEmployeeViewModel()
-    {
+
+    public EmployeeViewModel getEmployeeViewModel() {
         if(employeeViewModel == null)
         {
-            employeeViewModel = new EmployeeViewModel(modelFactory.getAddEmployee());
+            employeeViewModel = new EmployeeViewModel(modelFactory.getEmployeeModel());
         }
         return employeeViewModel;
     }
-    public AddEmployeeViewModel getAddEmployeeViewModel()
-    {
+
+    public AddEmployeeViewModel getAddEmployeeViewModel() {
         if(addEmployeeViewModel == null)
         {
-            addEmployeeViewModel = new AddEmployeeViewModel(modelFactory.getAddNewEmployee());
+            addEmployeeViewModel = new AddEmployeeViewModel(modelFactory.getEmployeeModel());
         }
         return addEmployeeViewModel;
     }

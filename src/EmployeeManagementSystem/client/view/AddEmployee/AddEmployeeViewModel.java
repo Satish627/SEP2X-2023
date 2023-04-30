@@ -1,14 +1,16 @@
 package EmployeeManagementSystem.client.view.AddEmployee;
 
-import EmployeeManagementSystem.client.model.AddEmployee.AddEmployeeImpl;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
+import EmployeeManagementSystem.shared.model.Users;
+import javafx.beans.property.*;
+
+import java.rmi.RemoteException;
 
 public class AddEmployeeViewModel
 {
-    private AddEmployeeImpl addEmployeeModelImpl;
-    private StringProperty firstName,lastName, userId,emailId,address,phoneNum, dateOfBirth;
-    public AddEmployeeViewModel(AddEmployeeImpl addNewEmployee)
+    private EmployeeModelImpl addEmployeeModelImpl;
+    private StringProperty firstName,lastName, userId,emailId,address, dateOfBirth, phoneNum;
+    public AddEmployeeViewModel(EmployeeModelImpl addNewEmployee)
     {
     this.addEmployeeModelImpl = addNewEmployee;
     initialiseAllProperty();
@@ -57,8 +59,14 @@ public class AddEmployeeViewModel
     public StringProperty getDateOfBirth() {
         return dateOfBirth;
     }
-    public String addEmployee(){
-        String employee= addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get(),userId.get(),emailId.get(),address.get(),phoneNum.get(),dateOfBirth.get());
+    public Users addEmployee() throws RemoteException {
+        if (firstName.get()==null || firstName.get().isEmpty() || lastName.get()== null || lastName.get().isEmpty() || userId.get()== null || userId.get().isEmpty() || emailId.get()== null || emailId.get().isEmpty() || address.get()== null || address.get().isEmpty() || phoneNum.get()== null || phoneNum.get().isEmpty() ){
+            System.out.println("Please fill in all the information");
+            return null;
+        }
+        else {
+        Users employee= addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get(),Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
         return employee;
+    }
     }
 }

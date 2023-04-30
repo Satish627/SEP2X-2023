@@ -1,16 +1,31 @@
 package EmployeeManagementSystem.shared.model;
 
-public abstract class Users {
-    private int userId;
-    private String passWord;
+import java.io.Serializable;
+import java.util.Date;
 
-    public Users() {
+public  class Users implements Serializable {
+    private int userId;
+    private String firstName;
+    private String lastName;
+
+    private String address;
+    private String email;
+    private int phoneNumber;
+    private String DateOfBirth;
+
+    private String userType ;
+
+    public Users( String firstName, String lastName,int userId,String email,String address,  int phoneNumber, String  DateOfBirth) {
+        this.userId=userId;
+        this.firstName = firstName;
+        this.lastName= lastName;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.DateOfBirth= DateOfBirth;
     }
 
-    public Users(int userId, String passWord) {
-        this.userId = userId;
-        this.passWord = passWord;
-
+    public Users() {
     }
 
     public int getUserId() {
@@ -21,19 +36,73 @@ public abstract class Users {
         this.userId = userId;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getDateOfBirth() {
+        return DateOfBirth;
+    }
+
+    public void setDateOfBirth(String  dateOfBirth) {
+        DateOfBirth = dateOfBirth;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     @Override
     public String toString() {
         return "Users{" +
                 "userId=" + userId +
-                ", passWord='" + passWord + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", DateOfBirth=" + DateOfBirth +
+                ", userType='" + userType + '\'' +
                 '}';
     }
 }
