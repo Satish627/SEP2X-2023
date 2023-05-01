@@ -2,6 +2,8 @@ package EmployeeManagementSystem.client.core;
 
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClientImpl;
+import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClient;
+import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClientImpl;
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClient;
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClientImpl;
 import EmployeeManagementSystem.client.networking.MainViewClient.MainClient;
@@ -16,6 +18,7 @@ public class ClientFactory {
     private MainClient mainClient;
 
     private ViewShiftClient viewShiftClient;
+    private LeaveRequestClient leaveRequestClient;
 
 
     public LoginClient getLoginClient() {
@@ -46,6 +49,14 @@ public class ClientFactory {
             viewShiftClient = new ViewShiftClientImpl();
         }
         return viewShiftClient;
+    }
+    public LeaveRequestClient getLeaveRequestClient() {
+        if (leaveRequestClient == null) {
+            leaveRequestClient = new LeaveRequestClientImpl();
+        }
+        return leaveRequestClient;
+
+
     }
 
 

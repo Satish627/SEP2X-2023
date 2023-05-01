@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.client.core;
 
 import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
+import EmployeeManagementSystem.client.model.LeaveRequest.LeaveRequestModelImpl;
 import EmployeeManagementSystem.client.model.Login.LoginModel;
 import EmployeeManagementSystem.client.model.Login.LoginModelImpl;
 import EmployeeManagementSystem.client.model.MainView.MainModelImpl;
@@ -13,6 +14,7 @@ public class ModelFactory {
     public EmployeeModelImpl employeeModelImpl;
 
     public ViewShiftImpl viewShiftImpl;
+    public LeaveRequestModelImpl leaveRequestImpl;
 
 
     public ModelFactory(ClientFactory clientFactory)
@@ -49,4 +51,12 @@ public class ModelFactory {
         }
         return viewShiftImpl;
     }
+    public LeaveRequestModelImpl getLeaveRequest()
+    {
+        if (leaveRequestImpl == null) {
+            leaveRequestImpl = new LeaveRequestModelImpl(clientFactory.getLeaveRequestClient());
+        }
+        return leaveRequestImpl;
+    }
+
 }

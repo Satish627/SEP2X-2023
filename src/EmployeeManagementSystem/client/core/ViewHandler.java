@@ -13,7 +13,8 @@ public class ViewHandler {
     private Stage stage;
     private final ViewModelFactory viewModelFactory;
 
-    private Scene loginScene, mainScene,employeeScene, addEmployeeScene, viewShiftScene;
+    private Scene loginScene, mainScene,employeeScene, addEmployeeScene, viewShiftScene,
+            leaveRequestScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -82,10 +83,6 @@ public class ViewHandler {
         stage.show();
     }
 
-    public void leaveRequest()
-    {
-
-    }
 
     public void addEmployeeBtn()
     {
@@ -127,6 +124,16 @@ public class ViewHandler {
         stage.setScene(viewShiftScene);
         stage.show();
 
+    }
+    public void leaveRequest()
+    {
+        if(leaveRequestScene == null){
+            Parent root = loadFXMLFile("../view/LeaveRequestView/LeaveRequest.fxml");
+            leaveRequestScene = new Scene(root);
+            stage.setTitle("Leave Request View");
+        }
+        stage.setScene(leaveRequestScene);
+        stage.show();
     }
 }
 
