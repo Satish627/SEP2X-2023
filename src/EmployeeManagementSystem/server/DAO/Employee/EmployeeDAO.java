@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public interface EmployeeDAO {
 
-    Users addEmployee(String firstName, String lastName, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException;
+
+    Users addEmployee(String firstName, String lastName, String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException;
 
     ArrayList<Users> viewAllEmployees();
 }

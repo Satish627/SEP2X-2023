@@ -18,9 +18,9 @@ public class EmployeeServerImpl implements EmployeeServer {
     }
 
     @Override
-    public Users addEmployee(String firstName, String lastName, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException {
+    public Users addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException {
         try {
-            return employeeDAO.addEmployee(firstName,lastName,UserId,email,address,phoneNum,DateOfBirth);
+            return employeeDAO.addEmployee(firstName,lastName,password,UserId,email,address,phoneNum,DateOfBirth);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -7,7 +7,7 @@ public  class Users implements Serializable {
     private int userId;
     private String firstName;
     private String lastName;
-
+    private String password;
     private String address;
     private String email;
     private int phoneNumber;
@@ -15,10 +15,11 @@ public  class Users implements Serializable {
 
     private String userType ;
 
-    public Users( String firstName, String lastName,int userId,String email,String address,  int phoneNumber, String  DateOfBirth) {
+    public Users( String firstName, String lastName,String password,int userId,String email,String address,  int phoneNumber, String  DateOfBirth) {
         this.userId=userId;
         this.firstName = firstName;
         this.lastName= lastName;
+        this.password = password;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -92,16 +93,25 @@ public  class Users implements Serializable {
         this.userType = userType;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
                 "userId=" + userId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", DateOfBirth=" + DateOfBirth +
+                ", DateOfBirth='" + DateOfBirth + '\'' +
                 ", userType='" + userType + '\'' +
                 '}';
     }

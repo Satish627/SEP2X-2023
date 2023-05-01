@@ -14,7 +14,7 @@ public class EmployeeModelImpl implements EmployeeModel
     }
 
     @Override
-    public Users addEmployee(String firstName, String lastName, int userId, String emailId, String address, int phoneNum, String dateOfBirth) throws RemoteException {
-        return employeeClient.addEmployee(firstName,lastName,userId,emailId,address,phoneNum,dateOfBirth);
+    public Users addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth)  {
+        return employeeClient.addEmployee(firstName,lastName,password,userId,emailId,address,phoneNum,dateOfBirth);
     }
 }

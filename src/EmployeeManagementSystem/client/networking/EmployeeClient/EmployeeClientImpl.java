@@ -20,9 +20,9 @@ public class EmployeeClientImpl implements EmployeeClient
     }
 
     @Override
-    public Users addEmployee(String firstName, String lastName, int userId, String emailId, String address, int phoneNum, String dateOfBirth) throws RemoteException {
+    public Users addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) {
       try {
-          return server.getEmployeeServer().addEmployee(firstName, lastName, userId, emailId, address, phoneNum, dateOfBirth);
+          return server.getEmployeeServer().addEmployee(firstName, lastName,password, userId, emailId, address, phoneNum, dateOfBirth);
       }
       catch (RemoteException e){
           e.printStackTrace();

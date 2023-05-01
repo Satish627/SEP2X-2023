@@ -7,13 +7,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
+import java.util.Random;
 
 
 public class AddEmployeeController implements ViewController
 {
     private ViewHandler viewHandler;
     private AddEmployeeViewModel addEmployeeViewModel;
-
     @FXML private TextField firstname,lastName,userId,address,emailId,phoneNum,dateOfBirth;
 
     @Override
@@ -52,8 +52,9 @@ public class AddEmployeeController implements ViewController
     }
 
     @FXML
-    void saveClick(ActionEvent event) throws RemoteException {
+    void saveClick(ActionEvent event)  {
         addEmployeeViewModel.addEmployee();
+
 
 }
 }

@@ -5,11 +5,21 @@ import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.*;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.Random;
 
 public class AddEmployeeViewModel
 {
     private EmployeeModelImpl addEmployeeModelImpl;
     private StringProperty firstName,lastName, userId,emailId,address, dateOfBirth, phoneNum;
+
+    String upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String lower = "abcdefghijklmnopqrstuvwxyz";
+    String digits = "0123456789";
+    String combination= upper+lower+digits;
+    int pwLength= 10;
+
+    String newPassword ;
     public AddEmployeeViewModel(EmployeeModelImpl addNewEmployee)
     {
     this.addEmployeeModelImpl = addNewEmployee;
@@ -26,6 +36,15 @@ public class AddEmployeeViewModel
         dateOfBirth = new SimpleStringProperty();
 
 
+    }
+    private void generatePassword() {
+        Random random = new Random();
+        char[] com = new char[pwLength];
+        for (int i = 0; i < pwLength; i++) {
+            com[i] = (combination.charAt(random.nextInt(combination.length())));
+        }
+        newPassword = new String(com);
+        System.out.println("The generated password is : " + newPassword);
     }
 
     public StringProperty getfirstName() {
@@ -59,13 +78,15 @@ public class AddEmployeeViewModel
     public StringProperty getDateOfBirth() {
         return dateOfBirth;
     }
-    public Users addEmployee() throws RemoteException {
+
+    public Users addEmployee()  {
         if (firstName.get()==null || firstName.get().isEmpty() || lastName.get()== null || lastName.get().isEmpty() || userId.get()== null || userId.get().isEmpty() || emailId.get()== null || emailId.get().isEmpty() || address.get()== null || address.get().isEmpty() || phoneNum.get()== null || phoneNum.get().isEmpty() ){
             System.out.println("Please fill in all the information");
             return null;
         }
         else {
-        Users employee= addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get(),Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
+            generatePassword();
+         Users employee= addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get() ,newPassword, Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
         return employee;
     }
     }
