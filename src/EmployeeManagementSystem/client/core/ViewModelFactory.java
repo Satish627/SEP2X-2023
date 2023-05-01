@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.client.core;
 
 import EmployeeManagementSystem.client.view.AddEmployee.AddEmployeeViewModel;
+import EmployeeManagementSystem.client.view.AddShift.AddShiftViewModel;
 import EmployeeManagementSystem.client.view.EmployeeView.EmployeeViewModel;
 import EmployeeManagementSystem.client.view.LoginView.LoginViewModel;
 import EmployeeManagementSystem.client.view.MainView.MainViewModel;
@@ -16,6 +17,8 @@ public class ViewModelFactory {
     private AddEmployeeViewModel addEmployeeViewModel;
 
     private ShiftViewModel shiftViewModel;
+
+    private AddShiftViewModel addShiftViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
@@ -60,5 +63,15 @@ public class ViewModelFactory {
         }
         return shiftViewModel;
     }
+    public AddShiftViewModel getAddShiftViewModel()
+    {
+        if(addShiftViewModel== null)
+        {
+            addShiftViewModel= new AddShiftViewModel(modelFactory.getAddShiftImpl());
+        }
+        return addShiftViewModel;
+    }
+
+
 
 }

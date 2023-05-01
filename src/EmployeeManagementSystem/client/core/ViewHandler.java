@@ -14,7 +14,7 @@ public class ViewHandler {
     private final ViewModelFactory viewModelFactory;
 
     private Scene loginScene, mainScene,employeeScene, addEmployeeScene, viewShiftScene,
-            leaveRequestScene;
+            leaveRequestScene,addShiftScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -135,6 +135,31 @@ public class ViewHandler {
         stage.setScene(leaveRequestScene);
         stage.show();
     }
+
+    public void openAddShift()
+    {
+        if(addShiftScene == null){
+            Parent root = loadFXMLFile("../view/AddShift/AddShift.fxml");
+            addShiftScene = new Scene(root);
+            stage.setTitle("Add Shift View");
+        }
+        stage.setScene(addShiftScene);
+        stage.show();
+    }
+
+
+    public void openBackButton()
+    {
+        if(employeeScene == null){
+            Parent root = loadFXMLFile("../view/EmployeeView/ViewEmployee.fxml");
+            employeeScene= new Scene(root);
+            stage.setTitle("Employee view ma jane feri..");
+        }
+        stage.setScene(employeeScene);
+        stage.show();
+    }
+
+
 }
 
 

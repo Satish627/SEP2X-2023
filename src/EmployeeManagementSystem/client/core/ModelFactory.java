@@ -1,5 +1,6 @@
 package EmployeeManagementSystem.client.core;
 
+import EmployeeManagementSystem.client.model.AddShift.AddShiftImpl;
 import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
 import EmployeeManagementSystem.client.model.LeaveRequest.LeaveRequestModelImpl;
 import EmployeeManagementSystem.client.model.Login.LoginModel;
@@ -15,6 +16,7 @@ public class ModelFactory {
 
     public ViewShiftImpl viewShiftImpl;
     public LeaveRequestModelImpl leaveRequestImpl;
+    public AddShiftImpl addShiftImpl;
 
 
     public ModelFactory(ClientFactory clientFactory)
@@ -57,6 +59,13 @@ public class ModelFactory {
             leaveRequestImpl = new LeaveRequestModelImpl(clientFactory.getLeaveRequestClient());
         }
         return leaveRequestImpl;
+    }
+    public AddShiftImpl getAddShiftImpl()
+    {
+        if (addShiftImpl == null) {
+            addShiftImpl = new AddShiftImpl(clientFactory.getAddShiftClient());
+        }
+        return addShiftImpl;
     }
 
 }

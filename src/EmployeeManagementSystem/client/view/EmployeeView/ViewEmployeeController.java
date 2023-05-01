@@ -37,7 +37,11 @@ public class ViewEmployeeController implements ViewController
     @FXML
     void addShiftClick(ActionEvent event)
     {
+        openAddShift();
+    }
 
+    private void openAddShift() {
+        viewHandler.openAddShift();
     }
 
 
@@ -47,4 +51,6 @@ public class ViewEmployeeController implements ViewController
         this.viewHandler = viewHandler;
         employeeViewModel = viewModelFactory.getEmployeeViewModel();
     }
+
+
 }
