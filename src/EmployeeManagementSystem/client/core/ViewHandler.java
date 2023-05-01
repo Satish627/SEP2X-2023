@@ -13,7 +13,7 @@ public class ViewHandler {
     private Stage stage;
     private final ViewModelFactory viewModelFactory;
 
-    private Scene loginScene, mainScene,employeeScene, addEmployeeScene;
+    private Scene loginScene, mainScene,employeeScene, addEmployeeScene, viewShiftScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
@@ -111,5 +111,28 @@ public class ViewHandler {
         }
 
     }
+
+    public void openViewShift() {
+
+        if(viewShiftScene == null)
+        {
+            Parent root = loadFXMLFile("../view/ViewShift/ViewShift.fxml");
+            viewShiftScene = new Scene(root);
+            stage.setTitle("Welcome to View Shift");
+
+        }
+
+
+
+        stage.setScene(viewShiftScene);
+        stage.show();
+
+    }
 }
+
+
+
+
+
+
 

@@ -29,8 +29,13 @@ public class MainController implements ViewController {
     @FXML
     void ViewShiftLink(ActionEvent event)
     {
-
+        openViewShift();
     }
+
+    private void openViewShift() {
+        viewHandler.openViewShift();
+    }
+
     @FXML
     void leaveRequestLink(ActionEvent event)
     {
