@@ -7,13 +7,14 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.EmployeeView.ViewEmployeeController">
    <children>
-      <TableView layoutX="23.0" layoutY="57.0" prefHeight="273.0" prefWidth="535.0">
+      <TableView layoutX="23.0" layoutY="57.0" prefHeight="270.0" prefWidth="555.0">
         <columns>
-          <TableColumn prefWidth="107.33331298828125" text="EmployeeID" />
-          <TableColumn prefWidth="104.00003051757812" text="Name" />
-            <TableColumn prefWidth="110.66668701171875" text="Shift" />
-            <TableColumn prefWidth="75.0" text="Check-In" />
-            <TableColumn prefWidth="87.33331298828125" text="Check-Out" />
+          <TableColumn prefWidth="77.99996948242188" text="EmployeeID" />
+          <TableColumn prefWidth="105.99996948242188" text="Full Name" />
+            <TableColumn prefWidth="88.0" text="Date Of Birth" />
+            <TableColumn prefWidth="108.66668701171875" text="Address" />
+            <TableColumn prefWidth="90.66668701171875" text="Phone" />
+            <TableColumn prefWidth="81.33331298828125" text="Email" />
         </columns>
       </TableView>
       <Button layoutX="98.0" layoutY="346.0" mnemonicParsing="false" onAction="#addEmployeeClick" prefHeight="25.0" prefWidth="96.0" text="Add Employee" />
