@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.Random;
 
 
@@ -52,10 +53,20 @@ public class AddEmployeeController implements ViewController
     }
 
     @FXML
-    void saveClick(ActionEvent event)  {
+    void saveClick(ActionEvent event) throws SQLException, RemoteException {
         addEmployeeViewModel.addEmployee();
-
-
+        clearTextInputs();
 }
+    private void clearTextInputs() {
+        firstname.setText(null);
+        lastName.setText(null);
+        emailId.setText(null);
+        userId.setText(null);
+        address.setText(null);
+        phoneNum.setText(null);
+        dateOfBirth.setText(null);
+    }
+
+
 }
 

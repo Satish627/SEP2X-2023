@@ -5,6 +5,7 @@ import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.*;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -79,15 +80,16 @@ public class AddEmployeeViewModel
         return dateOfBirth;
     }
 
-    public Users addEmployee()  {
+
+    public Users addEmployee() throws SQLException, RemoteException {
         if (firstName.get()==null || firstName.get().isEmpty() || lastName.get()== null || lastName.get().isEmpty() || userId.get()== null || userId.get().isEmpty() || emailId.get()== null || emailId.get().isEmpty() || address.get()== null || address.get().isEmpty() || phoneNum.get()== null || phoneNum.get().isEmpty() ){
             System.out.println("Please fill in all the information");
             return null;
         }
         else {
-            generatePassword();
-         Users employee= addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get() ,newPassword, Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
-        return employee;
-    }
+           generatePassword();
+         return addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get() ,newPassword, Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
+
+        }
     }
 }

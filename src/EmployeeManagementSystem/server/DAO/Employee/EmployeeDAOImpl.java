@@ -19,11 +19,10 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     @Override
     public Users addEmployee(String firstName, String lastName, String password,int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException {
         try (Connection connection = DataBaseConnection.getConnection()) {
-                PreparedStatement newStatement = connection.prepareStatement("INSERT INTO users ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
+                PreparedStatement newStatement = connection.prepareStatement("INSERT INTO Users ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
                 newStatement.setString(1, firstName);
                 newStatement.setString(2, lastName);
             newStatement.setString(3, password);
-
             newStatement.setInt(4, UserId);
                 newStatement.setString(5, email);
                 newStatement.setString(6, address);
