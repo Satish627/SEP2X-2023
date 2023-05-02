@@ -98,12 +98,12 @@ public class ViewHandler {
     public void openBackPage()
     {
         {
-            if(mainScene == null){
+            if(employeeScene== null){
                 Parent root = loadFXMLFile("../view/EmployeeView/ViewEmployee.fxml");
-                mainScene = new Scene(root);
-                stage.setTitle("Main view ma jane feri..");
+                employeeScene = new Scene(root);
+                stage.setTitle("Employee view ma jane feri..");
             }
-            stage.setScene(mainScene);
+            stage.setScene(employeeScene);
             stage.show();
         }
 

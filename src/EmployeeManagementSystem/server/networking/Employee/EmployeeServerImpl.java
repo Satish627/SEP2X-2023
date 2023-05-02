@@ -24,9 +24,10 @@ public class EmployeeServerImpl implements EmployeeServer {
 
     }
 
-
-    /*@Override
-    public ArrayList<Employee> viewAllEmployees() {
+    @Override
+    public ArrayList<Users> viewAllEmployees() throws RemoteException, SQLException {
         return employeeDAO.viewAllEmployees();
-    }*/
+    }
+
+
 }

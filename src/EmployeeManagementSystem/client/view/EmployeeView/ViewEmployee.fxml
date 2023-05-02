@@ -9,11 +9,11 @@
    <children>
       <TableView layoutX="23.0" layoutY="57.0" prefHeight="270.0" prefWidth="555.0">
         <columns>
-          <TableColumn prefWidth="77.99996948242188" text="EmployeeID" />
+          <TableColumn prefWidth="77.99996948242188" text="UserID" />
           <TableColumn prefWidth="105.99996948242188" text="Full Name" />
             <TableColumn prefWidth="88.0" text="Date Of Birth" />
             <TableColumn prefWidth="108.66668701171875" text="Address" />
-            <TableColumn prefWidth="90.66668701171875" text="Phone" />
+            <TableColumn prefWidth="90.66668701171875" text="PhoneNumber" />
             <TableColumn prefWidth="81.33331298828125" text="Email" />
         </columns>
       </TableView>

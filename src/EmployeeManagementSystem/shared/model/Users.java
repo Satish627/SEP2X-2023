@@ -15,6 +15,7 @@ public class Users implements Serializable {
 
     private String userType ;
 
+
     public Users( String firstName, String lastName,String password,int userId,String email,String address,  int phoneNumber, String  DateOfBirth) {
         this.userId=userId;
         this.firstName = firstName;
@@ -126,4 +127,5 @@ public class Users implements Serializable {
                 ", userType='" + userType + '\'' +
                 '}';
     }
+
 }

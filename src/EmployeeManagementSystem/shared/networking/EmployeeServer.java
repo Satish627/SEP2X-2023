@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public interface EmployeeServer extends Remote {
     Users addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException, SQLException;
-    //ArrayList<Employee> viewAllEmployees();
+
+    ArrayList<Users> viewAllEmployees() throws RemoteException,SQLException;
+
 
 }

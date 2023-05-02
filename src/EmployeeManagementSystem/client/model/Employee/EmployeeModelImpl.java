@@ -18,4 +18,5 @@ public class EmployeeModelImpl implements EmployeeModel
     public Users addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) throws SQLException, RemoteException {
         return employeeClient.addEmployee(firstName,lastName,password,userId,emailId,address,phoneNum,dateOfBirth);
     }
+
 }

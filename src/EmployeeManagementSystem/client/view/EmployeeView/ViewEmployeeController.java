@@ -50,6 +50,7 @@ public class ViewEmployeeController implements ViewController
     {
         this.viewHandler = viewHandler;
         employeeViewModel = viewModelFactory.getEmployeeViewModel();
+        
     }
 
 
