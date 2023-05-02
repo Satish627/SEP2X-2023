@@ -3,7 +3,7 @@ package EmployeeManagementSystem.shared.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public  class Users implements Serializable {
+public class Users implements Serializable {
     private int userId;
     private String firstName;
     private String lastName;
@@ -27,6 +27,17 @@ public  class Users implements Serializable {
     }
 
     public Users() {
+    }
+
+    public Users(int userid, String passwd) {
+        this.userId=userid;
+        this.password=passwd;
+    }
+
+    public Users(int userid, String passwd, String userType) {
+        this.userId=userid;
+        this.password=passwd;
+        this.userType=userType;
     }
 
     public int getUserId() {

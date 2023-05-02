@@ -1,46 +1,46 @@
 package EmployeeManagementSystem.server.DAO.Login;
 
-/*public class LoginDAOImpl implements LoginDAO {
+import EmployeeManagementSystem.server.DataBaseConnection;
+import EmployeeManagementSystem.shared.model.Request;
+import EmployeeManagementSystem.shared.model.Users;
+import EmployeeManagementSystem.shared.model.Usertype;
+
+import java.sql.*;
+
+public class LoginDAOImpl implements LoginDAO {
     public LoginDAOImpl() throws SQLException
     {
         DriverManager.registerDriver(new org.postgresql.Driver());
    }
 
    @Override
-    public Users login(int userId, String password) throws SQLException {
+    public Users login(int userid, String passwd) throws SQLException {
        try( Connection connection= DataBaseConnection.getConnection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM  \"Users\" Where \"userId\"=? and \"password\"=?; ");
-            statement.setInt(1, userId);
-           statement.setString(2,password);
+            statement.setInt(1, userid);
+           statement.setString(2,passwd);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
                 int id = resultSet.getInt("userid");
-                String passwd = resultSet.getString("passwd");
+                String pass = resultSet.getString("passwd");
                 connection.close();
-
-
-                return new Users(id,passwd);
+                Users users=new Users(id,pass);
             }
-            else{
-                connection.close();
-                return new User("Username or password incorrect",null);
-            }
-       }catch (SQLException e)
-       {
-           return new User(e.getMessage(),null);
        }
-   }
+       return new Users(userid,passwd);
+    }
 
 
-    private Users getUserType(int userId,String password, String userType) {
+
+    private Users getUserType(int userid,String passwd, String userType) {
             if (userType.equals(Usertype.ADMIN.toString())){
-           return new Users(userId,password) {
+           return new Users(userid,passwd) {
            };
 
 
         } else if(userType.equals(Usertype.EMPLOYEE.toString())){
-            return new Users(userId,password);
-        }else
-            return new Users(Integer.valueOf(e.getMessage()),null);
+            return new Users(userid,passwd);
+        }
+            return new Users(userid,passwd,userType);
     }
-}*/
+}

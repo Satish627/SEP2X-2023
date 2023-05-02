@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.server.networking;
 
 import EmployeeManagementSystem.shared.networking.EmployeeServer;
+import EmployeeManagementSystem.shared.networking.LoginServer;
 import EmployeeManagementSystem.shared.networking.Server;
 
 import java.rmi.AlreadyBoundException;
@@ -11,6 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class ServerImpl implements Server {
     private EmployeeServer employeeServer;
+    private LoginServer loginServer;
 
     public ServerImpl(EmployeeServer employeeServer) throws RemoteException {
         this.employeeServer = employeeServer;
@@ -29,5 +31,10 @@ public class ServerImpl implements Server {
     @Override
     public EmployeeServer getEmployeeServer() {
         return employeeServer;
+    }
+
+    @Override
+    public LoginServer getLoginServer() {
+        return loginServer;
     }
 }
