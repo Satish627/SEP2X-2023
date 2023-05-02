@@ -11,12 +11,13 @@ public class Users implements Serializable {
     private String address;
     private String email;
     private int phoneNumber;
-    private String DateOfBirth;
+    private String dateOfBirth;
 
     private String userType ;
+    private String fullName;
 
 
-    public Users( String firstName, String lastName,String password,int userId,String email,String address,  int phoneNumber, String  DateOfBirth) {
+    public Users( String firstName, String lastName,String password,int userId,String email,String address,  int phoneNumber, String  dateOfBirth) {
         this.userId=userId;
         this.firstName = firstName;
         this.lastName= lastName;
@@ -24,7 +25,7 @@ public class Users implements Serializable {
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.DateOfBirth= DateOfBirth;
+        this.dateOfBirth= dateOfBirth;
     }
 
     public Users() {
@@ -39,6 +40,17 @@ public class Users implements Serializable {
         this.userId=userid;
         this.password=passwd;
         this.userType=userType;
+    }
+
+    public Users(int userId, String firstName, String lastName, String dateOfBirth, String address, int phoneNumber, String email) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName= lastName;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.dateOfBirth= dateOfBirth;
+
     }
 
     public int getUserId() {
@@ -90,11 +102,11 @@ public class Users implements Serializable {
     }
 
     public String getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(String  dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        dateOfBirth = dateOfBirth;
     }
 
     public String getUserType() {
@@ -123,7 +135,7 @@ public class Users implements Serializable {
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", DateOfBirth='" + DateOfBirth + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", userType='" + userType + '\'' +
                 '}';
     }

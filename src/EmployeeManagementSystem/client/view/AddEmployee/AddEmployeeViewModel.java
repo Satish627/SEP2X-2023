@@ -1,6 +1,6 @@
 package EmployeeManagementSystem.client.view.AddEmployee;
 
-import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
+import EmployeeManagementSystem.client.model.Employee.EmployeeModel;
 import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.*;
 
@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class AddEmployeeViewModel
 {
-    private EmployeeModelImpl addEmployeeModelImpl;
+    private EmployeeModel addEmployeeModel;
     private StringProperty firstName,lastName, userId,emailId,address, dateOfBirth, phoneNum;
 
     String upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -21,9 +21,9 @@ public class AddEmployeeViewModel
     int pwLength= 10;
 
     String newPassword ;
-    public AddEmployeeViewModel(EmployeeModelImpl addNewEmployee)
+    public AddEmployeeViewModel(EmployeeModel addNewEmployee)
     {
-    this.addEmployeeModelImpl = addNewEmployee;
+    this.addEmployeeModel = addNewEmployee;
     initialiseAllProperty();
     }
 
@@ -88,7 +88,7 @@ public class AddEmployeeViewModel
         }
         else {
            generatePassword();
-         return addEmployeeModelImpl.addEmployee(firstName.get(),lastName.get() ,newPassword, Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
+         return addEmployeeModel.addEmployee(firstName.get(),lastName.get() ,newPassword, Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
 
         }
     }

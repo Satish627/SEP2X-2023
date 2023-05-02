@@ -41,29 +41,29 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     @Override
     public ArrayList<Users> viewAllEmployees() throws SQLException {
             ArrayList<Users> employeeList = new ArrayList<>();
-            {
+            {try {
                 Connection connection = getConnection();
                 {
                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
 
                     ResultSet resultSet = statement.executeQuery();
-                    while(resultSet.next())
-                    {
-                        Users user = new Users();
-                        user.setUserId(resultSet.getInt("user_id"));
-                        user.setFirstName(resultSet.getString("first_name"));
-                        user.setLastName(resultSet.getString("last_name"));
-                        user.setDateOfBirth(resultSet.getString("date_of_birth"));
-                        user.setAddress(resultSet.getString("address"));
-                        user.setPhoneNumber(resultSet.getInt("phone_number"));
-                        user.setEmail(resultSet.getString("email"));
+                    while (resultSet.next()) {
+
+                        int userId =resultSet.getInt("userid");
+                        String firstName=resultSet.getString("firstname");
+                        String lastName = resultSet.getString("lastname");
+                        String birthDate = resultSet.getString("dateofbirth");
+                        String address = resultSet.getString("address");
+                        int phoneNumber = resultSet.getInt("phonenumber");
+                        String email =resultSet.getString("email");
+                        Users user = new Users(userId,firstName,lastName,birthDate,address,phoneNumber,email);
                         employeeList.add(user);
                         System.out.println(employeeList);
                     }
-
-
                 }
-
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             }
             return employeeList;
         }
