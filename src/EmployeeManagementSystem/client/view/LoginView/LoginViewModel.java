@@ -1,7 +1,6 @@
 package EmployeeManagementSystem.client.view.LoginView;
 
-import EmployeeManagementSystem.client.model.Login.LoginModel;
-import EmployeeManagementSystem.client.model.Login.LoginModelImpl;
+import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
 import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -32,15 +31,21 @@ public class LoginViewModel {
         return passwd;
     }
 
-    public Users login(){
-        if(userid.get().equals(null)||passwd.get().equals(null)){
-            System.out.println("Please fill in all information");
-            return null;
+    public Users login() {
+        try {
+            Users savedUser = loginModelImpl.login(Integer.parseInt(String.valueOf((userid.get()))), passwd.get());
+            if (savedUser == null) {
+                System.out.println("No user");
+            } else if ( passwd.get() == null || passwd.get().isEmpty()) {
+                System.out.println("Please fill in all information");
+            }
+            return savedUser;
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        else {
-            return loginModelImpl.login(Integer.valueOf(userid.get()),passwd.get());
-        }
+        return null;
     }
+
 
 }
 

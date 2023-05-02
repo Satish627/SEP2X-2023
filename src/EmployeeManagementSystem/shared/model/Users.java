@@ -14,7 +14,6 @@ public class Users implements Serializable {
     private String dateOfBirth;
 
     private String userType ;
-    private String fullName;
 
 
     public Users( String firstName, String lastName,String password,int userId,String email,String address,  int phoneNumber, String  dateOfBirth) {

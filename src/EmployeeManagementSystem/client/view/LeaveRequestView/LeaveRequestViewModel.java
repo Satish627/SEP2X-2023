@@ -1,6 +1,6 @@
 package EmployeeManagementSystem.client.view.LeaveRequestView;
 
-import EmployeeManagementSystem.client.model.LeaveRequest.LeaveRequestModelImpl;
+import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
 
 public class LeaveRequestViewModel
 {

@@ -1,22 +1,18 @@
 package EmployeeManagementSystem.client.core;
 
-import EmployeeManagementSystem.client.model.AddShift.AddShiftImpl;
-import EmployeeManagementSystem.client.model.Employee.EmployeeModelImpl;
-import EmployeeManagementSystem.client.model.LeaveRequest.LeaveRequestModelImpl;
-import EmployeeManagementSystem.client.model.Login.LoginModel;
-import EmployeeManagementSystem.client.model.Login.LoginModelImpl;
-import EmployeeManagementSystem.client.model.MainView.MainModelImpl;
-import EmployeeManagementSystem.client.model.ViewShift.ViewShiftImpl;
+import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModelImpl;
+import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
+import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
+import EmployeeManagementSystem.client.model.LoginModel.LoginModelImpl;
+import EmployeeManagementSystem.client.model.ShiftModel.ViewShiftModelImpl;
 
 public class ModelFactory {
     private final ClientFactory clientFactory;
     public LoginModelImpl loginModelImpl;
-    public MainModelImpl mainModelImpl;
     public EmployeeModelImpl employeeModelImpl;
-
-    public ViewShiftImpl viewShiftImpl;
+    public ViewShiftModelImpl viewShiftModelImpl;
     public LeaveRequestModelImpl leaveRequestImpl;
-    public AddShiftImpl addShiftImpl;
+
 
 
     public ModelFactory(ClientFactory clientFactory)
@@ -30,13 +26,6 @@ public class ModelFactory {
         return loginModelImpl;
     }
 
-    public MainModelImpl getMainModel() {
-        if (mainModelImpl == null) {
-            mainModelImpl = new MainModelImpl(clientFactory.getMainClient());
-        }
-        return mainModelImpl;
-    }
-
     public EmployeeModelImpl getEmployeeModel() {
         if (employeeModelImpl == null) {
             employeeModelImpl = new EmployeeModelImpl(clientFactory.getEmployeeClient());
@@ -45,13 +34,13 @@ public class ModelFactory {
     }
 
 
-    public ViewShiftImpl getViewShiftImpl()
+    public ViewShiftModelImpl getViewShiftImpl()
     {
-        if(viewShiftImpl == null)
+        if(viewShiftModelImpl == null)
         {
-            viewShiftImpl = new ViewShiftImpl(clientFactory.getViewShiftClient());
+            viewShiftModelImpl = new ViewShiftModelImpl(clientFactory.getViewShiftClient());
         }
-        return viewShiftImpl;
+        return viewShiftModelImpl;
     }
     public LeaveRequestModelImpl getLeaveRequest()
     {
@@ -60,12 +49,6 @@ public class ModelFactory {
         }
         return leaveRequestImpl;
     }
-    public AddShiftImpl getAddShiftImpl()
-    {
-        if (addShiftImpl == null) {
-            addShiftImpl = new AddShiftImpl(clientFactory.getAddShiftClient());
-        }
-        return addShiftImpl;
-    }
+
 
 }

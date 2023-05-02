@@ -14,7 +14,7 @@ public class LoginDAOImpl implements LoginDAO {
    }
 
    @Override
-    public Users login(int userid, String passwd) throws SQLException {
+    public Users login(int userid, String passwd)  {
        try( Connection connection= DataBaseConnection.getConnection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM  \"Users\" Where \"userId\"=? and \"password\"=?; ");
             statement.setInt(1, userid);
@@ -23,11 +23,26 @@ public class LoginDAOImpl implements LoginDAO {
             if(resultSet.next()){
                 int id = resultSet.getInt("userid");
                 String pass = resultSet.getString("passwd");
+                String uType = resultSet.getString("userType");
                 connection.close();
-                Users users=new Users(id,pass);
+
+                Usertype userType;
+                {
+                    if (uType.equals(Usertype.ADMIN.toString())){
+                        userType = Usertype.ADMIN;
+                    }
+                    else {
+                        userType = Usertype.EMPLOYEE;
+                    }
+                    return new Users(id,pass,uType);
+                }
             }
+
        }
-       return new Users(userid,passwd);
+       catch (SQLException e){
+            e.printStackTrace();
+       }
+       return null;
     }
 
 

@@ -1,28 +1,24 @@
 package EmployeeManagementSystem.client.core;
 
-import EmployeeManagementSystem.client.networking.AddShift.AddShiftClient;
-import EmployeeManagementSystem.client.networking.AddShift.AddShiftClientImpl;
+
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClientImpl;
 import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClient;
 import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClientImpl;
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClient;
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClientImpl;
-import EmployeeManagementSystem.client.networking.MainViewClient.MainClient;
-import EmployeeManagementSystem.client.networking.MainViewClient.MainClientImpl;
-import EmployeeManagementSystem.client.networking.VIewShiftClient.ViewShiftClient;
-import EmployeeManagementSystem.client.networking.VIewShiftClient.ViewShiftClientImpl;
+
+import EmployeeManagementSystem.client.networking.ShiftsClient.ShiftsClient;
+import EmployeeManagementSystem.client.networking.ShiftsClient.ShiftsClientImpl;
 
 public class ClientFactory {
 
     public EmployeeClient employeeClient;
     private LoginClient loginClient;
-    private MainClient mainClient;
 
-    private ViewShiftClient viewShiftClient;
+    private ShiftsClient shiftsClient;
     private LeaveRequestClient leaveRequestClient;
 
-    private AddShiftClient addShiftClient;
 
 
     public LoginClient getLoginClient() {
@@ -32,12 +28,6 @@ public class ClientFactory {
         return loginClient;
     }
 
-    public MainClient getMainClient() {
-        if (mainClient == null) {
-            mainClient = new MainClientImpl();
-        }
-        return mainClient;
-    }
     public EmployeeClient getEmployeeClient() {
         if (employeeClient == null) {
            employeeClient= new EmployeeClientImpl();
@@ -46,31 +36,18 @@ public class ClientFactory {
     }
 
 
-    public ViewShiftClient getViewShiftClient()
+    public ShiftsClient getViewShiftClient()
     {
-        if(viewShiftClient == null)
+        if(shiftsClient == null)
         {
-            viewShiftClient = new ViewShiftClientImpl();
+            shiftsClient = new ShiftsClientImpl();
         }
-        return viewShiftClient;
+        return shiftsClient;
     }
     public LeaveRequestClient getLeaveRequestClient() {
         if (leaveRequestClient == null) {
             leaveRequestClient = new LeaveRequestClientImpl();
         }
         return leaveRequestClient;
-
-
     }
-
-
-    public AddShiftClient getAddShiftClient()
-    {
-        if(addShiftClient == null)
-        {
-            addShiftClient = new AddShiftClientImpl();
-        }
-        return addShiftClient;
-    }
-
 }
