@@ -67,7 +67,7 @@ public class ViewModelFactory {
     {
         if(addShiftViewModel== null)
         {
-            addShiftViewModel= new AddShiftViewModel(modelFactory.getViewShiftImpl());
+            addShiftViewModel= new AddShiftViewModel(modelFactory.getAddShiftModelImpl());
         }
         return addShiftViewModel;
     }

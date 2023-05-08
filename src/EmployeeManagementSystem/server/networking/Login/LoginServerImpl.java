@@ -15,7 +15,7 @@ public class LoginServerImpl implements LoginServer
 
     public LoginServerImpl(LoginDAO loginDAO) throws RemoteException {
         this.loginDAO = loginDAO;
-        UnicastRemoteObject.exportObject((Remote) this,0);
+        UnicastRemoteObject.exportObject( this,0);
     }
 
     @Override

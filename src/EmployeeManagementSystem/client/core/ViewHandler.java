@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -133,7 +134,9 @@ public class ViewHandler {
         stage.show();
     }
 
-    public void openAddShift()
+
+
+    public void addShiftBtn()
     {
         if(addShiftScene == null){
             Parent root = loadFXMLFile("../view/AdminViews/AddShift/AddShift.fxml");
@@ -144,19 +147,17 @@ public class ViewHandler {
         stage.show();
     }
 
-
-    public void openBackButton()
+    public void editEmployee(String firstName, String input)
     {
-        if(employeeScene == null){
-            Parent root = loadFXMLFile("../view/AdminViews/ViewAllEmployees.fxml");
-            employeeScene= new Scene(root);
-            stage.setTitle("Employee view ma jane feri..");
+        Window editEmployeeBtn = null;
+        if(employeeScene.getWindow() == editEmployeeBtn)
+        {
+
         }
-        stage.setScene(employeeScene);
-        stage.show();
     }
 
-
+    public void editEmployee(String firstName) {
+    }
 }
 
 

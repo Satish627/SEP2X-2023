@@ -1,6 +1,8 @@
 package EmployeeManagementSystem.client.core;
 
 
+import EmployeeManagementSystem.client.networking.AddShiftClient.AddShiftClient;
+import EmployeeManagementSystem.client.networking.AddShiftClient.AddShiftClientImpl;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClientImpl;
 import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClient;
@@ -18,6 +20,7 @@ public class ClientFactory {
 
     private ShiftsClient shiftsClient;
     private LeaveRequestClient leaveRequestClient;
+    public AddShiftClient addShiftClient;
 
 
 
@@ -50,4 +53,11 @@ public class ClientFactory {
         }
         return leaveRequestClient;
     }
+    public AddShiftClient getAddShiftClient() {
+        if (addShiftClient == null) {
+            addShiftClient = new AddShiftClientImpl();
+        }
+        return addShiftClient;
+    }
+
 }
