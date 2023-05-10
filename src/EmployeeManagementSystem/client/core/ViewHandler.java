@@ -15,12 +15,14 @@ public class ViewHandler {
     private final ViewModelFactory viewModelFactory;
 
     private Scene loginScene, mainScene,employeeScene, addEmployeeScene, viewShiftScene,
-            leaveRequestScene,addShiftScene;
+            leaveRequestScene,addShiftScene,employeeShiftViewScene, employeeRequestPageScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
         this.stage = stage;
         this.viewModelFactory = viewModelFactory;
     }
+
+
 
     public void start(){
         stage = new Stage();
@@ -70,6 +72,36 @@ public class ViewHandler {
         }
         stage.setScene(employeeScene);
         stage.show();
+    }
+
+    public void openEmployeeViewShifts() {
+        if(employeeShiftViewScene == null)
+        {
+            Parent root = loadFXMLFile("../view/EmployeeViews/ViewShift/ViewShift.fxml");
+            employeeShiftViewScene = new Scene(root);
+            stage.setTitle("Welcome to Employee Shifts");
+
+        }
+
+        stage.setScene(employeeShiftViewScene);
+        stage.show();
+
+    }
+
+    public void openEmployeeLeaveRequestPage() {
+
+        if(employeeRequestPageScene == null)
+        {
+            Parent root = loadFXMLFile("../view/EmployeeViews/EmployeeLeaveRequestPage/EmployeeLeaveRequest.fxml");
+            employeeRequestPageScene = new Scene(root);
+            stage.setTitle("Kindly make your leave request here..");
+
+        }
+
+        stage.setScene(employeeRequestPageScene);
+        stage.show();
+
+
     }
 
 
@@ -160,7 +192,7 @@ public class ViewHandler {
     }
 }
 
-
+    
 
 
 

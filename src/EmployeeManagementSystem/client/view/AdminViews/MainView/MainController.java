@@ -41,6 +41,11 @@ public class MainController implements ViewController {
         viewHandler.leaveRequest();
     }
 
+    public void openEmployeeViewShift(){
+        viewHandler.openEmployeeViewShifts();
+    }
+
+
 
     @Override
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {

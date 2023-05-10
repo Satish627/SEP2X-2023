@@ -3,6 +3,7 @@ package EmployeeManagementSystem.client.core;
 import EmployeeManagementSystem.client.view.AdminViews.AddEmployee.AddEmployeeViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.AddShift.AddShiftViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees.ViewAllEmployeesViewModel;
+import EmployeeManagementSystem.client.view.EmployeeViews.EmployeeLeaveRequestPage.EmployeeLeaveRequestViewModel;
 import EmployeeManagementSystem.client.view.LoginView.LoginViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.MainView.MainViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.ViewShift.ShiftViewModel;
@@ -19,6 +20,8 @@ public class ViewModelFactory {
     private ShiftViewModel shiftViewModel;
 
     private AddShiftViewModel addShiftViewModel;
+
+    private EmployeeLeaveRequestViewModel employeeLeaveRequestViewModel;
 
     public ViewModelFactory(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
@@ -73,5 +76,12 @@ public class ViewModelFactory {
     }
 
 
+    public EmployeeLeaveRequestViewModel getEmployeeLeaveRequestViewModel() {
 
+        if(employeeLeaveRequestViewModel== null)
+        {
+            employeeLeaveRequestViewModel= new EmployeeLeaveRequestViewModel(modelFactory.getLeaveRequest());
+        }
+        return employeeLeaveRequestViewModel;
+    }
 }

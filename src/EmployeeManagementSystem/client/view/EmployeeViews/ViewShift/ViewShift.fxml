@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.EmployeeViews.ViewShift.ViewShiftController">
+   <children>
+      <AnchorPane prefHeight="428.0" prefWidth="600.0">
+         <children>
+            <TableView layoutX="14.0" layoutY="82.0" prefHeight="240.0" prefWidth="566.0">
+              <columns>
+                <TableColumn prefWidth="162.4000244140625" text="Date" />
+                <TableColumn prefWidth="144.0" text="Start Time" />
+                  <TableColumn prefWidth="151.199951171875" text="End Time" />
+                  <TableColumn prefWidth="121.60009765625" text="Total Hours" />
+              </columns>
+            </TableView>
+            <Button layoutX="42.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCheckInBtnClicked" prefHeight="38.0" prefWidth="68.0" text="Check In" />
+            <Button layoutX="264.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCheckOutBtnClicked" prefHeight="38.0" prefWidth="85.0" text="Check Out" />
+            <Button layoutX="457.0" layoutY="359.0" mnemonicParsing="false" onAction="#onLeaveRequestBtnClicked" prefHeight="38.0" prefWidth="107.0" text="Leave Request" />
+            <HBox alignment="CENTER_RIGHT" layoutY="28.0" prefHeight="38.0" prefWidth="600.0" style="-fx-background-color: blue;">
+               <children>
+                  <Text fill="#f21616" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee View " textAlignment="CENTER" wrappingWidth="599.7367553710938">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
+
+

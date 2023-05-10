@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.EmployeeViews.EmployeeLeaveRequestPage.EmployeeLeaveRequest">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="601.0">
+         <children>
+            <HBox layoutY="-1.0" prefHeight="73.0" prefWidth="602.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="76.0" prefWidth="602.0" style="-fx-background-color: blue;" text="Employee Leave Request Page">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <TableView layoutX="14.0" layoutY="92.0" prefHeight="200.0" prefWidth="577.0">
+              <columns>
+                <TableColumn prefWidth="258.4000301361084" text="Start Date" />
+                <TableColumn prefWidth="317.5998840332031" text="Reason" />
+              </columns>
+            </TableView>
+            <Button layoutX="37.0" layoutY="343.0" mnemonicParsing="false" onAction="#onEmployeeLeaveRequestSubmitBtnClicked" prefHeight="33.0" prefWidth="75.0" text="Submit" />
+            <Button layoutX="250.0" layoutY="343.0" mnemonicParsing="false" onAction="#onEmployeeLeaveRequestCancelBtnClicked" prefHeight="33.0" prefWidth="75.0" text="Cancel" />
+            <Button layoutX="464.0" layoutY="343.0" mnemonicParsing="false" onAction="#onEmployeeLeaveRequestBackBtnClicked" prefHeight="33.0" prefWidth="75.0" text="Back" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

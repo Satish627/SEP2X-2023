@@ -16,9 +16,6 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static jdk.internal.misc.OSEnvironment.initialize;
-
-//import static jdk.internal.misc.OSEnvironment.initialize;
 
 public class ViewAllEmployeesController implements ViewController
 {
