@@ -9,6 +9,7 @@ public interface Server extends Remote {
     EmployeeServer getEmployeeServer() throws RemoteException;
 
     LoginServer getLoginServer() throws RemoteException;
+    LeaveRequestServer getLeaveRequestServer() throws RemoteException;
 
     void startServer() throws RemoteException, AlreadyBoundException;
 
