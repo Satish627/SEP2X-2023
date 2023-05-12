@@ -3,6 +3,9 @@ package EmployeeManagementSystem.client.model.LoginModel;
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClient;
 import EmployeeManagementSystem.shared.model.Users;
 
+import java.rmi.RemoteException;
+import java.sql.SQLException;
+
 public class LoginModelImpl implements LoginModel{
     private LoginClient loginClient;
     private String userType;
@@ -11,13 +14,12 @@ public class LoginModelImpl implements LoginModel{
     }
 
     @Override
-    public Users login(int userid, String passwd) {
-        return loginClient.login(userid,passwd);
+    public Users login(String email, String passwd)  {
+        return loginClient.login(email,passwd);
     }
 
     @Override
     public String getUserType() {
-        System.out.println("Usertype" + userType);
         return userType;
     }
 }

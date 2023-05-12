@@ -2,50 +2,60 @@ package EmployeeManagementSystem.client.view.LoginView;
 
 import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
 import EmployeeManagementSystem.shared.model.Users;
+import EmployeeManagementSystem.shared.model.Usertype;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 public class LoginViewModel {
 
     private LoginModel loginModelImpl;
-    private StringProperty userid,passwd;
+    private StringProperty email,passwd,message;
     public LoginViewModel(LoginModel loginModelImpl) {
         this.loginModelImpl=loginModelImpl;
         initializeAllProperty();
     }
 
     private void initializeAllProperty() {
-        userid=new SimpleStringProperty();
+        email=new SimpleStringProperty();
         passwd=new SimpleStringProperty();
+        message = new SimpleStringProperty();
     }
 
     public LoginModel getLoginModelImpl() {
         return loginModelImpl;
     }
 
-    public StringProperty getUserid() {
-        return userid;
+    public StringProperty getEmail() {
+        return email;
     }
 
     public StringProperty getPasswd() {
         return passwd;
     }
 
+    public StringProperty getMessage() {
+        return message;
+    }
+
     public Users login() {
-        try {
-            Users savedUser = loginModelImpl.login(Integer.parseInt(String.valueOf((userid.get()))), passwd.get());
-            if (savedUser == null) {
-                System.out.println("No user");
-            } else if ( passwd.get() == null || passwd.get().isEmpty()) {
-                System.out.println("Please fill in all information");
-            }
-            return savedUser;
-        } catch (Exception e){
-            e.printStackTrace();
+        if
+        (email.get() == null && passwd.get() == null) {
+            message.setValue("Please enter your email and password");
+        } else if
+        (email.get() == null) {
+            message.set("Please enter your email address");
+
+        } else if (passwd.get() == null) {
+            message.set("Please enter your password ");
+
+        } else {
+            message.set("Tried to access the system");
+            return loginModelImpl.login(email.get(), passwd.get());
         }
         return null;
     }
-
-
 }
 

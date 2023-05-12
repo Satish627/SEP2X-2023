@@ -4,8 +4,9 @@ import EmployeeManagementSystem.shared.model.Users;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
-public interface LoginClient extends Remote
+public interface LoginClient
 {
-    Users login(int userid,String passwd);
+    Users login(String email, String passwd);
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Users implements Serializable {
+    private static  final long serialVersionUID = 7548777030362684667L;
     private int userId;
     private String firstName;
     private String lastName;
@@ -13,7 +14,7 @@ public class Users implements Serializable {
     private int phoneNumber;
     private String dateOfBirth;
 
-    private String userType ;
+    private static Usertype userType ;
 
 
     public Users( String firstName, String lastName,String password,int userId,String email,String address,  int phoneNumber, String  dateOfBirth) {
@@ -30,16 +31,11 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(int userid, String passwd) {
-        this.userId=userid;
+    public Users(String  email, String passwd) {
+        this.email=email;
         this.password=passwd;
     }
 
-    public Users(int userid, String passwd, String userType) {
-        this.userId=userid;
-        this.password=passwd;
-        this.userType=userType;
-    }
 
     public Users(int userId, String firstName, String lastName, String dateOfBirth, String address, int phoneNumber, String email) {
         this.userId = userId;
@@ -51,6 +47,14 @@ public class Users implements Serializable {
         this.dateOfBirth= dateOfBirth;
 
     }
+
+    public Users(String email, String pass, Usertype userType) {
+        this.email = email;
+        this.password = pass;
+        Users.userType = userType;
+    }
+
+
 
     public int getUserId() {
         return userId;
@@ -108,20 +112,16 @@ public class Users implements Serializable {
         dateOfBirth = dateOfBirth;
     }
 
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public static Usertype getUserType() {
+        return userType;
     }
 
     @Override
@@ -138,5 +138,5 @@ public class Users implements Serializable {
                 ", userType='" + userType + '\'' +
                 '}';
     }
+    }
 
-}

@@ -47,7 +47,7 @@ public class ViewHandler {
             if(loginScene == null){
                 Parent root = loadFXMLFile("../view/LoginView/Login.fxml");
                 loginScene = new Scene(root);
-                stage.setTitle("Loginnn gara mero babu...");
+                stage.setTitle("Login to get access");
             }
             stage.setScene(loginScene);
             stage.show();
