@@ -9,7 +9,7 @@ import EmployeeManagementSystem.client.model.LoginModel.LoginModelImpl;
 public class ModelFactory {
     private final ClientFactory clientFactory;
     public LoginModelImpl loginModelImpl;
-    public EmployeeModelImpl employeeModelImpl;
+    public EmployeeModelImpl employeeModelImpl,editEmployeeModelImpl;
     public ShiftModelImpl viewShiftModelImpl;
     public LeaveRequestModelImpl leaveRequestImpl;
     public ShiftModelImpl addShiftModelImpl;
@@ -59,4 +59,10 @@ public class ModelFactory {
     }
 
 
+    public EmployeeModelImpl getEditEmployee() {
+        if (editEmployeeModelImpl == null) {
+            editEmployeeModelImpl = new EmployeeModelImpl(clientFactory.getEditEmployeeClient());
+        }
+        return editEmployeeModelImpl;
+    }
 }

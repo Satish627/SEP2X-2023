@@ -1,23 +1,22 @@
 package EmployeeManagementSystem.client.model.ShiftModel;
 
-import EmployeeManagementSystem.client.networking.AddShiftClient.AddShiftClient;
+import EmployeeManagementSystem.client.networking.ShiftClient.ShiftClient;
 import EmployeeManagementSystem.shared.model.Shift;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ShiftModelImpl implements ShiftModel
 {
-    private AddShiftClient addShiftClient;
-    public ShiftModelImpl(AddShiftClient addShiftClient)
+    private ShiftClient shiftClient;
+    public ShiftModelImpl(ShiftClient shiftClient)
     {
-        this.addShiftClient = addShiftClient;
+        this.shiftClient = shiftClient;
     }
 
     @Override
     public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)  {
-        return addShiftClient.addShift(shiftID, employeeID, employeeName,date, startTime, endTime);
+        return shiftClient.addShift(shiftID, employeeID, employeeName,date, startTime, endTime);
     }
 
     @Override

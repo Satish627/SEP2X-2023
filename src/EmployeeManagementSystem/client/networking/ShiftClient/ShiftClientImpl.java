@@ -1,19 +1,18 @@
-package EmployeeManagementSystem.client.networking.AddShiftClient;
+package EmployeeManagementSystem.client.networking.ShiftClient;
 
 import EmployeeManagementSystem.client.networking.GetServer;
 import EmployeeManagementSystem.shared.model.Shift;
 import EmployeeManagementSystem.shared.networking.Server;
-import EmployeeManagementSystem.shared.networking.ShiftServer;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class AddShiftClientImpl implements AddShiftClient
+public class ShiftClientImpl implements ShiftClient
 {
     private Server server;
 
-    public AddShiftClientImpl() {
+    public ShiftClientImpl() {
         try {
             System.out.println("Hello from  addShift client networking!!");
             server= GetServer.getRMIServer();

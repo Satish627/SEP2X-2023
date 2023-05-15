@@ -11,4 +11,6 @@ public interface EmployeeModel
     Users addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) throws SQLException, RemoteException;
 
     ArrayList<Users> viewAllEmployees();
+
+    Users editEmployee();
 }

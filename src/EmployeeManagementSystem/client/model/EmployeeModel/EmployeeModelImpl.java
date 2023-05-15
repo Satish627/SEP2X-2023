@@ -25,4 +25,9 @@ public class EmployeeModelImpl implements EmployeeModel
         return employeeClient.viewAllEmployees();
     }
 
+    @Override
+    public Users editEmployee() {
+        return null;
+    }
+
 }

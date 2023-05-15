@@ -1,8 +1,8 @@
 package EmployeeManagementSystem.client.core;
 
 
-import EmployeeManagementSystem.client.networking.AddShiftClient.AddShiftClient;
-import EmployeeManagementSystem.client.networking.AddShiftClient.AddShiftClientImpl;
+import EmployeeManagementSystem.client.networking.ShiftClient.ShiftClient;
+import EmployeeManagementSystem.client.networking.ShiftClient.ShiftClientImpl;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClientImpl;
 import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClient;
@@ -10,17 +10,14 @@ import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveReques
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClient;
 import EmployeeManagementSystem.client.networking.LoginClient.LoginClientImpl;
 
-import EmployeeManagementSystem.client.networking.ShiftsClient.ShiftsClient;
-import EmployeeManagementSystem.client.networking.ShiftsClient.ShiftsClientImpl;
 
 public class ClientFactory {
 
     public EmployeeClient employeeClient;
     private LoginClient loginClient;
 
-    private ShiftsClient shiftsClient;
     private LeaveRequestClient leaveRequestClient;
-    public AddShiftClient addShiftClient;
+    public ShiftClient shiftClient;
 
 
 
@@ -39,25 +36,22 @@ public class ClientFactory {
     }
 
 
-    public ShiftsClient getViewShiftClient()
-    {
-        if(shiftsClient == null)
-        {
-            shiftsClient = new ShiftsClientImpl();
-        }
-        return shiftsClient;
-    }
     public LeaveRequestClient getLeaveRequestClient() {
         if (leaveRequestClient == null) {
             leaveRequestClient = new LeaveRequestClientImpl();
         }
         return leaveRequestClient;
     }
-    public AddShiftClient getAddShiftClient() {
-        if (addShiftClient == null) {
-            addShiftClient = new AddShiftClientImpl();
+    public ShiftClient getAddShiftClient() {
+        if (shiftClient == null) {
+            shiftClient = new ShiftClientImpl();
         }
-        return addShiftClient;
+        return shiftClient;
     }
 
+    public EmployeeClient getEditEmployeeClient() {
+        if (employeeClient == null) {
+            employeeClient = new EmployeeClientImpl();
+        }
+        return employeeClient;    }
 }
