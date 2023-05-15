@@ -5,6 +5,7 @@ import EmployeeManagementSystem.client.view.ViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.util.converter.NumberStringConverter;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -27,10 +28,10 @@ public class AddEmployeeController implements ViewController
     private void bindValuesToTextField() {
         firstname.textProperty().bindBidirectional(addEmployeeViewModel.getfirstName());
         lastName.textProperty().bindBidirectional(addEmployeeViewModel.getlastName());
-        userId.textProperty().bindBidirectional(addEmployeeViewModel.getUserId());
+        userId.textProperty().bindBidirectional(addEmployeeViewModel.getUserId(), new NumberStringConverter());
         address.textProperty().bindBidirectional(addEmployeeViewModel.getAddress());
         emailId.textProperty().bindBidirectional(addEmployeeViewModel.getEmailId());
-        phoneNum.textProperty().bindBidirectional(addEmployeeViewModel.getPhoneNum());
+        phoneNum.textProperty().bindBidirectional(addEmployeeViewModel.getPhoneNum(), new NumberStringConverter());
         dateOfBirth.textProperty().bindBidirectional(addEmployeeViewModel.getDateOfBirth());
 
     }

@@ -3,8 +3,7 @@ package EmployeeManagementSystem.client.model.ShiftModel;
 import EmployeeManagementSystem.client.networking.AddShiftClient.AddShiftClient;
 import EmployeeManagementSystem.shared.model.Shift;
 
-import java.rmi.RemoteException;
-import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName,LocalDate date, String startTime, String endTime)  {
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)  {
         return addShiftClient.addShift(shiftID, employeeID, employeeName,date, startTime, endTime);
     }
 

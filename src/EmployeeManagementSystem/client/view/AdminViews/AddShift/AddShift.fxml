@@ -2,42 +2,31 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.AdminViews.AddShift.AddShiftController">
    <children>
       <AnchorPane layoutX="-8.0" prefHeight="400.0" prefWidth="608.0">
          <children>
-            <Button fx:id="saveBtn" layoutX="142.0" layoutY="329.0" mnemonicParsing="false" onAction="#onSaveClicked" prefHeight="30.0" prefWidth="64.0" text="Save" />
-            <HBox prefHeight="30.0" prefWidth="600.0" style="-fx-background-color: blue;">
-               <children>
-                  <Text fill="#d11919" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Shift" textAlignment="CENTER" wrappingWidth="608.6700439453125">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-               </children>
-            </HBox>
+            <Button fx:id="saveBtn" layoutX="167.0" layoutY="280.0" mnemonicParsing="false" onAction="#onSaveClicked" prefHeight="30.0" prefWidth="64.0" text="Save" />
             <Text layoutX="44.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" />
 
-            <DatePicker fx:id="datePicker" layoutX="123.0" layoutY="177.0" onAction="#onDateSelected" prefHeight="25.0" prefWidth="149.0" promptText="select a date" />
-            <Button layoutX="429.0" layoutY="331.0" mnemonicParsing="false" onAction="#openBackPage" prefHeight="25.0" prefWidth="64.0" text="Back" />
+
+            <Button layoutX="428.0" layoutY="282.0" mnemonicParsing="false" onAction="#openBackPage" prefHeight="25.0" prefWidth="64.0" text="Back" />
             <Text layoutX="44.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shift ID:" />
             <TextField fx:id="shiftId" layoutX="119.0" layoutY="54.0" />
             <Text layoutX="30.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee ID:" />
             <TextField fx:id="employeeId" layoutX="118.0" layoutY="107.0" />
-            <Text layoutX="30.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
-            <Text layoutX="17.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" />
-            <Text layoutX="20.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" />
-            <TextField fx:id="startTime" layoutX="118.0" layoutY="219.0" />
-            <TextField fx:id="endTime" layoutX="118.0" layoutY="262.0" />
-            <Label layoutX="19.0" layoutY="149.0" text="Employee Name:" />
-            <TextField fx:id="employeeName" layoutX="117.0" layoutY="145.0" />
+            <Text layoutX="44.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
+            <DatePicker fx:id="datePicker" layoutX="119.0" layoutY="170.0" onAction="#onDateSelected" prefHeight="26.0" prefWidth="160.0" promptText="select a date" />
+            <Text layoutX="314.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time:" />
+            <TextField fx:id="startTime" layoutX="422.0" layoutY="115.0" />
+            <Text layoutX="316.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" />
+            <TextField fx:id="endTime" layoutX="422.0" layoutY="171.0" />
+            <Text layoutX="298.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name" />
+            <TextField fx:id="employeeName" layoutX="422.0" layoutY="55.0" />
          </children>
       </AnchorPane>
    </children>

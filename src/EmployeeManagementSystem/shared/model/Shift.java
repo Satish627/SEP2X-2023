@@ -1,24 +1,22 @@
 package EmployeeManagementSystem.shared.model;
 
-import javafx.util.StringConverter;
-import javafx.util.converter.NumberStringConverter;
-
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalDate;
 
 public class Shift implements Serializable
 {
     private int shiftID;
     private int employeeID;
+    private String employeeName;
     private LocalDate date;
     private String startTime;
     private String endTime;
 
-    public Shift(int shiftID, int employeeID, LocalDate date, String startTime, String endTime)
+    public Shift(int shiftID, int employeeID,String employeeName, LocalDate date, String startTime, String endTime)
     {
         this.shiftID= shiftID;
         this.employeeID= employeeID;
+        this.employeeName = employeeName;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;

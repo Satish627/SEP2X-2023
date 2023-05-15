@@ -11,7 +11,8 @@ import java.util.Random;
 public class AddEmployeeViewModel
 {
     private EmployeeModel addEmployeeModel;
-    private StringProperty firstName,lastName, userId,emailId,address, dateOfBirth, phoneNum;
+    private StringProperty firstName,lastName,emailId,address, dateOfBirth;
+    private IntegerProperty userId,phoneNum;
 
     String upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     String lower = "abcdefghijklmnopqrstuvwxyz";
@@ -29,10 +30,10 @@ public class AddEmployeeViewModel
     private void initialiseAllProperty() {
         firstName = new SimpleStringProperty();
         lastName = new SimpleStringProperty();
-        userId = new SimpleStringProperty();
+        userId = new SimpleIntegerProperty();
         emailId = new SimpleStringProperty();
         address = new SimpleStringProperty();
-        phoneNum = new SimpleStringProperty();
+        phoneNum = new SimpleIntegerProperty();
         dateOfBirth = new SimpleStringProperty();
 
 
@@ -57,7 +58,7 @@ public class AddEmployeeViewModel
         return lastName;
     }
 
-    public StringProperty getUserId() {
+    public IntegerProperty getUserId() {
         return userId;
     }
 
@@ -71,7 +72,7 @@ public class AddEmployeeViewModel
     }
 
 
-    public StringProperty getPhoneNum() {
+    public IntegerProperty getPhoneNum() {
         return phoneNum;
     }
 
@@ -81,13 +82,13 @@ public class AddEmployeeViewModel
 
 
     public Users addEmployee() throws SQLException, RemoteException {
-        if (firstName.get()==null || firstName.get().isEmpty() || lastName.get()== null || lastName.get().isEmpty() || userId.get()== null || userId.get().isEmpty() || emailId.get()== null || emailId.get().isEmpty() || address.get()== null || address.get().isEmpty() || phoneNum.get()== null || phoneNum.get().isEmpty() ){
+        if (firstName.get()==null || firstName.get().isEmpty() || lastName.get()== null || lastName.get().isEmpty()  || emailId.get()== null || emailId.get().isEmpty() || address.get()== null || address.get().isEmpty()){
             System.out.println("Please fill in all the information");
             return null;
         }
         else {
            generatePassword();
-         return addEmployeeModel.addEmployee(firstName.get(),lastName.get() ,newPassword, Integer.valueOf(userId.get()),emailId.get(),address.get(),Integer.valueOf(phoneNum.get()),dateOfBirth.get());
+         return addEmployeeModel.addEmployee(firstName.get(),lastName.get() ,newPassword, userId.get(),emailId.get(),address.get(),phoneNum.get(),dateOfBirth.get());
 
         }
     }

@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 
 import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,7 +16,7 @@ import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
 public class ShiftDAOImpl implements ShiftDAO {
 
  @FXML
-    public Shift addShift(int shiftID, int employeeID,String employeeName, LocalDate date, String startTime, String endTime)  {
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)  {
         try (Connection connection = getConnection()) {
             PreparedStatement newStatement = connection.prepareStatement("INSERT INTO shift (shiftid, userid,employeename, date, checkintime, checkouttime) VALUES (?, ?, ?, ?, ?,?);");
             newStatement.setInt(1, shiftID);
@@ -31,7 +28,7 @@ public class ShiftDAOImpl implements ShiftDAO {
             newStatement.executeUpdate();
             connection.close();
             System.out.println("Shift added successfully");
-            return new Shift(shiftID, employeeID, date, startTime, endTime);
+            return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime);
         }
          catch (SQLException e) {
             throw new RuntimeException(e);
