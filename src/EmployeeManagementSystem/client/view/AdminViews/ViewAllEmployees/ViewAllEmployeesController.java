@@ -6,9 +6,9 @@ import EmployeeManagementSystem.client.view.ViewController;
 import EmployeeManagementSystem.shared.model.Users;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -20,6 +20,11 @@ import java.awt.*;
 public class ViewAllEmployeesController implements ViewController
 {
     private Users user;
+    @FXML
+    private MenuItem addEmployeeBtn;
+
+    @FXML
+    private MenuItem addShiftBtn;
     @FXML
     private TableView<Users> employeeList;
     @FXML private TableColumn<Users, Integer> userId;
@@ -79,7 +84,7 @@ public class ViewAllEmployeesController implements ViewController
     @FXML
     void addShiftClick(ActionEvent event)
     {
-        viewHandler.addShiftBtn();
+        viewHandler.openAddShiftView();
     }
 
 
@@ -116,6 +121,16 @@ public class ViewAllEmployeesController implements ViewController
 
     @FXML
     void removeEmployeeAction(ActionEvent event) {
+
+    }
+    @FXML
+    void menuBarClick(ActionEvent event) {
+        if (event.getSource() == addEmployeeBtn) {
+            viewHandler.addEmployeeBtn();
+        }
+        if (event.getSource() == addShiftBtn) {
+            viewHandler.openAddShiftView();
+        }
 
     }
 

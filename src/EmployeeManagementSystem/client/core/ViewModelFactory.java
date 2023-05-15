@@ -19,7 +19,7 @@ public class ViewModelFactory {
 
     private ShiftViewModel shiftViewModel;
 
-    private AddShiftViewModel addShiftViewModel;
+   private AddShiftViewModel addShiftViewModel;
 
     private EmployeeLeaveRequestViewModel employeeLeaveRequestViewModel;
 
@@ -84,4 +84,6 @@ public class ViewModelFactory {
         }
         return employeeLeaveRequestViewModel;
     }
+
+
 }

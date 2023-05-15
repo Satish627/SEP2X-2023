@@ -103,7 +103,15 @@ public class ViewHandler {
 
 
     }
-
+    public void openAddShiftView() {
+        if(addShiftScene == null){
+            Parent root = loadFXMLFile("../view/AdminViews/AddShift/AddShift.fxml");
+            addShiftScene = new Scene(root);
+            stage.setTitle("Add new shift to an employee");
+        }
+        stage.setScene(addShiftScene);
+        stage.show();
+    }
 
     public void backPage()
     {
@@ -168,28 +176,9 @@ public class ViewHandler {
 
 
 
-    public void addShiftBtn()
-    {
-        if(addShiftScene == null){
-            Parent root = loadFXMLFile("../view/AdminViews/AddShift/AddShift.fxml");
-            addShiftScene = new Scene(root);
-            stage.setTitle("Add Shift View");
-        }
-        stage.setScene(addShiftScene);
-        stage.show();
-    }
 
-    public void editEmployee(String firstName, String input)
-    {
-        Window editEmployeeBtn = null;
-        if(employeeScene.getWindow() == editEmployeeBtn)
-        {
 
-        }
-    }
 
-    public void editEmployee(String firstName) {
-    }
 }
 
     

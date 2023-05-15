@@ -15,7 +15,7 @@ public class AddShiftClientImpl implements AddShiftClient
 
     public AddShiftClientImpl() {
         try {
-            System.out.println("Hello from  addEmployee client networking!!");
+            System.out.println("Hello from  addShift client networking!!");
             server= GetServer.getRMIServer();
         }catch (Exception e){
             throw e;
