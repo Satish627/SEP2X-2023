@@ -1,17 +1,21 @@
 package EmployeeManagementSystem.shared.model;
 
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
+
+import java.io.Serializable;
+import java.sql.Time;
 import java.time.LocalDate;
 
-public class Shift
+public class Shift implements Serializable
 {
     private int shiftID;
     private int employeeID;
     private LocalDate date;
-    private int startTime;
-    private int endTime;
+    private String startTime;
+    private String endTime;
 
-
-    public Shift(int shiftID, int employeeID, LocalDate date, int startTime, int endTime)
+    public Shift(int shiftID, int employeeID, LocalDate date, String startTime, String endTime)
     {
         this.shiftID= shiftID;
         this.employeeID= employeeID;
@@ -20,7 +24,7 @@ public class Shift
         this.endTime = endTime;
     }
 
-    public int getShiftID() {
+    public int  getShiftID() {
         return shiftID;
     }
 
@@ -32,15 +36,15 @@ public class Shift
         return date;
     }
 
-    public int getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public int getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setShiftID(int shiftID) {
+    public void setShiftID(int  shiftID) {
         this.shiftID = shiftID;
     }
 

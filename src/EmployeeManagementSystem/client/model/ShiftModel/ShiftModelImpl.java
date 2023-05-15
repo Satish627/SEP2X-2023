@@ -17,8 +17,8 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, LocalDate date, int startTime, int endTime) throws SQLException, RemoteException {
-        return addShiftClient.addShift(shiftID, employeeID, date, startTime, endTime);
+    public Shift addShift(int shiftID, int employeeID, String employeeName,LocalDate date, String startTime, String endTime)  {
+        return addShiftClient.addShift(shiftID, employeeID, employeeName,date, startTime, endTime);
     }
 
     @Override

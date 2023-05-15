@@ -23,7 +23,11 @@ public class AddShiftClientImpl implements AddShiftClient
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, LocalDate date, int startTime, int endTime) throws RemoteException, SQLException {
-        return server.getShiftServer().addShift(shiftID, employeeID, date, startTime, endTime);
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) {
+        try {
+            return server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

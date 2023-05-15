@@ -21,8 +21,8 @@ public class ShiftServerImpl implements ShiftServer {
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, LocalDate date, int startTime, int endTime) throws RemoteException,SQLException {
-        return shiftDAO.addShift(shiftID, employeeID, date, startTime, endTime);
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException,SQLException {
+        return shiftDAO.addShift(shiftID, employeeID,employeeName, date, startTime, endTime);
     }
 
   /*  @Override

@@ -8,5 +8,5 @@ import java.time.LocalDate;
 
 public interface AddShiftClient
 {
-    Shift addShift(int shiftID, int employeeID, LocalDate date, int startTime, int endTime) throws RemoteException, SQLException;
+    Shift addShift(int shiftID, int employeeID,String employeeName,LocalDate date, String startTime, String endTime) ;
 }

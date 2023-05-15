@@ -5,14 +5,14 @@ public class LeaveRequest
     private Shift shift;
     private String reason;
 
-    private int shiftID;
+    private String shiftID;
 
-    public LeaveRequest(int shiftID, String reason) {
-        this.shiftID=shift.getShiftID();
+    public LeaveRequest(String shiftID, String reason) {
+        this.shiftID= String.valueOf(shift.getShiftID());
         this.reason = reason;
     }
 
-    public int getShiftID(){
+    public String getShiftID(){
         return shiftID;
     }
     public String getReason() {

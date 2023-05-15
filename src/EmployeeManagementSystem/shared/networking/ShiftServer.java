@@ -11,6 +11,6 @@ import java.util.ArrayList;
 
 public interface ShiftServer  extends Remote
 {
-    Shift addShift(int shiftID, int employeeID, LocalDate date, int startTIme,int endTime) throws RemoteException, SQLException;
+    Shift addShift(int shiftID, int  employeeID,String employeeName, LocalDate date, String startTIme,String endTime) throws RemoteException, SQLException;
     //ArrayList<Shift> viewAllShift();
 }

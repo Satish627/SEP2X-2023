@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface ShiftModel
 {
-    Shift addShift(int shiftID, int employeeID, LocalDate date, int startTime, int endTime) throws SQLException, RemoteException;
+    Shift addShift(int shiftID, int employeeID,String employeeName, LocalDate date, String startTime, String endTime);
     ArrayList<Shift> viewAllShift();
 
 }

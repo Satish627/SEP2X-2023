@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.util.converter.NumberStringConverter;
 
 import javax.swing.*;
 import java.rmi.RemoteException;
@@ -31,48 +32,11 @@ public class AddShiftController implements ViewController {
     private TextField shiftId;
     @FXML
     private TextField startTime;
+
+    @FXML private TextField employeeName;
     @FXML
     private Button saveBtn;
 
-    @FXML
-    void datePicker(ActionEvent event) {
-        LocalDate localDate = datePicker.getValue();
-        String pattern = "MMMM, dd,YYYY";
-        String datePattern = localDate.format(DateTimeFormatter.ofPattern(pattern));
-    }
-
-    @FXML
-    void openBackPage(ActionEvent event) {
-        viewHandler.openBackPage();
-    }
-
-
-    @FXML
-    void onSaveClicked(ActionEvent event) throws Exception
-    {
-
-        try {
-            addShiftViewModel.addShift();
-            clearTextInputs();
-        } catch (SQLException | RemoteException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-    private void clearTextInputs()
-    {
-        shiftId.setText(null);
-        employeeId.setText(null);
-        datePicker.setValue(null);
-        startTime.setText(null);
-        endTime.setText(null);
-
-
-    }
 
     @Override
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
@@ -82,12 +46,52 @@ public class AddShiftController implements ViewController {
     }
 
     private void bindValuesToTextField() {
-        shiftId.textProperty().bindBidirectional(addShiftViewModel.getShiftID());
-        employeeId.textProperty().bindBidirectional(addShiftViewModel.getEmployeeID());
+        shiftId.textProperty().bindBidirectional(addShiftViewModel.getShiftID(), new NumberStringConverter());
+        employeeId.textProperty().bindBidirectional(addShiftViewModel.getEmployeeID(), new NumberStringConverter());
+        employeeName.textProperty().bindBidirectional(addShiftViewModel.getEmployeeName());
         startTime.textProperty().bindBidirectional(addShiftViewModel.getStartTime());
         endTime.textProperty().bindBidirectional(addShiftViewModel.getEndTime());
-        datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            addShiftViewModel.getDate().set(String.valueOf(newValue.getDayOfYear()));
-        });
+        datePicker.valueProperty().bindBidirectional(addShiftViewModel.getDate());
+
+    }
+
+    public void onDateSelected(ActionEvent actionEvent) {
+    }
+  /*  @FXML
+    public void datePicker(ActionEvent event) {
+        LocalDate localDate = datePicker.getValue();
+        System.out.println(localDate.toString());
+        String pattern = "MMMM, dd,YYYY";
+        String datePattern = localDate.format(DateTimeFormatter.ofPattern(pattern));
+    }*/
+
+    @FXML
+    public void openBackPage(ActionEvent event) {
+        viewHandler.openBackPage();
+    }
+
+
+    @FXML
+    private void onSaveClicked(ActionEvent event) throws Exception
+    {
+
+        try {
+            addShiftViewModel.addShift();
+            clearTextInputs();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void clearTextInputs()
+    {
+        shiftId.setText(null);
+        employeeId.setText(null);
+        employeeName.setText(null);
+        datePicker.setValue(null);
+        startTime.setText(null);
+        endTime.setText(null);
     }
 }

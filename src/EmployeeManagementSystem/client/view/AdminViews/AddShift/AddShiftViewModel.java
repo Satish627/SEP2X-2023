@@ -2,39 +2,46 @@ package EmployeeManagementSystem.client.view.AdminViews.AddShift;
 
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModel;
 import EmployeeManagementSystem.shared.model.Shift;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.util.converter.NumberStringConverter;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AddShiftViewModel {
     private ShiftModel addShiftModel;
-    private StringProperty shiftID, employeeID, date, startTime, endTime;
+    private IntegerProperty shiftID, employeeID;
+    private StringProperty startTime, endTime;
+    private StringProperty employeeName;
+    private ObjectProperty<LocalDate> date;
+    private final NumberStringConverter numberStringConverter;
 
     public AddShiftViewModel(ShiftModel addNewShiftModel) {
         this.addShiftModel = addNewShiftModel;
+        this.numberStringConverter = new NumberStringConverter();
         initialiseAllProperty();
     }
 
     private void initialiseAllProperty() {
-        shiftID = new SimpleStringProperty();
-        employeeID = new SimpleStringProperty();
-        date = new SimpleStringProperty();
+        shiftID = new SimpleIntegerProperty();
+        employeeID = new SimpleIntegerProperty();
+        employeeName = new SimpleStringProperty();
+        date = new SimpleObjectProperty<>();
         startTime = new SimpleStringProperty();
         endTime = new SimpleStringProperty();
     }
 
-    public StringProperty getShiftID() {
+    public IntegerProperty getShiftID() {
         return shiftID;
     }
 
-    public StringProperty getEmployeeID() {
+    public IntegerProperty getEmployeeID() {
         return employeeID;
     }
 
-    public StringProperty getDate() {
+    public ObjectProperty<LocalDate> getDate() {
         return date;
     }
 
@@ -46,28 +53,18 @@ public class AddShiftViewModel {
         return endTime;
     }
 
-    public Shift addShift() throws SQLException, RemoteException {
-        if (shiftID.get() == null || shiftID.get().isEmpty() || employeeID.get() == null || employeeID.get().isEmpty()|| date != null || date.get().isEmpty()|| startTime.get() == null || startTime.get().isEmpty() || endTime.get() == null || endTime.get().isEmpty())
+    public StringProperty getEmployeeName() {
+        return employeeName;
+    }
+
+    public Shift addShift()  {
+       /* if (shiftID.get() == null || shiftID.get().isEmpty() || employeeID.get() == null || employeeID.get().isEmpty()|| date != null ||  startTime.get() == null || startTime.get().isEmpty() || endTime.get() == null || endTime.get().isEmpty())
         {
             System.out.println("Please fill in all the information");
             return null; // Return null indicating that the shift was not added
         }
+*/
+        return   addShiftModel.addShift(shiftID.get(),employeeID.get(),employeeName.get(),date.get(),startTime.get(),endTime.get());
 
-        try {
-            int parsedShiftID = Integer.parseInt(shiftID.get());
-            int parsedEmployeeID = Integer.parseInt(employeeID.get());
-            LocalDate parsedDate = LocalDate.parse(date.get());
-            int parsedStartTime = Integer.parseInt(startTime.get());
-            int parsedEndTime = Integer.parseInt(endTime.get());
-
-            addShiftModel.addShift(parsedShiftID, parsedEmployeeID, parsedDate, parsedStartTime, parsedEndTime);
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input format. Please provide valid integer values for shift ID, employee ID, date, start time, and end time.");
-            return null; // Return null indicating that the shift was not added
-        }
-
-        // Add any additional success message or post-processing logic here
-        return null; // Replace with the actual Shift object if needed
     }
-
 }
