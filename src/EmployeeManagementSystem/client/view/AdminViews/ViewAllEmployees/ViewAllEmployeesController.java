@@ -78,7 +78,6 @@ public class ViewAllEmployeesController implements ViewController
         Email.textProperty().bindBidirectional(viewAllEmployeesViewModel.getEmail());
     }
 
-
     @FXML
     void addShiftClick(ActionEvent event)
     {
@@ -135,10 +134,10 @@ void getSelectedItem(MouseEvent mouseEvent) {
     private void clearTextInputs() {
         fname.setText(null);
         lname.setText(null);
-        email.setText(null);
+        Email.setText(null);
         uId.setText(null);
         Address.setText(null);
         pNum.setText(null);
-        dateOfBirth.setText(null);
+        dob.setText(null);
     }
 }
