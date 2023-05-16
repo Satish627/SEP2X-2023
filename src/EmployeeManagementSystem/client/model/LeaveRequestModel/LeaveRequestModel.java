@@ -3,7 +3,12 @@ package EmployeeManagementSystem.client.model.LeaveRequestModel;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
 import EmployeeManagementSystem.shared.model.Shift;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+
 public interface LeaveRequestModel
 {
-    LeaveRequest approveLeave(int shiftID,String reason);
+    void approveLeave(int shiftID) throws RemoteException;
+    void rejectLeave(int shiftID) throws RemoteException;
+    ArrayList<LeaveRequest> viewAllLeaveRequests() throws RemoteException;
 }

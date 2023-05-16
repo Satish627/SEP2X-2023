@@ -3,8 +3,15 @@ package EmployeeManagementSystem.server.DAO.LeaveRequest;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
 import EmployeeManagementSystem.shared.model.Shift;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public interface LeaveRequestDao
 {
-    LeaveRequest approveLeave(int shiftID,String reason);
-    LeaveRequest rejectLeave();
+     void approveLeave(int shiftID) throws SQLException;
+    void rejectLeave(int shiftID) throws SQLException;
+
+    ArrayList<LeaveRequest> viewAllLeaveRequests() throws SQLException;
+
+
 }

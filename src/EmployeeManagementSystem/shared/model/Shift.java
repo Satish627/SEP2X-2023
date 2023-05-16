@@ -8,6 +8,9 @@ public class Shift implements Serializable
     private int shiftID;
     private int employeeID;
     private String employeeName;
+
+
+
     private LocalDate date;
     private String startTime;
     private String endTime;
@@ -40,6 +43,9 @@ public class Shift implements Serializable
 
     public String getEndTime() {
         return endTime;
+    }
+    public String getEmployeeName() {
+        return employeeName;
     }
 
     public void setShiftID(int  shiftID) {

@@ -7,6 +7,8 @@ import EmployeeManagementSystem.shared.networking.LeaveRequestServer;
 import EmployeeManagementSystem.shared.networking.Server;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class LeaveRequestClientImpl implements LeaveRequestClient
 {
@@ -23,10 +25,28 @@ public class LeaveRequestClientImpl implements LeaveRequestClient
     }
 
 
-    public LeaveRequest approveLeave(int shiftID, String reason) {
+    public void approveLeave(int shiftID) {
         try {
-            return server.getLeaveRequestServer().approveLeave(shiftID,reason);
-        } catch (RemoteException e) {
+            server.getLeaveRequestServer().approveLeave(shiftID);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void rejectLeave(int shiftID) {
+        try {
+            server.getLeaveRequestServer().rejectLeave(shiftID);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public ArrayList<LeaveRequest> viewAllLeaveRequests() {
+        try {
+             return server.getLeaveRequestServer().viewAllLeaveRequests();
+        } catch (SQLException | RemoteException e) {
             throw new RuntimeException(e);
         }
     }

@@ -1,14 +1,15 @@
 package EmployeeManagementSystem.server.networking.LeaveRequest;
 
 import EmployeeManagementSystem.server.DAO.LeaveRequest.LeaveRequestDao;
-import EmployeeManagementSystem.server.DAO.Login.LoginDAO;
+
 import EmployeeManagementSystem.shared.model.LeaveRequest;
-import EmployeeManagementSystem.shared.model.Shift;
 import EmployeeManagementSystem.shared.networking.LeaveRequestServer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 public class LeaveRequestServerImpl implements LeaveRequestServer
 {
@@ -21,7 +22,17 @@ public class LeaveRequestServerImpl implements LeaveRequestServer
     }
 
     @Override
-    public LeaveRequest approveLeave(int shiftID, String reason) throws RemoteException {
-        return leaveRequestDao.approveLeave(shiftID,reason);
+    public void approveLeave(int shiftID) throws RemoteException, SQLException {
+        leaveRequestDao.approveLeave(shiftID);
+    }
+
+    @Override
+    public void rejectLeave(int shiftID) throws RemoteException, SQLException {
+        leaveRequestDao.rejectLeave(shiftID);
+    }
+
+    @Override
+    public ArrayList<LeaveRequest> viewAllLeaveRequests() throws RemoteException, SQLException {
+        return leaveRequestDao.viewAllLeaveRequests();
     }
 }

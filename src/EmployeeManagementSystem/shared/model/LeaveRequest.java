@@ -2,22 +2,22 @@ package EmployeeManagementSystem.shared.model;
 
 public class LeaveRequest
 {
-    private Shift shift;
+    private int shiftID;
     private String reason;
 
-    private String shiftID;
-
-    public LeaveRequest(String shiftID, String reason) {
-        this.shiftID= String.valueOf(shift.getShiftID());
+    public LeaveRequest(int shiftID, String reason) {
+        this.shiftID=shiftID;
         this.reason = reason;
     }
 
-    public String getShiftID(){
+    public int getShiftID() {
         return shiftID;
     }
+
     public String getReason() {
         return reason;
     }
+
 
     public void setReason(String reason) {
         this.reason = reason;
