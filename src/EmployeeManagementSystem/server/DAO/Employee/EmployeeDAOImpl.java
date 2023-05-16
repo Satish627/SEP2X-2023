@@ -67,7 +67,36 @@ public class EmployeeDAOImpl implements EmployeeDAO{
             }
             return employeeList;
         }
+
+    @Override
+    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws SQLException {
+        try (Connection connection = getConnection()) {
+            PreparedStatement newStatement = connection.prepareStatement("UPDATE  Users SET firstname=?,lastname=?,email=?,address=?,phonenumber=?,dateofbirth=? where userid=?");
+            newStatement.setString(1, firstName);
+            newStatement.setString(2, lastName);
+            newStatement.setString(3, email);
+            newStatement.setString(4, address);
+            newStatement.setInt(5,phoneNum);
+            newStatement.setString(6, DateOfBirth);
+            newStatement.setInt(7, UserId);
+            newStatement.executeUpdate();
+            connection.close();
+            System.out.println("Employee information updated successfully");
+        }
+
     }
+
+    @Override
+    public void deleteEmployeeByID(int UserId) throws SQLException {
+        try (Connection connection = getConnection()) {
+            PreparedStatement newStatement = connection.prepareStatement("DELETE FROM Users  WHERE userid=?");
+            newStatement.setInt(1, UserId);
+            newStatement.executeUpdate();
+            connection.close();
+            System.out.println("Employee with " + UserId + " successfully deleted");
+        }
+    }
+}
 
 
 

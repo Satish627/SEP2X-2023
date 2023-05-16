@@ -26,8 +26,14 @@ public class EmployeeModelImpl implements EmployeeModel
     }
 
     @Override
-    public Users editEmployee() {
-        return null;
+    public void updateEmployee(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
+        employeeClient.updateEmployeeInfo(UserId, firstName,lastName,email,address,phoneNum,DateOfBirth);
     }
+
+    @Override
+    public void deleteEmployee(int uId) {
+        employeeClient.deleteEmployee(uId);
+    }
+
 
 }

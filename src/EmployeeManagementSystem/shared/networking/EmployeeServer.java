@@ -12,5 +12,6 @@ public interface EmployeeServer extends Remote {
 
     ArrayList<Users> viewAllEmployees() throws RemoteException,SQLException;
 
-
+    void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException,SQLException;
+    void deleteEmployeeById(int UserId) throws RemoteException,SQLException;
 }

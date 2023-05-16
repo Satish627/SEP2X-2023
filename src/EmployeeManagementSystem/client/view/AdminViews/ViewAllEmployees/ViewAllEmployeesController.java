@@ -9,12 +9,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.converter.NumberStringConverter;
 
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Date;
 
 
 public class ViewAllEmployeesController implements ViewController
@@ -32,14 +36,18 @@ public class ViewAllEmployeesController implements ViewController
     @FXML private TableColumn<Users, String> lastName;
     @FXML private TableColumn<Users, String> dateOfBirth;
     @FXML private TableColumn<Users, String> address;
-    @FXML private TableColumn<Users, String> phoneNumber;
+    @FXML private TableColumn<Users, Integer> phoneNumber;
     @FXML private TableColumn<Users, String> email;
-    @FXML
-    private Button removeBtn;
-    @FXML
-    private Button editShiftBtn;
     private ViewHandler viewHandler;
     private ViewAllEmployeesViewModel viewAllEmployeesViewModel;
+
+    @FXML private TextField fname;
+  @FXML private TextField  lname;
+    @FXML private TextField  uId;
+    @FXML private TextField  dob;
+    @FXML private TextField  Address;
+    @FXML private TextField  pNum;
+    @FXML private TextField  Email;
 
     @Override
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory)
@@ -47,7 +55,7 @@ public class ViewAllEmployeesController implements ViewController
         this.viewHandler = viewHandler;
         viewAllEmployeesViewModel = viewModelFactory.getEmployeeViewModel();
         initialiseTableView();
-        
+        bindTextFieldValues();
     }
 
     private void initialiseTableView() {
@@ -59,27 +67,17 @@ public class ViewAllEmployeesController implements ViewController
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         employeeList.setItems(viewAllEmployeesViewModel.viewAllEmployees());
-
-
+    }
+    private void bindTextFieldValues() {
+       uId.textProperty().bindBidirectional(viewAllEmployeesViewModel.getUserId(), new NumberStringConverter());
+        fname.textProperty().bindBidirectional(viewAllEmployeesViewModel.getFirstName());
+        lname.textProperty().bindBidirectional(viewAllEmployeesViewModel.getLastName());
+        dob.textProperty().bindBidirectional(viewAllEmployeesViewModel.getDateOfBirth());
+        Address.textProperty().bindBidirectional(viewAllEmployeesViewModel.getAddress());
+        pNum.textProperty().bindBidirectional(viewAllEmployeesViewModel.getPhNumber(), new NumberStringConverter());
+        Email.textProperty().bindBidirectional(viewAllEmployeesViewModel.getEmail());
     }
 
-    @FXML
-    void backClick(ActionEvent event)
-    {
-        backPage();
-
-    }
-
-    private void backPage()
-    {
-        viewHandler.backPage();
-    }
-    @FXML
-    void addEmployeeClick(ActionEvent event)
-    {
-       viewHandler.addEmployeeBtn();
-
-    }
 
     @FXML
     void addShiftClick(ActionEvent event)
@@ -89,39 +87,8 @@ public class ViewAllEmployeesController implements ViewController
 
 
     @FXML
-    void editEmployeeAction(ActionEvent event) {
-//        int choice = 0;
-//        if (employeeList.getUserData() == editShiftBtn) {
-//            try {
-//                choice = JOptionPane.showConfirmDialog(null, "Are you sure want to edit employee name?" + "\n" + employeeList.getSelectionModel().getSelectedItems().getClass().getName());
-//                String input = null;
-//                if (choice == JOptionPane.YES_OPTION) {
-//                    input = "";
-//                    input = JOptionPane.showInputDialog("Enter new employee name: ", JOptionPane.WARNING_MESSAGE);
-//                    viewHandler.editEmployee(employeeList.getSelectionModel().getSelectedItem().getFirstName(), input);
-//                    JOptionPane.showMessageDialog(null, "Name was changed", "EmployeeList", JOptionPane.INFORMATION_MESSAGE);
-//                    initialize();
-//                }
-//                if (input.equals("")) {
-//                    JOptionPane.showMessageDialog(null, "Action was closed. Employee was NOT edited", "Employee List", JOptionPane.INFORMATION_MESSAGE);
-//                }
-//            } catch (HeadlessException e) {
-//                throw new RuntimeException(e);
-//            }
-//        } else if (choice == JOptionPane.NO_OPTION)
-//            JOptionPane.showMessageDialog(null, "Changing was denied. Employee was NOT deleted", "Employee List", JOptionPane.INFORMATION_MESSAGE);
-//        else if (choice == JOptionPane.CANCEL_OPTION)
-//            JOptionPane.showMessageDialog(null, "Action was closed. Employee  was NOT edited", "Employee List", JOptionPane.INFORMATION_MESSAGE);
-//        else if (choice == JOptionPane.CLOSED_OPTION)
-//            JOptionPane.showMessageDialog(null, "Action was closed. Employee was NOT edited", "Employee List", JOptionPane.INFORMATION_MESSAGE);
-//        {
-//            JOptionPane.showMessageDialog(null, "Select a Employee to Edit . Invalid Action", "Employee List", JOptionPane.ERROR_MESSAGE);
-//        }
- }
-
-    @FXML
-    void removeEmployeeAction(ActionEvent event) {
-
+    void onEditEmployeeButtonClick(ActionEvent event) {
+        viewAllEmployeesViewModel.editEmployee(Integer.parseInt(uId.getText()),fname.getText(),lname.getText(),dob.getText(),Address.getText(),Integer.parseInt(pNum.getText()),Email.getText());
     }
     @FXML
     void menuBarClick(ActionEvent event) {
@@ -134,7 +101,44 @@ public class ViewAllEmployeesController implements ViewController
 
     }
 
+@FXML
+void getSelectedItem(MouseEvent mouseEvent) {
+    int index = employeeList.getSelectionModel().getSelectedIndex();
+        if (index <= -1){
+            return;
+        }
+        uId.setText(userId.getCellData(index).toString());
+    fname.setText(firstName.getCellData(index));
+    lname.setText(lastName.getCellData(index));
+    dob.setText(dateOfBirth.getCellData(index));
+    Address.setText(address.getCellData(index));
+    pNum.setText(phoneNumber.getCellData(index).toString());
+    Email.setText(email.getCellData(index));
 
+}
 
+    @FXML
+    public void onRemoveEmployeeButtonClick(ActionEvent event) {
+        viewAllEmployeesViewModel.deleteEmployee(Integer.parseInt(uId.getText())
+        );
+    }
 
+   @FXML public void onAddEmployeeButtonClick(ActionEvent event) {
+       viewAllEmployeesViewModel.addEmployee();
+       clearTextInputs();
+    }
+
+   @FXML
+   public void onBackButtonClick(ActionEvent event) {
+        viewHandler.backPage();
+    }
+    private void clearTextInputs() {
+        fname.setText(null);
+        lname.setText(null);
+        email.setText(null);
+        uId.setText(null);
+        Address.setText(null);
+        pNum.setText(null);
+        dateOfBirth.setText(null);
+    }
 }

@@ -42,4 +42,24 @@ public class EmployeeClientImpl implements EmployeeClient
         }
         return null;
     }
+
+    @Override
+    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
+        try {
+            server.getEmployeeServer().updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteEmployee(int uId) {
+        try {
+            server.getEmployeeServer().deleteEmployeeById(uId);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

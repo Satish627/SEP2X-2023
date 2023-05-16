@@ -12,5 +12,7 @@ public interface EmployeeModel
 
     ArrayList<Users> viewAllEmployees();
 
-    Users editEmployee();
+    void updateEmployee(int UserId,String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth);
+
+    void deleteEmployee(int uId);
 }
