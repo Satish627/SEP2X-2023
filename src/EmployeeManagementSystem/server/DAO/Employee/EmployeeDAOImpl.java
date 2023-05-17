@@ -59,6 +59,7 @@ public class EmployeeDAOImpl implements EmployeeDAO{
                         Users user = new Users(userId,firstName,lastName,birthDate,address,phoneNumber,email);
                         employeeList.add(user);
                         System.out.println(employeeList);
+                        connection.close();
                     }
                 }
             } catch (SQLException e) {

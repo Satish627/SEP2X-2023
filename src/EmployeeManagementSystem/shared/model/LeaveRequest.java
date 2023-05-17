@@ -1,6 +1,8 @@
 package EmployeeManagementSystem.shared.model;
 
-public class LeaveRequest
+import java.io.Serializable;
+
+public class LeaveRequest implements Serializable
 {
     private int shiftID;
     private String reason;

@@ -19,14 +19,14 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="reasonCol" layoutX="47.0" layoutY="58.0" prefHeight="283.0" prefWidth="521.0">
+      <TableView fx:id="leaveRequestTable" layoutX="47.0" layoutY="58.0" prefHeight="283.0" prefWidth="521.0">
         <columns>
           <TableColumn fx:id="shiftIDCol" prefWidth="133.0" text="ShiftID" />
-            <TableColumn fx:id="leaveRequestTable" minWidth="0.0" prefWidth="387.0" text="Reason" />
+            <TableColumn fx:id="reasonCol" minWidth="0.0" prefWidth="387.0" text="Reason" />
         </columns>
       </TableView>
-      <Button fx:id="approveButton" layoutX="103.0" layoutY="358.0" mnemonicParsing="false" onAction="#approveClick" prefHeight="25.0" prefWidth="70.0" text="Approve" />
-      <Button fx:id="rejectButton" layoutX="247.0" layoutY="358.0" mnemonicParsing="false" onAction="#rejectClick" prefHeight="25.0" prefWidth="61.0" text="Reject" />
-      <Button fx:id="backButton" layoutX="398.0" layoutY="358.0" mnemonicParsing="false" onAction="#backbtnClick" prefHeight="25.0" prefWidth="49.0" text="Back" />
+      <Button  layoutX="103.0" layoutY="358.0" mnemonicParsing="false" onAction="#approveClick" prefHeight="25.0" prefWidth="70.0" text="Approve" />
+      <Button  layoutX="247.0" layoutY="358.0" mnemonicParsing="false" onAction="#rejectClick" prefHeight="25.0" prefWidth="61.0" text="Reject" />
+      <Button  layoutX="398.0" layoutY="358.0" mnemonicParsing="false" onAction="#backbtnClick" prefHeight="25.0" prefWidth="49.0" text="Back" />
    </children>
 </AnchorPane>

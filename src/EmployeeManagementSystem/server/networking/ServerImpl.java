@@ -15,10 +15,11 @@ public class ServerImpl implements Server {
 
     private LeaveRequestServer leaveRequestServer;
 
-    public ServerImpl(EmployeeServer employeeServer, LoginServer loginServer, ShiftServer shiftServer) throws RemoteException {
+    public ServerImpl(EmployeeServer employeeServer, LoginServer loginServer, ShiftServer shiftServer, LeaveRequestServer leaveRequestServer) throws RemoteException {
         this.employeeServer = employeeServer;
         this.loginServer = loginServer;
         this.shiftServer = shiftServer;
+        this.leaveRequestServer=leaveRequestServer;
         UnicastRemoteObject.exportObject(this,0);
     }
 
@@ -26,7 +27,7 @@ public class ServerImpl implements Server {
     @Override
     public void startServer() throws RemoteException, AlreadyBoundException {
         //Create registry
-        Registry registry = LocateRegistry.createRegistry(2001);
+        Registry registry = LocateRegistry.createRegistry(2000);
         //bind
         registry.bind("serrrverrrr",this);
         System.out.println("Server started..........");

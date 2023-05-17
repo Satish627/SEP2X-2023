@@ -12,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.awt.*;
+import java.rmi.RemoteException;
 
 public class LeaveRequestController implements ViewController {
         private ViewHandler viewHandler;
@@ -23,28 +24,34 @@ public class LeaveRequestController implements ViewController {
         private TableColumn<LeaveRequest,Integer> shiftIDCol;
         @FXML
         private TableColumn<LeaveRequest,String> reasonCol;
-        @FXML
-        private Button approveButton;
-        @FXML
-        private Button rejectButton;
-        @FXML
-        private Button backButton;
 
 
         @FXML
         void approveClick(ActionEvent event)
         {
-            LeaveRequest request=leaveRequestTable.;
+
+            int shiftID = leaveRequestTable.getSelectionModel().getSelectedItem().getShiftID();
+            System.out.println(shiftID);
+            try {
+                leaveRequestViewModel.approveLeave(shiftID);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         @FXML
         void backbtnClick(ActionEvent event) {
-
+            viewHandler.backPage();
         }
 
         @FXML
         void rejectClick(ActionEvent event) {
-
+            int shiftID=leaveRequestTable.getSelectionModel().getSelectedItem().getShiftID();
+            try {
+                leaveRequestViewModel.rejectLeave(shiftID);
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
         }
 
 

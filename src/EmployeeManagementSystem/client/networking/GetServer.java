@@ -13,7 +13,7 @@ public class GetServer {
         Server server = null;
 
         try {
-            registry = LocateRegistry.getRegistry(2001);
+            registry = LocateRegistry.getRegistry(2000);
             server = (Server) registry.lookup("serrrverrrr");
         } catch (RemoteException e) {
             System.out.println("Problem connecting to server");
