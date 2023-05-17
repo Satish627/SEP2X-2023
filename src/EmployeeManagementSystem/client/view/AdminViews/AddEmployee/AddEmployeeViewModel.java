@@ -81,7 +81,7 @@ public class AddEmployeeViewModel
     }
 
 
-    public Users addEmployee() throws SQLException, RemoteException {
+    public String addEmployee() throws SQLException, RemoteException {
         if (firstName.get()==null || firstName.get().isEmpty() || lastName.get()== null || lastName.get().isEmpty()  || emailId.get()== null || emailId.get().isEmpty() || address.get()== null || address.get().isEmpty()){
             System.out.println("Please fill in all the information");
             return null;

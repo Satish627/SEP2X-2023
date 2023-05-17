@@ -4,6 +4,8 @@ import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
 import EmployeeManagementSystem.shared.model.Users;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,11 +24,8 @@ import java.util.Date;
 
 
 public class ViewAllEmployeesController implements ViewController
-{
-    private Users user;
-    @FXML
+{ @FXML
     private MenuItem addEmployeeBtn;
-
     @FXML
     private MenuItem addShiftBtn;
     @FXML
@@ -48,7 +47,7 @@ public class ViewAllEmployeesController implements ViewController
     @FXML private TextField  Address;
     @FXML private TextField  pNum;
     @FXML private TextField  Email;
-
+    @FXML private TextField search;
     @Override
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory)
     {
@@ -57,7 +56,6 @@ public class ViewAllEmployeesController implements ViewController
         initialiseTableView();
         bindTextFieldValues();
     }
-
     private void initialiseTableView() {
         userId.setCellValueFactory(new PropertyValueFactory<>("userId"));
         firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -67,6 +65,7 @@ public class ViewAllEmployeesController implements ViewController
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         email.setCellValueFactory(new PropertyValueFactory<>("email"));
         employeeList.setItems(viewAllEmployeesViewModel.viewAllEmployees());
+        SearchBar();
     }
     private void bindTextFieldValues() {
        uId.textProperty().bindBidirectional(viewAllEmployeesViewModel.getUserId(), new NumberStringConverter());
@@ -76,6 +75,45 @@ public class ViewAllEmployeesController implements ViewController
         Address.textProperty().bindBidirectional(viewAllEmployeesViewModel.getAddress());
         pNum.textProperty().bindBidirectional(viewAllEmployeesViewModel.getPhNumber(), new NumberStringConverter());
         Email.textProperty().bindBidirectional(viewAllEmployeesViewModel.getEmail());
+
+    }
+    public void SearchBar() {
+        FilteredList<Users> filteredList = new FilteredList<>(employeeList.getItems());
+        search.textProperty().addListener((observable,oldValue,newValue )->{
+            filteredList.setPredicate(users -> {
+                if (newValue == null || newValue.isEmpty()|| newValue.isBlank()){
+                    return true; //return all users  if the field is empty
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                if ((String.valueOf(users.getUserId()).contains(lowerCaseFilter))){
+                    return true;
+                }else if (users.getFirstName().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }else if (users.getLastName().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }
+                else if (users.getDateOfBirth().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }
+                else if (users.getAddress().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }
+                else if (String.valueOf(users.getPhoneNumber()).contains(lowerCaseFilter)){
+                    return true;
+                }
+                else if (users.getEmail().toLowerCase().contains(lowerCaseFilter)){
+                    return true;
+                }else {
+                    return false;
+                }
+            });
+        });
+        //Using sortedList to wrap the filteredlist
+        SortedList<Users> sortedList = new SortedList<>(filteredList);
+        //Binding sortedList to TableView to have effects.
+        sortedList.comparatorProperty().bind(employeeList.comparatorProperty());
+        //add sorted data to the table
+        employeeList.setItems(sortedList);
     }
 
     @FXML
@@ -124,6 +162,7 @@ void getSelectedItem(MouseEvent mouseEvent) {
 
    @FXML public void onAddEmployeeButtonClick(ActionEvent event) {
        viewAllEmployeesViewModel.addEmployee();
+       clearTextInputs();
 
     }
 
@@ -140,4 +179,5 @@ void getSelectedItem(MouseEvent mouseEvent) {
         pNum.setText(null);
         dob.setText(null);
     }
+
 }
