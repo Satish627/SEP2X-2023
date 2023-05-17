@@ -9,40 +9,36 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="574.0" prefWidth="1001.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftController">
+<AnchorPane prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftController">
    <children>
-      <TableView fx:id="shiftListView" layoutX="341.0" layoutY="68.0" prefHeight="343.0" prefWidth="622.0">
+      <TableView fx:id="shiftListView" layoutX="342.0" layoutY="84.0" maxWidth="900.0" onMouseClicked="#getSelectedItem" prefHeight="319.0" prefWidth="555.0">
         <columns>
-          <TableColumn fx:id="shiftID" prefWidth="97.33331298828125" text="Shift ID" />
-          <TableColumn fx:id="ename" minWidth="0.0" prefWidth="123.99996948242188" text="Employee Name" />
-            <TableColumn fx:id="employeeID" minWidth="0.0" prefWidth="100.6666259765625" text="Employee ID" />
-            <TableColumn fx:id="date" minWidth="0.0" prefWidth="87.3333740234375" text="Date" />
-            <TableColumn fx:id="checkInTime" minWidth="0.0" prefWidth="77.3333740234375" text="CheckInTime" />
-            <TableColumn fx:id="checkOutTime" prefWidth="120.6666259765625" text="CheckOutTime" />
+          <TableColumn fx:id="shiftID" prefWidth="74.66668701171875" text="Shift ID" />
+          <TableColumn fx:id="ename" minWidth="0.0" prefWidth="120.0" text="Employee Name" />
+            <TableColumn fx:id="employeeID" minWidth="0.0" prefWidth="103.33340454101562" text="Employee ID" />
+            <TableColumn fx:id="date" minWidth="0.0" prefWidth="66.0" text="Date" />
+            <TableColumn fx:id="checkInTime" minWidth="0.0" prefWidth="94.0" text="CheckInTime" />
+            <TableColumn fx:id="checkOutTime" prefWidth="100.66668701171875" text="CheckOutTime" />
         </columns>
       </TableView>
-      <Button layoutX="710.0" layoutY="472.0" mnemonicParsing="false" onAction="#onVIewShiftBackBtnClicked" prefHeight="34.0" prefWidth="76.0" text="Back" textFill="#262424">
+      <Button layoutX="768.0" layoutY="418.0" mnemonicParsing="false" onAction="#onVIewShiftBackBtnClicked" prefHeight="34.0" prefWidth="76.0" text="Back" textFill="#262424">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
       <Text layoutX="17.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ShiftID:" />
       <Text layoutX="14.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee name:" />
-      <TextField fx:id="eName" layoutX="141.0" layoutY="136.0" />
-      <TextField fx:id="sId" layoutX="141.0" layoutY="74.0" />
+      <TextField fx:id="eName" layoutX="112.0" layoutY="136.0" />
+      <TextField fx:id="sId" layoutX="112.0" layoutY="82.0" />
       <Text layoutX="14.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee ID:" />
-      <TextField fx:id="eId" layoutX="141.0" layoutY="195.0" />
+      <TextField fx:id="eId" layoutX="112.0" layoutY="194.0" />
       <Text layoutX="14.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" />
       <Text layoutX="14.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckIn:" />
-      <TextField fx:id="checkIn" layoutX="141.0" layoutY="296.0" />
+      <TextField fx:id="checkIn" layoutX="112.0" layoutY="298.0" promptText="HH:MM" />
       <Text layoutX="14.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CheckOut:" />
-      <TextField fx:id="checkOut" layoutX="141.0" layoutY="343.0" />
-<!--      <Button layoutX="141.0" layoutY="514.0" mnemonicParsing="false" onAction="#addShiftClick" prefHeight="25.0" prefWidth="69.0" text="Add Shift" />-->
-<!--      <Button layoutX="290.0" layoutY="514.0" mnemonicParsing="false" onAction="#editShiftClickBtn" prefHeight="25.0" prefWidth="70.0" text="Edit Shift" />-->
-      <Button layoutX="551.0" layoutY="476.0" mnemonicParsing="false" onAction="#removeShiftBtn" prefHeight="34.0" prefWidth="87.0" text="Remove Shift" />
-      <DatePicker fx:id="datePicker" layoutX="141.0" layoutY="240.0" prefHeight="25.0" prefWidth="149.0" />
-<!--      <Button layoutX="268.0" layoutY="479.0" mnemonicParsing="false" onAction="#addShiftClick" prefHeight="34.0" prefWidth="87.0" text="Add Shift" />-->
-<!--      <Button layoutX="411.0" layoutY="479.0" mnemonicParsing="false" onAction="#editShiftClickBtn" prefHeight="34.0" prefWidth="76.0" text="Edit Shift" />-->
-      <Button layoutX="319.0" layoutY="476.0" mnemonicParsing="false" onAction="#OnAddShiftBtnClick" prefHeight="34.0" prefWidth="76.0" text="Add Shift" />
+      <TextField fx:id="checkOut" layoutX="112.0" layoutY="343.0" promptText="HH:MM" />
+      <Button layoutX="201.0" layoutY="419.0" mnemonicParsing="false" onAction="#removeShiftBtn" prefHeight="34.0" prefWidth="87.0" text="Remove Shift" />
+      <DatePicker fx:id="datePicker" layoutX="112.0" layoutY="242.0" prefHeight="25.0" prefWidth="149.0" />
+      <Button layoutX="53.0" layoutY="419.0" mnemonicParsing="false" onAction="#OnAddShiftBtnClick" prefHeight="34.0" prefWidth="76.0" text="Add Shift" />
    </children>
 </AnchorPane>

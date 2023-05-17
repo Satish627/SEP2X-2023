@@ -33,6 +33,11 @@ public class ShiftServerImpl implements ShiftServer {
         return shiftDAO.viewAllShift();
     }
 
+    @Override
+    public void deleteShiftById(int shiftID) throws RemoteException, SQLException {
+        shiftDAO.deleteShiftById(shiftID);
+
+    }
 
 
 }

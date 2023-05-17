@@ -32,7 +32,7 @@ public class ShiftDAOImpl implements ShiftDAO
             newStatement.setDate(4, Date.valueOf(date));
             newStatement.setString(5, startTime);
             newStatement.setString(6, endTime);
-//            newStatement.executeUpdate();
+         newStatement.executeUpdate();
             connection.close();
             System.out.println("Shift added successfully");
             return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime);
@@ -73,6 +73,18 @@ public class ShiftDAOImpl implements ShiftDAO
     }
 
     @Override
+    public void deleteShiftById(int shiftID) throws SQLException
+    {
+        PreparedStatement newStatement = connection.prepareStatement("DELETE FROM shift  WHERE shiftid=?");
+        newStatement.setInt(1, shiftID);
+        newStatement.executeUpdate();
+        connection.close();
+        System.out.println("Shift with " + shiftID+ " successfully deleted");
+    }
+
+
+
+    @Override
     public void updateShiftInfo(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws SQLException
     {
             try (Connection connection = getConnection()) {
@@ -85,9 +97,14 @@ public class ShiftDAOImpl implements ShiftDAO
                 newStatement.setString(6, checkOutTime);
                 newStatement.executeUpdate();
                 connection.close();
-                System.out.println("Employee information updated successfully");
+                System.out.println("Shift updated successfully");
             }
         }
+
+
+
+
+
     }
 
 

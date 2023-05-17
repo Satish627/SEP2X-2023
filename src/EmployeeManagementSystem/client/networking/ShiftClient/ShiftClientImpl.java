@@ -4,6 +4,8 @@ import EmployeeManagementSystem.client.networking.GetServer;
 import EmployeeManagementSystem.shared.model.Shift;
 import EmployeeManagementSystem.shared.networking.Server;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -12,8 +14,10 @@ import java.util.ArrayList;
 public class ShiftClientImpl implements ShiftClient
 {
     private Server server;
+    private PropertyChangeSupport propertyChangeSupport;
 
     public ShiftClientImpl() {
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
         try {
             System.out.println("Hello from  addShift client networking!!");
             server= GetServer.getRMIServer();
@@ -24,6 +28,7 @@ public class ShiftClientImpl implements ShiftClient
 
     @Override
     public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException {
+        propertyChangeSupport.firePropertyChange("newShiftAdded",null,new Shift(shiftID,employeeID,employeeName,date,startTime,endTime));
         return server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
     }
 
@@ -38,6 +43,27 @@ public class ShiftClientImpl implements ShiftClient
         return null;
     }
 
+    @Override
+    public void deleteShift(int sId)
+    {
+        try {
+            server.getShiftServer().deleteShiftById(sId);
+
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public void addListener( String eventName,PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(eventName,listener);
+    }
+
+    @Override
+    public void removeListener(String eventName, PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(eventName,listener);
+
+    }
+
+    }
 
 
-}

@@ -12,7 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.util.converter.LocalDateStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ public class ViewShiftController implements ViewController
 {
 
     private ViewHandler viewHandler;
-    private ShiftViewModel shiftViewModel;
+    private ViewShiftViewModel viewShiftViewModel;
     @FXML
     private TextField checkIn;
     @FXML
@@ -63,8 +63,9 @@ public class ViewShiftController implements ViewController
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
 
         this.viewHandler = viewHandler;
-        shiftViewModel = viewModelFactory.getShiftViewModel();
+        viewShiftViewModel = viewModelFactory.getShiftViewModel();
         initialiseTableView();
+        bindTextFieldValues();
 
 
     }
@@ -76,7 +77,7 @@ public class ViewShiftController implements ViewController
         checkInTime.setCellValueFactory(new PropertyValueFactory<>("checkInTime"));
         checkOutTime.setCellValueFactory(new PropertyValueFactory<>("checkOutTime"));
 
-       shiftListView.setItems(shiftViewModel.viewAllShift());
+       shiftListView.setItems(viewShiftViewModel.viewAllShift());
     }
     @FXML
     void getSelectedItem(MouseEvent mouseEvent) {
@@ -104,7 +105,7 @@ public class ViewShiftController implements ViewController
     }
     @FXML
     void OnAddShiftBtnClick(ActionEvent event) throws SQLException, RemoteException {
-        shiftViewModel.addShift();
+        viewShiftViewModel.addShift();
         clearTextInput();
 
     }
@@ -123,9 +124,16 @@ public class ViewShiftController implements ViewController
     @FXML
     void removeShiftBtn(ActionEvent event)
     {
-
+        viewShiftViewModel.deleteShift(Integer.parseInt(sId.getText()));
     }
-
+    private void bindTextFieldValues() {
+        sId.textProperty().bindBidirectional(viewShiftViewModel.getShiftID(), new NumberStringConverter());
+        eId.textProperty().bindBidirectional(viewShiftViewModel.getEmployeeID(), new NumberStringConverter());
+        eName.textProperty().bindBidirectional(viewShiftViewModel.getEmployeeName());
+        datePicker.valueProperty().bindBidirectional(viewShiftViewModel.getDate());
+        checkIn.textProperty().bindBidirectional(viewShiftViewModel.getCheckInTime());
+        checkOut.textProperty().bindBidirectional(viewShiftViewModel.getCheckOutTime());
+    }
 
 
 //    @FXML
