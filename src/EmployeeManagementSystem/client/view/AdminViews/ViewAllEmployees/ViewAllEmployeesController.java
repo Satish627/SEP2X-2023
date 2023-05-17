@@ -126,6 +126,7 @@ public class ViewAllEmployeesController implements ViewController
     @FXML
     void onEditEmployeeButtonClick(ActionEvent event) {
         viewAllEmployeesViewModel.editEmployee(Integer.parseInt(uId.getText()),fname.getText(),lname.getText(),dob.getText(),Address.getText(),Integer.parseInt(pNum.getText()),Email.getText());
+        clearTextInputs();
     }
     @FXML
     void menuBarClick(ActionEvent event) {
@@ -156,8 +157,8 @@ void getSelectedItem(MouseEvent mouseEvent) {
 
     @FXML
     public void onRemoveEmployeeButtonClick(ActionEvent event) {
-        viewAllEmployeesViewModel.deleteEmployee(Integer.parseInt(uId.getText())
-        );
+        viewAllEmployeesViewModel.deleteEmployee(Integer.parseInt(uId.getText()));
+        clearTextInputs();
     }
 
    @FXML public void onAddEmployeeButtonClick(ActionEvent event) {

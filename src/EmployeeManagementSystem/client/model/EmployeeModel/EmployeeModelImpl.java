@@ -18,11 +18,17 @@ public class EmployeeModelImpl implements EmployeeModel
     {
         this.employeeClient = employeeClient;
         this.propertyChangeSupport = new PropertyChangeSupport(this);
-        employeeClient.addListener(this::newEmployeeAdded);
-       // employeeClient.addListener(this::removeEmployee);
+        employeeClient.addListener("newEmployeeAdded",this::newEmployeeAdded);
+        employeeClient.addListener("removeEmployee",this::employeeRemoved);
+        employeeClient.addListener("updateEmployee",this::employeeUpdated);
     }
 
-    private void removeEmployee(PropertyChangeEvent propertyChangeEvent) {
+    private void employeeUpdated(PropertyChangeEvent propertyChangeEvent) {
+        propertyChangeSupport.firePropertyChange(propertyChangeEvent);
+        System.out.println("Employee updated from employee model");
+    }
+
+    private void employeeRemoved(PropertyChangeEvent propertyChangeEvent) {
         propertyChangeSupport.firePropertyChange(propertyChangeEvent);
         System.out.println("Employee removed from employee model");
     }
@@ -49,8 +55,8 @@ public class EmployeeModelImpl implements EmployeeModel
 
 
     @Override
-    public void addListener( PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(listener);
+    public void addListener(String eventName, PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(eventName,listener);
     }
 
     @Override

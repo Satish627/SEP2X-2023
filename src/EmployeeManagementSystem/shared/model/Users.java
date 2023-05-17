@@ -51,6 +51,13 @@ public class Users implements Serializable {
         Users.userType = userType;
     }
 
+    public Users(int userId) {
+       this.userId = userId;
+    }
+
+    public Users() {
+
+    }
 
 
     public int getUserId() {

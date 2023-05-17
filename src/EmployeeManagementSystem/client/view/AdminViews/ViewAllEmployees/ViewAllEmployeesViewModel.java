@@ -32,22 +32,27 @@ public class ViewAllEmployeesViewModel {
     public ViewAllEmployeesViewModel(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
         employeeList = FXCollections.observableList(employeeModel.viewAllEmployees());
-        employeeModel.addListener(this::newEmployee);
-       // employeeModel.addListener(this::deleteEmployee);
-         NumberStringConverter numberStringConverter = new NumberStringConverter();
+        employeeModel.addListener("newEmployeeAdded",this::newEmployee);
+        employeeModel.addListener("employeeRemoved",this::removeEmployee);
+        employeeModel.addListener("employeeUpdated",this::updateEmployee);
         initialiseAllProperty();
     }
 
-    private void deleteEmployee(PropertyChangeEvent propertyChangeEvent) {
+    private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
         Users newUser = (Users) propertyChangeEvent.getNewValue();
-        employeeList.remove(newUser);
-        System.out.println("Employee removed from viewModel");
+        employeeList.add(newUser);
+        System.out.println("Employeelist from viewModel updated");
+    }
+
+    private void removeEmployee(PropertyChangeEvent propertyChangeEvent) {
+        employeeList.remove(propertyChangeEvent.getNewValue());
+        System.out.println("Employee from viewModel removed");
     }
 
     private void newEmployee(PropertyChangeEvent propertyChangeEvent) {
         Users newUser = (Users) propertyChangeEvent.getNewValue();
         employeeList.add(newUser);
-        System.out.println("Employeelist from viewModel updated");
+        System.out.println("Employeelist from viewModel added");
     }
 
     private void initialiseAllProperty() {
@@ -58,7 +63,7 @@ public class ViewAllEmployeesViewModel {
         Address = new SimpleStringProperty();
         PhNumber = new SimpleIntegerProperty();
         DateOfBirth = new SimpleStringProperty();
-        SearchText = new SimpleStringProperty("Search here...");
+        SearchText = new SimpleStringProperty();
     }
 
     public IntegerProperty getUserId() {
@@ -97,11 +102,6 @@ public class ViewAllEmployeesViewModel {
     public ObservableList<Users> viewAllEmployees() {
         return employeeList;
     }
-
-    public StringProperty getSearchText() {
-        return SearchText;
-    }
-
 
     private void generatePassword() {
         Random random = new Random();
