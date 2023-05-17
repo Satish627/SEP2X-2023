@@ -59,13 +59,13 @@ public class AddShiftViewModel {
         return employeeName;
     }
 
-    public Shift addShift()  {
-       /* if (shiftID.get() == null || shiftID.get().isEmpty() || employeeID.get() == null || employeeID.get().isEmpty()|| date != null ||  startTime.get() == null || startTime.get().isEmpty() || endTime.get() == null || endTime.get().isEmpty())
-        {
-            System.out.println("Please fill in all the information");
-            return null; // Return null indicating that the shift was not added
-        }
-*/
+    public Shift addShift() throws SQLException, RemoteException {
+//       if (shiftID.get() == null || shiftID.get().isEmpty() || employeeID.get() == null || employeeID.get().isEmpty()|| date != null ||  startTime.get() == null || startTime.get().isEmpty() || endTime.get() == null || endTime.get().isEmpty())
+//        {
+//            System.out.println("Please fill in all the information");
+//            return null; // Return null indicating that the shift was not added
+//        }
+
         return   addShiftModel.addShift(shiftID.get(),employeeID.get(),employeeName.get(),date.get(),startTime.get(),endTime.get());
 
     }

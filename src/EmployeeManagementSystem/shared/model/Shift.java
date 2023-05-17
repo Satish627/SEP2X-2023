@@ -12,21 +12,25 @@ public class Shift implements Serializable
 
 
     private LocalDate date;
-    private String startTime;
-    private String endTime;
+    private String checkInTime;
+    private String checkOutTime;
 
-    public Shift(int shiftID, int employeeID,String employeeName, LocalDate date, String startTime, String endTime)
+    public Shift(int shiftID, int employeeID,String employeeName, LocalDate date, String checkInTime, String checkOutTime)
     {
         this.shiftID= shiftID;
         this.employeeID= employeeID;
         this.employeeName = employeeName;
         this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
     }
 
     public int  getShiftID() {
         return shiftID;
+    }
+    public String getEmployeeName()
+    {
+        return employeeName;
     }
 
     public int getEmployeeID() {
@@ -37,16 +41,14 @@ public class Shift implements Serializable
         return date;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getCheckInTime() {
+        return checkInTime;
     }
 
-    public String getEndTime() {
-        return endTime;
+    public String getCheckOutTime() {
+        return checkOutTime;
     }
-    public String getEmployeeName() {
-        return employeeName;
-    }
+
 
     public void setShiftID(int  shiftID) {
         this.shiftID = shiftID;
@@ -56,15 +58,34 @@ public class Shift implements Serializable
         this.employeeID = employeeID;
     }
 
-    public void setLocalDate() {
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public void setDate() {
         this.date = date;
+
     }
 
-    public void setStartTime() {
-        this.startTime = startTime;
+    public void setCheckInTime()
+    {
+        this.checkInTime = checkInTime;
     }
 
-    public void setEndTime() {
-        this.endTime = endTime;
+    public void setCheckOutTime()
+    {
+        this.checkOutTime=checkOutTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Shift{" +
+                "shiftID=" + shiftID +
+                ", employeeID=" + employeeID +
+                ", employeeName='" + employeeName + '\'' +
+                ", date=" + date +
+                ", startTime='" + checkInTime + '\'' +
+                ", endTime='" + checkOutTime + '\'' +
+                '}';
     }
 }

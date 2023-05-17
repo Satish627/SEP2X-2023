@@ -11,8 +11,9 @@ import java.util.ArrayList;
 public interface ShiftModel
 {
 
-    Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime);
+    Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws SQLException, RemoteException;
 
     ArrayList<Shift> viewAllShift();
 
+//    void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime);
 }

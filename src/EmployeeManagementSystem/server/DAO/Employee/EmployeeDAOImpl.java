@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
 
-public class EmployeeDAOImpl implements EmployeeDAO{
+public class EmployeeDAOImpl implements EmployeeDAO
+{
     public EmployeeDAOImpl() {
         try{
             DriverManager.registerDriver(new Driver());

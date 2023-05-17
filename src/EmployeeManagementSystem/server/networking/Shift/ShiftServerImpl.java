@@ -22,14 +22,18 @@ public class ShiftServerImpl implements ShiftServer {
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException,SQLException {
-        return shiftDAO.addShift(shiftID, employeeID,employeeName, date, startTime, endTime);
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws RemoteException,SQLException
+    {
+        return shiftDAO.addShift(shiftID, employeeID, employeeName, date, checkInTime, checkOutTime);
     }
 
-  /*  @Override
-    public ArrayList<Shift> viewAllShift() {
+    @Override
+    public ArrayList<Shift> viewAllShift() throws RemoteException, SQLException
+    {
         return shiftDAO.viewAllShift();
+    }
 
-    }*/
+
+
 }
 

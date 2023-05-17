@@ -1,19 +1,26 @@
 package EmployeeManagementSystem.server.DAO.Shift;
 
 import EmployeeManagementSystem.shared.model.Shift;
-import EmployeeManagementSystem.shared.model.Users;
 import javafx.fxml.FXML;
-
-import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
+import org.postgresql.Driver;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
 
-public class ShiftDAOImpl implements ShiftDAO {
+public class ShiftDAOImpl implements ShiftDAO
+{
+    private Connection connection;
+    public ShiftDAOImpl()
+    {
+        try {
+            DriverManager.registerDriver(new Driver());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
  @FXML
     public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)  {
@@ -25,7 +32,7 @@ public class ShiftDAOImpl implements ShiftDAO {
             newStatement.setDate(4, Date.valueOf(date));
             newStatement.setString(5, startTime);
             newStatement.setString(6, endTime);
-            newStatement.executeUpdate();
+//            newStatement.executeUpdate();
             connection.close();
             System.out.println("Shift added successfully");
             return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime);
@@ -35,10 +42,53 @@ public class ShiftDAOImpl implements ShiftDAO {
         }
  }
 
+    @Override
+    public ArrayList<Shift> viewAllShift() throws SQLException {
+        ArrayList<Shift> shiftList = new ArrayList<>();
+        {try{
+            Connection connection = getConnection();
+            {
+                PreparedStatement statement = connection.prepareStatement("SELECT  * FROM shift");
 
-   /* @Override
-    public ArrayList<Shift> viewAllShift() {
-        return null;
-    }*/
-}
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+
+                    int shiftID =resultSet.getInt("shiftid");
+                    int employeeID=resultSet.getInt("userid");
+                    String employeeName = resultSet.getString("employeeName");
+                    LocalDate date = resultSet.getDate("date").toLocalDate();
+                    String startTime = resultSet.getString("checkintime");
+                    String endTime = resultSet.getString("checkouttime");
+                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTime,endTime);
+
+                    shiftList.add(shifts);
+                    System.out.println(shiftList);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        }
+        return shiftList;
+    }
+
+    @Override
+    public void updateShiftInfo(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws SQLException
+    {
+            try (Connection connection = getConnection()) {
+                PreparedStatement newStatement = connection.prepareStatement("UPDATE  shift SET shiftId=?,employeeId=?,employeeName=?,date=?,checkInTime=?,checkOutTime=?");
+                newStatement.setInt(1, shiftID);
+                newStatement.setInt(2, employeeID);
+                newStatement.setString(3, employeeName);
+                newStatement.setDate(4, Date.valueOf(date));
+                newStatement.setString(5,checkInTime);
+                newStatement.setString(6, checkOutTime);
+                newStatement.executeUpdate();
+                connection.close();
+                System.out.println("Employee information updated successfully");
+            }
+        }
+    }
+
+
 

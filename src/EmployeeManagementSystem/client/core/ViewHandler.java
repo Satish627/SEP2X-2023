@@ -132,7 +132,7 @@ public class ViewHandler {
     {
         {
             if(employeeScene== null){
-                Parent root = loadFXMLFile("../view/AdminViews/ViewAllEmployees.fxml");
+                Parent root = loadFXMLFile("../view/AdminViews/ViewAllEmployees/ViewAllEmployees.fxml");
                 employeeScene = new Scene(root);
                 stage.setTitle("Employee view ma jane feri..");
             }

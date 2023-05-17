@@ -7,6 +7,7 @@ import EmployeeManagementSystem.shared.networking.Server;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ShiftClientImpl implements ShiftClient
 {
@@ -22,11 +23,21 @@ public class ShiftClientImpl implements ShiftClient
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) {
-        try {
-            return server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
-        } catch (RemoteException | SQLException e) {
-            throw new RuntimeException(e);
-        }
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException {
+        return server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
     }
+
+    @Override
+    public ArrayList<Shift> viewAllShift()
+    {
+        try{
+            return server.getShiftServer().viewAllShift();
+        } catch (SQLException | RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 }

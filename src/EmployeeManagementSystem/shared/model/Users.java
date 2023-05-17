@@ -28,9 +28,6 @@ public class Users implements Serializable {
         this.dateOfBirth= dateOfBirth;
     }
 
-    public Users() {
-    }
-
     public Users(String  email, String passwd) {
         this.email=email;
         this.password=passwd;
