@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.client.networking.EmployeeClient;
 
 import EmployeeManagementSystem.client.networking.GetServer;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import EmployeeManagementSystem.shared.networking.Server;
 
@@ -24,7 +25,7 @@ private PropertyChangeSupport propertyChangeSupport;
         }
     }
     @Override
-    public ArrayList<Users> viewAllEmployees() {
+    public ArrayList<Employee> viewAllEmployees() {
         try{
             return server.getEmployeeServer().viewAllEmployees();
         } catch (SQLException | RemoteException e) {
@@ -37,8 +38,7 @@ private PropertyChangeSupport propertyChangeSupport;
          try{
            String msg = server.getEmployeeServer().addEmployee(firstName, lastName,password, userId, emailId, address, phoneNum, dateOfBirth);
             if (msg.equals("Employee added successfully")) {
-                propertyChangeSupport.firePropertyChange("newEmployeeAdded", null, new Users(firstName,lastName,password,userId,emailId
-                ,address,phoneNum,dateOfBirth));
+                propertyChangeSupport.firePropertyChange("newEmployeeAdded", null, new Employee(userId,password,firstName,lastName,emailId,address,phoneNum,dateOfBirth));
             }
             return msg;
 
@@ -53,7 +53,7 @@ private PropertyChangeSupport propertyChangeSupport;
     public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
         try {
             server.getEmployeeServer().updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
-            propertyChangeSupport.firePropertyChange("updateEmployee", null, new Users(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth));
+            propertyChangeSupport.firePropertyChange("updateEmployee", null, new Employee(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth));
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -63,7 +63,7 @@ private PropertyChangeSupport propertyChangeSupport;
     public void deleteEmployee(int uId) {
         try {
             server.getEmployeeServer().deleteEmployeeById(uId);
-            propertyChangeSupport.firePropertyChange("removeEmployee", null, new Users());
+            propertyChangeSupport.firePropertyChange("removeEmployee", null, new Employee());
             System.out.println("Event fired from employee client");
 
         } catch (RemoteException | SQLException e) {

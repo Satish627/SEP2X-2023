@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.client.model.EmployeeModel;
 
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 
 import java.beans.PropertyChangeEvent;
@@ -39,7 +40,7 @@ public class EmployeeModelImpl implements EmployeeModel
     }
 
     @Override
-    public ArrayList<Users> viewAllEmployees() {
+    public ArrayList<Employee> viewAllEmployees() {
         return employeeClient.viewAllEmployees();
     }
 

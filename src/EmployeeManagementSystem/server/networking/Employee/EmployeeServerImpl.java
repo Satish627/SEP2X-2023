@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.server.networking.Employee;
 
 import EmployeeManagementSystem.server.DAO.Employee.EmployeeDAO;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import EmployeeManagementSystem.shared.networking.EmployeeServer;
 
@@ -25,7 +26,7 @@ public class EmployeeServerImpl implements EmployeeServer {
     }
 
     @Override
-    public ArrayList<Users> viewAllEmployees() throws RemoteException, SQLException {
+    public ArrayList<Employee> viewAllEmployees() throws RemoteException, SQLException {
         return employeeDAO.viewAllEmployees();
     }
 

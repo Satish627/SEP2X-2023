@@ -5,7 +5,8 @@ import EmployeeManagementSystem.client.view.AdminViews.AddShift.AddShiftViewMode
 import EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees.ViewAllEmployeesViewModel;
 import EmployeeManagementSystem.client.view.EmployeeViews.EmployeeLeaveRequestPage.EmployeeLeaveRequestViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView.LeaveRequestViewModel;
-import EmployeeManagementSystem.client.view.LoginView.LoginViewModel;
+import EmployeeManagementSystem.client.view.LoginView.AdminLogin.AdminLoginViewModel;
+import EmployeeManagementSystem.client.view.LoginView.EmployeeLoginViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.MainView.MainViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftViewModel;
 
@@ -13,7 +14,8 @@ public class ViewModelFactory {
 
     private final ModelFactory modelFactory;
 
-    private LoginViewModel loginViewModel;
+    private EmployeeLoginViewModel employeeLoginViewModel;
+    private AdminLoginViewModel adminLoginViewModel;
     private MainViewModel mainViewModel;
     private ViewAllEmployeesViewModel viewAllEmployeesViewModel;
     private AddEmployeeViewModel addEmployeeViewModel;
@@ -29,11 +31,11 @@ public class ViewModelFactory {
         this.modelFactory = modelFactory;
     }
 
-    public LoginViewModel getLoginViewModel(){
-        if(loginViewModel == null){
-            loginViewModel = new LoginViewModel(modelFactory.getLoginModel());
+    public EmployeeLoginViewModel getLoginViewModel(){
+        if(employeeLoginViewModel == null){
+            employeeLoginViewModel = new EmployeeLoginViewModel(modelFactory.getLoginModel());
         }
-        return loginViewModel;
+        return employeeLoginViewModel;
     }
 
     public MainViewModel getMainViewModel() {
@@ -92,5 +94,12 @@ public class ViewModelFactory {
             leaveRequestViewModel = new LeaveRequestViewModel(modelFactory.getLeaveRequest());
         }
         return leaveRequestViewModel;
+    }
+
+    public AdminLoginViewModel getAdminLoginViewModel() {
+        if (adminLoginViewModel == null) {
+            adminLoginViewModel = new AdminLoginViewModel(modelFactory.getAdminLoginModel());
+        }
+        return adminLoginViewModel;
     }
 }

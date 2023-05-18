@@ -3,7 +3,9 @@ package EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees;
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.util.converter.NumberStringConverter;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Comparator;
 import java.util.Date;
 
 
@@ -29,14 +32,14 @@ public class ViewAllEmployeesController implements ViewController
     @FXML
     private MenuItem addShiftBtn;
     @FXML
-    private TableView<Users> employeeList;
-    @FXML private TableColumn<Users, Integer> userId;
-    @FXML private TableColumn<Users, String> firstName;
-    @FXML private TableColumn<Users, String> lastName;
-    @FXML private TableColumn<Users, String> dateOfBirth;
-    @FXML private TableColumn<Users, String> address;
-    @FXML private TableColumn<Users, Integer> phoneNumber;
-    @FXML private TableColumn<Users, String> email;
+    private TableView<Employee> employeeList;
+    @FXML private TableColumn<Employee, Integer> userId;
+    @FXML private TableColumn<Employee, String> firstName;
+    @FXML private TableColumn<Employee, String> lastName;
+    @FXML private TableColumn<Employee, String> dateOfBirth;
+    @FXML private TableColumn<Employee, String> address;
+    @FXML private TableColumn<Employee, Integer> phoneNumber;
+    @FXML private TableColumn<Employee, String> email;
     private ViewHandler viewHandler;
     private ViewAllEmployeesViewModel viewAllEmployeesViewModel;
 
@@ -78,30 +81,30 @@ public class ViewAllEmployeesController implements ViewController
 
     }
     public void SearchBar() {
-        FilteredList<Users> filteredList = new FilteredList<>(employeeList.getItems());
+        FilteredList<Employee> filteredList = new FilteredList<>(employeeList.getItems());
         search.textProperty().addListener((observable,oldValue,newValue )->{
-            filteredList.setPredicate(users -> {
+            filteredList.setPredicate(employee -> {
                 if (newValue == null || newValue.isEmpty()|| newValue.isBlank()){
                     return true; //return all users  if the field is empty
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
-                if ((String.valueOf(users.getUserId()).contains(lowerCaseFilter))){
+                if ((String.valueOf(employee.getUserId()).contains(lowerCaseFilter))){
                     return true;
-                }else if (users.getFirstName().toLowerCase().contains(lowerCaseFilter)){
+                }else if (employee.getFirstName().toLowerCase().contains(lowerCaseFilter)){
                     return true;
-                }else if (users.getLastName().toLowerCase().contains(lowerCaseFilter)){
-                    return true;
-                }
-                else if (users.getDateOfBirth().toLowerCase().contains(lowerCaseFilter)){
+                }else if (employee.getLastName().toLowerCase().contains(lowerCaseFilter)){
                     return true;
                 }
-                else if (users.getAddress().toLowerCase().contains(lowerCaseFilter)){
+                else if (employee.getDateOfBirth().toLowerCase().contains(lowerCaseFilter)){
                     return true;
                 }
-                else if (String.valueOf(users.getPhoneNumber()).contains(lowerCaseFilter)){
+                else if (employee.getAddress().toLowerCase().contains(lowerCaseFilter)){
                     return true;
                 }
-                else if (users.getEmail().toLowerCase().contains(lowerCaseFilter)){
+                else if (String.valueOf(employee.getPhoneNumber()).contains(lowerCaseFilter)){
+                    return true;
+                }
+                else if (employee.getEmail().toLowerCase().contains(lowerCaseFilter)){
                     return true;
                 }else {
                     return false;
@@ -109,9 +112,9 @@ public class ViewAllEmployeesController implements ViewController
             });
         });
         //Using sortedList to wrap the filteredlist
-        SortedList<Users> sortedList = new SortedList<>(filteredList);
+        SortedList<Employee> sortedList = new SortedList<>(filteredList);
         //Binding sortedList to TableView to have effects.
-        sortedList.comparatorProperty().bind(employeeList.comparatorProperty());
+        sortedList.comparatorProperty().bind( employeeList.comparatorProperty());
         //add sorted data to the table
         employeeList.setItems(sortedList);
     }

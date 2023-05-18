@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.client.networking.EmployeeClient;
 
 import EmployeeManagementSystem.shared.Subject;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 
 import java.rmi.RemoteException;
@@ -11,7 +12,7 @@ public interface EmployeeClient extends Subject
 {
     String addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) ;
 
-    ArrayList<Users> viewAllEmployees();
+    ArrayList<Employee> viewAllEmployees();
 
     void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth );
 

@@ -14,7 +14,7 @@ public class ViewHandler {
     private Stage stage;
     private final ViewModelFactory viewModelFactory;
 
-    private Scene loginScene, mainScene,employeeScene, addEmployeeScene, editEmployeeScene, viewShiftScene,
+    private Scene loginScene, adminLoginScene,mainScene,employeeScene, addEmployeeScene, editEmployeeScene, viewShiftScene,
             leaveRequestScene,addShiftScene,employeeShiftViewScene, employeeRequestPageScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
@@ -26,7 +26,7 @@ public class ViewHandler {
 
     public void start(){
         stage = new Stage();
-    openLoginView();
+        openLoginView();
     }
 
     private Parent loadFXMLFile(String path) {
@@ -43,16 +43,24 @@ public class ViewHandler {
             ctrl.init(this,viewModelFactory);
                     return root;
     }
-    private void openLoginView() {
+    public void openLoginView() {
             if(loginScene == null){
-                Parent root = loadFXMLFile("../view/LoginView/Login.fxml");
+                Parent root = loadFXMLFile("../view/LoginView/EmployeeLogin.fxml");
                 loginScene = new Scene(root);
                 stage.setTitle("Login to get access");
             }
             stage.setScene(loginScene);
             stage.show();
     }
-
+    public void openAdminLoginView() {
+        if(adminLoginScene == null){
+            Parent root = loadFXMLFile("../view/LoginView/AdminLogin/AdminLogin.fxml");
+            adminLoginScene = new Scene(root);
+            stage.setTitle("Admin login");
+        }
+        stage.setScene(adminLoginScene);
+        stage.show();
+    }
     public void openMainView() {
         if(mainScene == null){
             Parent root = loadFXMLFile("../view/AdminViews/MainView/Main.fxml");

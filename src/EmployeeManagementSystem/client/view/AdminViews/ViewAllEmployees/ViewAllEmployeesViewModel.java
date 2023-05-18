@@ -1,6 +1,7 @@
 package EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees;
 
 import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModel;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -17,7 +18,7 @@ import java.util.Random;
 
 public class ViewAllEmployeesViewModel {
     private EmployeeModel employeeModel;
-    private ObservableList<Users> employeeList;
+    private ObservableList<Employee> employeeList;
     private StringProperty FirstName,LastName,Email,Address,DateOfBirth,SearchText;
     private IntegerProperty UserId,PhNumber;
     String upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -33,13 +34,13 @@ public class ViewAllEmployeesViewModel {
         this.employeeModel = employeeModel;
         employeeList = FXCollections.observableList(employeeModel.viewAllEmployees());
         employeeModel.addListener("newEmployeeAdded",this::newEmployee);
-        employeeModel.addListener("employeeRemoved",this::removeEmployee);
-        employeeModel.addListener("employeeUpdated",this::updateEmployee);
+      //  employeeModel.addListener("employeeRemoved",this::removeEmployee);
+        //employeeModel.addListener("employeeUpdated",this::updateEmployee);
         initialiseAllProperty();
     }
 
-    private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
-        Users newUser = (Users) propertyChangeEvent.getNewValue();
+   /* private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
+        Employee newUser = (Employee) propertyChangeEvent.getNewValue();
         employeeList.add(newUser);
         System.out.println("Employeelist from viewModel updated");
     }
@@ -47,11 +48,11 @@ public class ViewAllEmployeesViewModel {
     private void removeEmployee(PropertyChangeEvent propertyChangeEvent) {
         employeeList.remove(propertyChangeEvent.getNewValue());
         System.out.println("Employee from viewModel removed");
-    }
+    }*/
 
     private void newEmployee(PropertyChangeEvent propertyChangeEvent) {
-        Users newUser = (Users) propertyChangeEvent.getNewValue();
-        employeeList.add(newUser);
+        Employee newEmp = (Employee) propertyChangeEvent.getNewValue();
+        employeeList.add(newEmp);
         System.out.println("Employeelist from viewModel added");
     }
 
@@ -99,7 +100,7 @@ public class ViewAllEmployeesViewModel {
         return DateOfBirth;
     }
 
-    public ObservableList<Users> viewAllEmployees() {
+    public ObservableList<Employee> viewAllEmployees() {
         return employeeList;
     }
 

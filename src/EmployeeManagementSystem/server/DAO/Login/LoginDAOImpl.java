@@ -1,6 +1,8 @@
 package EmployeeManagementSystem.server.DAO.Login;
 
 import EmployeeManagementSystem.server.DataBaseConnection;
+import EmployeeManagementSystem.shared.model.Admin;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import EmployeeManagementSystem.shared.model.Usertype;
 
@@ -9,54 +11,47 @@ import java.sql.*;
 public class LoginDAOImpl implements LoginDAO {
 
    @Override
-    public Users login(String email, String passwd)  {
+    public Employee login(int id, String passwd)  {
        try( Connection connection= DataBaseConnection.getConnection()){
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM  \"users\" Where \"email\"=? and \"passwd\"=?; ");
-            statement.setString(1, email);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM  \"employee\" Where \"userid\"=? and \"passwd\"=?; ");
+            statement.setInt(1, id);
            statement.setString(2,passwd);
             ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()) {
-                String email1 = resultSet.getString("email");
+                int eId = resultSet.getInt("userid");
                 String pass = resultSet.getString("passwd");
-                String uType = resultSet.getString("userType");
                 connection.close();
-                return getUserType(email1,pass, Usertype.valueOf(uType));
+                return new Employee(eId,pass);
             }
                 else{
                     connection.close();
-                    return new Users("Username or password incorrect",null,null);
+                    return new Employee(0,"Username or password incorrect");
                 }
             } catch (SQLException e) {
-           return new Users(
-                   e.getMessage(),null,null);
+           return new Employee(
+                   0,e.getMessage());
        }
-
    }
 
     @Override
-    public Users getUserType(String email, String password, Usertype userType) {
-        if (userType.equals(Usertype.ADMIN.toString())) {
-            return new Users(email, password) {
-            };
-
-
-        } else if (userType.equals(Usertype.EMPLOYEE.toString())) {
-            return new Users(email, password);
+    public Admin loginAdmin(int adminId, String password) throws SQLException {
+        try( Connection connection= DataBaseConnection.getConnection()){
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM  \"admin\" Where \"userid\"=? and \"passwd\"=?; ");
+            statement.setInt(1, adminId);
+            statement.setString(2,password);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                int eId = resultSet.getInt("userid");
+                String pass = resultSet.getString("passwd");
+                connection.close();
+                return new Admin(eId,pass);
+            }
+            else{
+                connection.close();
+                return new Admin(0,"Username or password incorrect");
+            }
+        } catch (SQLException e) {
+            return new Admin(0,e.getMessage());
         }
-        return null;
-    }
-
-
-
-   /* private Users getUserType(int userid,String passwd, String userType) {
-            if (userType.equals(Usertype.ADMIN.toString())){
-           return new Users(userid,passwd) {
-           };
-
-
-        } else if(userType.equals(Usertype.EMPLOYEE.toString())){
-            return new Users(userid,passwd);
-        }
-            return new Users(userid,passwd);
-    }*/
+   }
 }

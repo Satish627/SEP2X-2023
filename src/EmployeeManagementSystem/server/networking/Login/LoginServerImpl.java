@@ -1,8 +1,8 @@
 package EmployeeManagementSystem.server.networking.Login;
 
 import EmployeeManagementSystem.server.DAO.Login.LoginDAO;
-import EmployeeManagementSystem.shared.model.Users;
-import EmployeeManagementSystem.shared.model.Usertype;
+import EmployeeManagementSystem.shared.model.Admin;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.networking.LoginServer;
 
 import java.rmi.RemoteException;
@@ -19,8 +19,12 @@ public class LoginServerImpl implements LoginServer
     }
 
     @Override
-    public Users login(String email, String passwd) throws RemoteException, SQLException {
-        return loginDAO.login(email,passwd);
+    public Employee login(int id, String passwd) throws RemoteException, SQLException {
+        return  loginDAO.login(id,passwd);
+    }
 
+    @Override
+    public Admin loginAdmin(int id, String passwd) throws RemoteException, SQLException {
+        return loginAdmin(id,passwd);
     }
 }

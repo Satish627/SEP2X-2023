@@ -1,12 +1,9 @@
 package EmployeeManagementSystem.client.networking.LoginClient;
 
-import EmployeeManagementSystem.shared.model.Users;
-
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.sql.SQLException;
+import EmployeeManagementSystem.shared.model.Admin;
+import EmployeeManagementSystem.shared.model.Employee;
 
 public interface LoginClient
 {
-    Users login(String email, String passwd);
+    Employee login(int id, String passwd);
 }

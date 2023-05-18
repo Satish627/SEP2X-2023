@@ -1,6 +1,8 @@
 package EmployeeManagementSystem.client.networking.LoginClient;
 
 import EmployeeManagementSystem.client.networking.GetServer;
+import EmployeeManagementSystem.shared.model.Admin;
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import EmployeeManagementSystem.shared.networking.Server;
 
@@ -20,10 +22,10 @@ public class LoginClientImpl implements LoginClient{
     }
 
     @Override
-    public Users login(String email, String passwd)  {
+    public Employee login(int id, String passwd)  {
             try
             {
-                return server.getLoginServer().login(email,passwd);
+                return server.getLoginServer().login(id,passwd);
             }
             catch (RemoteException e){
                 e.printStackTrace();
@@ -32,4 +34,5 @@ public class LoginClientImpl implements LoginClient{
                 throw new RuntimeException(e);
             }
     }
+
 }

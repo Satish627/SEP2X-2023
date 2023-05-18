@@ -1,5 +1,6 @@
 package EmployeeManagementSystem.server.DAO.Employee;
 
+import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import org.postgresql.Driver;
 
@@ -21,7 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
     @Override
     public String addEmployee(String firstName, String lastName, String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException {
         try (Connection connection = getConnection()) {
-            PreparedStatement newStatement = connection.prepareStatement("INSERT INTO Users ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
+            PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
             newStatement.setString(1, firstName);
             newStatement.setString(2, lastName);
             newStatement.setString(3, password);
@@ -39,12 +40,12 @@ public class EmployeeDAOImpl implements EmployeeDAO
 
 
     @Override
-    public ArrayList<Users> viewAllEmployees() throws SQLException {
-            ArrayList<Users> employeeList = new ArrayList<>();
+    public ArrayList<Employee> viewAllEmployees() throws SQLException {
+            ArrayList<Employee> employeeList = new ArrayList<>();
             {try {
                 Connection connection = getConnection();
                 {
-                    PreparedStatement statement = connection.prepareStatement("SELECT * FROM users ");
+                    PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee ");
 
                     ResultSet resultSet = statement.executeQuery();
                     while (resultSet.next()) {
@@ -56,8 +57,8 @@ public class EmployeeDAOImpl implements EmployeeDAO
                         String address = resultSet.getString("address");
                         int phoneNumber = resultSet.getInt("phonenumber");
                         String email =resultSet.getString("email");
-                        Users user = new Users(userId,firstName,lastName,birthDate,address,phoneNumber,email);
-                        employeeList.add(user);
+                        Employee employee = new Employee(userId,firstName,lastName,birthDate,address,phoneNumber,email);
+                        employeeList.add(employee);
                         System.out.println(employeeList);
                         connection.close();
                     }
@@ -72,7 +73,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
     @Override
     public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws SQLException {
         try (Connection connection = getConnection()) {
-            PreparedStatement newStatement = connection.prepareStatement("UPDATE  Users SET firstname=?,lastname=?,email=?,address=?,phonenumber=?,dateofbirth=? where userid=?");
+            PreparedStatement newStatement = connection.prepareStatement("UPDATE  employee SET firstname=?,lastname=?,email=?,address=?,phonenumber=?,dateofbirth=? where userid=?");
             newStatement.setString(1, firstName);
             newStatement.setString(2, lastName);
             newStatement.setString(3, email);
@@ -90,11 +91,11 @@ public class EmployeeDAOImpl implements EmployeeDAO
     @Override
     public void deleteEmployeeByID(int UserId) throws SQLException {
         try (Connection connection = getConnection()) {
-            PreparedStatement newStatement = connection.prepareStatement("DELETE FROM Users  WHERE userid=?");
+            PreparedStatement newStatement = connection.prepareStatement("DELETE FROM employee  WHERE userid=?");
             newStatement.setInt(1, UserId);
             newStatement.executeUpdate();
             connection.close();
-            System.out.println("Employee with " + UserId + " successfully deleted");
+            System.out.println("Employee with employeeId" + UserId + " successfully deleted");
         }
     }
 }
