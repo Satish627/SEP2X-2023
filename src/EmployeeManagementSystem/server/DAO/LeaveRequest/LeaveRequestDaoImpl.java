@@ -14,13 +14,15 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
     public void approveLeave(int shiftID) throws SQLException {
         try (Connection connection = DataBaseConnection.getConnection())
         {
-          PreparedStatement statement=connection.prepareStatement("DELETE * FROM \"shift\" WHERE \"shiftid\"=?");
-          PreparedStatement statement2=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
-          statement.setInt(1,shiftID);
-          statement2.setInt(1,shiftID);
-          statement2.executeUpdate();
-          connection.close();
+            PreparedStatement statement2=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
+            PreparedStatement statement=connection.prepareStatement("DELETE FROM \"shift\" WHERE \"shiftid\"=?");
+            statement2.setInt(1,shiftID);
+            statement.setInt(1,shiftID);
+            statement2.executeUpdate();
+            statement.executeUpdate();
+
         }
+
         catch (SQLException e) {
             throw new RuntimeException(e);
         }

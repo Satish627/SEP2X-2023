@@ -5,6 +5,7 @@ import EmployeeManagementSystem.shared.model.Shift;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 

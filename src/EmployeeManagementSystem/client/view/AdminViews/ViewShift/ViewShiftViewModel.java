@@ -43,7 +43,6 @@ public class ViewShiftViewModel {
         checkInTime = new SimpleStringProperty();
         checkOutTime = new SimpleStringProperty();
 
-
     }
     public IntegerProperty getShiftID()
     {

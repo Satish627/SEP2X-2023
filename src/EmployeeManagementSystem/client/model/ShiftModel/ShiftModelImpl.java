@@ -8,6 +8,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class ShiftModelImpl implements ShiftModel
     private ShiftClient shiftClient;
     private PropertyChangeSupport propertyChangeSupport;
     public ShiftModelImpl(ShiftClient shiftClient)
+
     {
         this.shiftClient = shiftClient;
         this.propertyChangeSupport = new PropertyChangeSupport(this);

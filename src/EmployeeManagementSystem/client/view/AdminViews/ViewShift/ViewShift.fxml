@@ -9,16 +9,17 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftController">
+<AnchorPane prefHeight="500.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftController">
    <children>
-      <TableView fx:id="shiftListView" layoutX="342.0" layoutY="84.0" maxWidth="900.0" onMouseClicked="#getSelectedItem" prefHeight="319.0" prefWidth="555.0">
+      <TableView fx:id="shiftListView" layoutX="342.0" layoutY="84.0" maxWidth="900.0" onMouseClicked="#getSelectedItem" prefHeight="319.0" prefWidth="661.0">
         <columns>
           <TableColumn fx:id="shiftID" prefWidth="74.66668701171875" text="Shift ID" />
           <TableColumn fx:id="ename" minWidth="0.0" prefWidth="120.0" text="Employee Name" />
             <TableColumn fx:id="employeeID" minWidth="0.0" prefWidth="103.33340454101562" text="Employee ID" />
-            <TableColumn fx:id="date" minWidth="0.0" prefWidth="66.0" text="Date" />
+            <TableColumn fx:id="date" minWidth="0.0" prefWidth="100.5" text="Date" />
             <TableColumn fx:id="checkInTime" minWidth="0.0" prefWidth="94.0" text="CheckInTime" />
-            <TableColumn fx:id="checkOutTime" prefWidth="100.66668701171875" text="CheckOutTime" />
+            <TableColumn fx:id="checkOutTime" prefWidth="94.0" text="CheckOutTime" />
+            <TableColumn fx:id="totalHours" prefWidth="73.5" text="TotalHours" />
         </columns>
       </TableView>
       <Button layoutX="768.0" layoutY="418.0" mnemonicParsing="false" onAction="#onVIewShiftBackBtnClicked" prefHeight="34.0" prefWidth="76.0" text="Back" textFill="#262424">

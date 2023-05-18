@@ -6,6 +6,8 @@ import org.postgresql.Driver;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
@@ -30,12 +32,23 @@ public class ShiftDAOImpl implements ShiftDAO
             newStatement.setInt(2, employeeID);
             newStatement.setString(3,employeeName);
             newStatement.setDate(4, Date.valueOf(date));
-            newStatement.setString(5, startTime);
-            newStatement.setString(6, endTime);
-         newStatement.executeUpdate();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+            LocalTime localStartTime = LocalTime.parse(startTime, formatter);
+            LocalTime localEndTime = LocalTime.parse(endTime, formatter);
+
+            newStatement.setTime(5, Time.valueOf(localStartTime));
+            newStatement.setTime(6, Time.valueOf(localEndTime));
+            newStatement.executeUpdate();
+            PreparedStatement totalHoursStatement = connection.prepareStatement("SELECT totalhours FROM shift WHERE shiftid = ?");
+            totalHoursStatement.setInt(1, shiftID);
+            ResultSet resultSet = totalHoursStatement.executeQuery();
+            int totalHours = 0; // Assuming totalHours is of int type
+            if (resultSet.next()) {
+                totalHours = resultSet.getInt("totalhours");
+            }
             connection.close();
             System.out.println("Shift added successfully");
-            return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime);
+            return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime,totalHours);
         }
          catch (SQLException e) {
             throw new RuntimeException(e);
@@ -57,10 +70,13 @@ public class ShiftDAOImpl implements ShiftDAO
                     int employeeID=resultSet.getInt("userid");
                     String employeeName = resultSet.getString("employeeName");
                     LocalDate date = resultSet.getDate("date").toLocalDate();
-                    String startTime = resultSet.getString("checkintime");
-                    String endTime = resultSet.getString("checkouttime");
-                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTime,endTime);
-
+                    Time startTime = resultSet.getTime("checkintime");
+                    Time endTime = resultSet.getTime("checkouttime");
+                    int totalHours=resultSet.getInt("totalhours");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String startTimeString = startTime.toLocalTime().format(formatter);
+                    String endTimeString = endTime.toLocalTime().format(formatter);
+                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTimeString,endTimeString,totalHours);
                     shiftList.add(shifts);
                     System.out.println(shiftList);
                 }
@@ -82,9 +98,6 @@ public class ShiftDAOImpl implements ShiftDAO
         System.out.println("Shift with " + shiftID+ " successfully deleted");
     }
 
-
-
-    @Override
     public void updateShiftInfo(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws SQLException
     {
             try (Connection connection = getConnection()) {
@@ -93,18 +106,16 @@ public class ShiftDAOImpl implements ShiftDAO
                 newStatement.setInt(2, employeeID);
                 newStatement.setString(3, employeeName);
                 newStatement.setDate(4, Date.valueOf(date));
-                newStatement.setString(5,checkInTime);
-                newStatement.setString(6, checkOutTime);
+                newStatement.setTime(5,Time.valueOf(checkInTime));
+                newStatement.setTime(6, Time.valueOf(checkOutTime));
                 newStatement.executeUpdate();
                 connection.close();
                 System.out.println("Shift updated successfully");
             }
+            catch (SQLException e){
+                throw new RuntimeException();
+            }
         }
-
-
-
-
-
     }
 
 

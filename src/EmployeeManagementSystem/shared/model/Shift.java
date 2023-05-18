@@ -1,24 +1,33 @@
 package EmployeeManagementSystem.shared.model;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Shift implements Serializable
 {
     private int shiftID;
     private int employeeID;
     private String employeeName;
-
-
-
     private LocalDate date;
     private String checkInTime;
     private String checkOutTime;
 
-    public Shift(int shiftID, int employeeID,String employeeName, LocalDate date, String checkInTime, String checkOutTime)
+    private int totalHours;
+
+    public Shift(int shiftID, int employeeID,String employeeName, LocalDate date, String checkInTime, String checkOutTime,int totalHours)
     {
         this.shiftID= shiftID;
         this.employeeID= employeeID;
+        this.employeeName = employeeName;
+        this.date = date;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.totalHours=totalHours;
+    }
+
+    public Shift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) {
+        this.shiftID = shiftID;
+        this.employeeID = employeeID;
         this.employeeName = employeeName;
         this.date = date;
         this.checkInTime = checkInTime;
@@ -75,6 +84,10 @@ public class Shift implements Serializable
     public void setCheckOutTime()
     {
         this.checkOutTime=checkOutTime;
+    }
+
+    public int getTotalHours() {
+        return totalHours;
     }
 
     @Override
