@@ -1,4 +1,4 @@
-package EmployeeManagementSystem.client.view.LeaveRequestView;
+package EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView;
 
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModel;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;

@@ -1,17 +1,15 @@
-package EmployeeManagementSystem.client.view.LeaveRequestView;
+package EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView;
 
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
-import EmployeeManagementSystem.shared.model.Shift;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.awt.*;
 import java.rmi.RemoteException;
 
 public class LeaveRequestController implements ViewController {

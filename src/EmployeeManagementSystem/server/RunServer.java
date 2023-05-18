@@ -1,6 +1,5 @@
 package EmployeeManagementSystem.server;
 
-import EmployeeManagementSystem.client.view.LeaveRequestView.LeaveRequestViewModel;
 import EmployeeManagementSystem.server.DAO.Employee.EmployeeDAO;
 import EmployeeManagementSystem.server.DAO.Employee.EmployeeDAOImpl;
 import EmployeeManagementSystem.server.DAO.LeaveRequest.LeaveRequestDao;
