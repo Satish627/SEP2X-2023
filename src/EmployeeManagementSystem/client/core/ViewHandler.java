@@ -166,7 +166,7 @@ public class ViewHandler {
     public void leaveRequest()
     {
         if(leaveRequestScene == null){
-            Parent root = loadFXMLFile("../view/LeaveRequestView/LeaveRequest.fxml");
+            Parent root = loadFXMLFile("../view/AdminViews/LeaveRequestView/LeaveRequest.fxml");
             leaveRequestScene = new Scene(root);
             stage.setTitle("Leave Request View");
         }
