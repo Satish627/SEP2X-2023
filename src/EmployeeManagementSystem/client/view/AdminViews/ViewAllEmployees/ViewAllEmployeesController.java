@@ -16,19 +16,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
 
-import javax.swing.*;
-
-import java.awt.*;
-import java.util.Comparator;
-import java.util.Date;
 
 
 public class ViewAllEmployeesController implements ViewController
-{ @FXML
-    private MenuItem addEmployeeBtn;
+{
     @FXML
     private MenuItem addShiftBtn;
     @FXML
@@ -133,9 +126,6 @@ public class ViewAllEmployeesController implements ViewController
     }
     @FXML
     void menuBarClick(ActionEvent event) {
-        if (event.getSource() == addEmployeeBtn) {
-            viewHandler.addEmployeeBtn();
-        }
         if (event.getSource() == addShiftBtn) {
             viewHandler.openAddShiftView();
         }

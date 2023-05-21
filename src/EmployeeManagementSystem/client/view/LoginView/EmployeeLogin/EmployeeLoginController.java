@@ -67,9 +67,9 @@ public class EmployeeLoginController implements ViewController {
     @FXML
     private void loginClicked(ActionEvent event) {
         try {
-            Employee employee = employeeLoginViewModel.login();
-            if ((employee.getUserId()) == ((employeeLoginViewModel.getId().get())) && employee.getPassword().equals(employeeLoginViewModel.getPasswd().get())) {
-                System.out.println(employee);
+            Employee newEmployee = employeeLoginViewModel.login();
+            if ((newEmployee.getUserId()) == ((employeeLoginViewModel.getId().get())) && newEmployee.getPassword().equals(employeeLoginViewModel.getPasswd().get())) {
+                System.out.println(newEmployee);
                 viewHandler.openEmployeeViewShifts();
             }
         }catch (NullPointerException e){

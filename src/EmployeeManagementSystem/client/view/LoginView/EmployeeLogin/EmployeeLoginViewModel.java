@@ -50,8 +50,7 @@ public class EmployeeLoginViewModel {
             message.set("Please enter your password ");
 
         } else {
-            message.set("Tried to access the system");
-
+            message.set("Tried to login");
             return loginModelImpl.login(id.get(), passwd.get());
         }
         return null;

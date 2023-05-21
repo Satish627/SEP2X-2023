@@ -48,7 +48,7 @@ public class AdminLoginViewModel {
             messageText.set("Please enter your password ");
 
         } else {
-            messageText.set("Tried to access the system");
+            messageText.set("Tried to login");
 
             return loginModel.adminLogin(adminId.get(), adminPW.get());
         }

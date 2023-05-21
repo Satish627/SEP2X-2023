@@ -103,13 +103,9 @@ public class ViewHandler {
             Parent root = loadFXMLFile("../view/EmployeeViews/EmployeeLeaveRequestPage/EmployeeLeaveRequest.fxml");
             employeeRequestPageScene = new Scene(root);
             stage.setTitle("Kindly make your leave request here..");
-
         }
-
         stage.setScene(employeeRequestPageScene);
         stage.show();
-
-
     }
 
 
@@ -118,21 +114,9 @@ public class ViewHandler {
         if(mainScene == null){
             Parent root = loadFXMLFile("../view/AdminViews/MainView/Main.fxml");
             mainScene = new Scene(root);
-            stage.setTitle("Main view ma jane feri..");
+            stage.setTitle("Main view ");
         }
         stage.setScene(mainScene);
-        stage.show();
-    }
-
-
-    public void addEmployeeBtn()
-    {
-        if(addEmployeeScene == null){
-            Parent root = loadFXMLFile("../view/AdminViews/AddEmployee/AddEmployee.fxml");
-            addEmployeeScene = new Scene(root);
-            stage.setTitle("Add Employee");
-        }
-        stage.setScene(addEmployeeScene);
         stage.show();
     }
 
@@ -142,7 +126,7 @@ public class ViewHandler {
             if(employeeScene== null){
                 Parent root = loadFXMLFile("../view/AdminViews/ViewAllEmployees/ViewAllEmployees.fxml");
                 employeeScene = new Scene(root);
-                stage.setTitle("Employee view ma jane feri..");
+                stage.setTitle("Employee view");
             }
             stage.setScene(employeeScene);
             stage.show();
@@ -174,8 +158,6 @@ public class ViewHandler {
         stage.show();
     }
 
-
-
     public void openAddShiftView()
     {
         if(addShiftScene == null){
@@ -197,8 +179,6 @@ public class ViewHandler {
         stage.setScene(editEmployeeScene);
         stage.show();
     }
-
-
 }
 
     

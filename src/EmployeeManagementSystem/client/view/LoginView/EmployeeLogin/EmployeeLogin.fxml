@@ -33,7 +33,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="id" layoutX="237.0" layoutY="211.0" prefHeight="26.0" prefWidth="178.0" promptText="29913" />
+            <TextField fx:id="id" layoutX="237.0" layoutY="211.0" prefHeight="26.0" prefWidth="178.0" promptText="Enter your employee id" />
             <Label layoutX="91.0" layoutY="259.0" text="Password" textFill="#f5950e">
                <font>
                   <Font size="24.0" />
