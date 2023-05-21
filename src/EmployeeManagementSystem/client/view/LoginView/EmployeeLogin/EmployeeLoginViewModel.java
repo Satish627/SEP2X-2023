@@ -40,7 +40,13 @@ public class EmployeeLoginViewModel {
     }
 
     public Employee login() {
-        if (passwd.get() == null) {
+        if ((id.get()== 0 || id.toString() == null) && (passwd.get() == null || passwd.get().isEmpty())) {
+            message.set("Please enter your employee id and password ");
+
+        } else if (id.get()== 0 || id.toString() == null) {
+            message.set("Please enter your employee id");
+        }
+            else if (passwd.get() == null || passwd.get().isEmpty()) {
             message.set("Please enter your password ");
 
         } else {

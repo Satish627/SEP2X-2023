@@ -38,15 +38,20 @@ public class AdminLoginViewModel {
 
 
     public Admin adminLogin() {
-       /* if (adminPW.get() == null) {
+        if ((adminId.get()== 0 || adminId.toString() == null) && (adminPW.get() == null || adminPW.get().isEmpty())) {
+            messageText.set("Please enter your user id and password ");
+
+        } else if (adminId.get()== 0 || adminId.toString() == null) {
+            messageText.set("Please enter your employee id");
+        }
+        else if (adminPW.get() == null || adminPW.get().isEmpty()) {
             messageText.set("Please enter your password ");
 
         } else {
-            adminPW.set("Tried to access the system");
+            messageText.set("Tried to access the system");
+
+            return loginModel.adminLogin(adminId.get(), adminPW.get());
         }
         return null;
-    }*/
-        return loginModel.adminLogin(adminId.get(), adminPW.get());
-
     }
 }
