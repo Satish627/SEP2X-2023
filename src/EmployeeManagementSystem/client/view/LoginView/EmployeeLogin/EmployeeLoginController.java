@@ -1,4 +1,4 @@
-package EmployeeManagementSystem.client.view.LoginView;
+package EmployeeManagementSystem.client.view.LoginView.EmployeeLogin;
 
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
@@ -66,12 +66,11 @@ public class EmployeeLoginController implements ViewController {
     }
     @FXML
     private void loginClicked(ActionEvent event) {
-        viewHandler.openMainView();
-       /* Employee employee = employeeLoginViewModel.login();
+        Employee employee = employeeLoginViewModel.login();
         if ((employee.getUserId())==((employeeLoginViewModel.getId().get())) && employee.getPassword().equals(employeeLoginViewModel.getPasswd().get())) {
             System.out.println(employee);
             viewHandler.openEmployeeViewShifts();
-        }*/
+        }
     }
     public void cancelClicked(ActionEvent actionEvent) {
         id.setText(null);

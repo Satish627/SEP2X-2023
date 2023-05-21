@@ -9,4 +9,6 @@ import java.sql.SQLException;
 
 public interface LoginModel {
     Employee login(int id, String passwd) ;
+    Admin adminLogin(int id, String passwd);
+
 }

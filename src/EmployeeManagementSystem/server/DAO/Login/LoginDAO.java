@@ -2,8 +2,6 @@ package EmployeeManagementSystem.server.DAO.Login;
 
 import EmployeeManagementSystem.shared.model.Admin;
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
-import EmployeeManagementSystem.shared.model.Usertype;
 
 import java.sql.SQLException;
 

@@ -20,6 +20,10 @@ public class LoginModelImpl implements LoginModel{
         return loginClient.login(id,passwd);
     }
 
+    @Override
+    public Admin adminLogin(int id, String passwd) {
+        return loginClient.adminLogin(id,passwd);
+    }
 
 
 }

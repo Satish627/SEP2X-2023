@@ -1,4 +1,4 @@
-package EmployeeManagementSystem.client.view.LoginView;
+package EmployeeManagementSystem.client.view.LoginView.EmployeeLogin;
 
 import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
 import EmployeeManagementSystem.shared.model.Employee;

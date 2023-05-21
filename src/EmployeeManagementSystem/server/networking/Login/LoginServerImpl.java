@@ -25,6 +25,6 @@ public class LoginServerImpl implements LoginServer
 
     @Override
     public Admin loginAdmin(int id, String passwd) throws RemoteException, SQLException {
-        return loginAdmin(id,passwd);
+        return loginDAO.loginAdmin(id,passwd);
     }
 }

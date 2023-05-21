@@ -1,8 +1,5 @@
 package EmployeeManagementSystem.client.core;
 
-
-import EmployeeManagementSystem.client.networking.LoginClient.AdminClient;
-import EmployeeManagementSystem.client.networking.LoginClient.AdminClientImpl;
 import EmployeeManagementSystem.client.networking.ShiftClient.ShiftClient;
 import EmployeeManagementSystem.client.networking.ShiftClient.ShiftClientImpl;
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
@@ -16,9 +13,7 @@ import EmployeeManagementSystem.client.networking.LoginClient.LoginClientImpl;
 public class ClientFactory {
 
     public EmployeeClient employeeClient;
-    private LoginClient loginClient;
-
-    private AdminClient adminClient;
+    private LoginClient loginClient,adminClient;
 
     private LeaveRequestClient leaveRequestClient;
     public ShiftClient shiftClient;
@@ -59,9 +54,9 @@ public class ClientFactory {
         }
         return employeeClient;    }
 
-    public AdminClient getAdminLoginClient() {
+    public LoginClient getAdminLoginClient() {
         if (adminClient == null){
-            adminClient = new AdminClientImpl();
+            adminClient = new LoginClientImpl();
         }
         return adminClient;
     }

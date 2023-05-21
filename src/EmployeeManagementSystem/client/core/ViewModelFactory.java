@@ -5,7 +5,7 @@ import EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees.ViewAllE
 import EmployeeManagementSystem.client.view.EmployeeViews.EmployeeLeaveRequestPage.EmployeeLeaveRequestViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView.LeaveRequestViewModel;
 import EmployeeManagementSystem.client.view.LoginView.AdminLogin.AdminLoginViewModel;
-import EmployeeManagementSystem.client.view.LoginView.EmployeeLoginViewModel;
+import EmployeeManagementSystem.client.view.LoginView.EmployeeLogin.EmployeeLoginViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.MainView.MainViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftViewModel;
 
@@ -86,10 +86,13 @@ public class ViewModelFactory {
         return leaveRequestViewModel;
     }
 
+
     public AdminLoginViewModel getAdminLoginViewModel() {
         if (adminLoginViewModel == null) {
             adminLoginViewModel = new AdminLoginViewModel(modelFactory.getAdminLoginModel());
         }
         return adminLoginViewModel;
     }
+
+
 }

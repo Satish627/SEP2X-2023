@@ -6,4 +6,6 @@ import EmployeeManagementSystem.shared.model.Employee;
 public interface LoginClient
 {
     Employee login(int id, String passwd);
+
+    Admin adminLogin(int id, String passwd);
 }

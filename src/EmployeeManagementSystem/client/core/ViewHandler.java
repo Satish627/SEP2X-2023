@@ -45,7 +45,7 @@ public class ViewHandler {
     }
     public void openLoginView() {
             if(loginScene == null){
-                Parent root = loadFXMLFile("../view/LoginView/EmployeeLogin.fxml");
+                Parent root = loadFXMLFile("../view/LoginView/EmployeeLogin/EmployeeLogin.fxml");
                 loginScene = new Scene(root);
                 stage.setTitle("Login to get access");
             }

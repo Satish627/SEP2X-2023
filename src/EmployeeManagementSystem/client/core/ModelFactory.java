@@ -1,7 +1,5 @@
 package EmployeeManagementSystem.client.core;
 
-import EmployeeManagementSystem.client.model.LoginModel.AdminLoginModel;
-import EmployeeManagementSystem.client.model.LoginModel.AdminLoginModelImpl;
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModelImpl;
 import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModelImpl;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
@@ -10,8 +8,7 @@ import EmployeeManagementSystem.client.model.LoginModel.LoginModelImpl;
 
 public class ModelFactory {
     private final ClientFactory clientFactory;
-    public LoginModelImpl loginModelImpl;
-    public AdminLoginModel adminLoginModelImpl;
+    public LoginModelImpl loginModelImpl,adminLoginModelImpl;
     public EmployeeModelImpl employeeModelImpl,editEmployeeModelImpl;
     public ShiftModelImpl viewShiftModelImpl;
     public LeaveRequestModelImpl leaveRequestImpl;
@@ -69,9 +66,9 @@ public class ModelFactory {
         return editEmployeeModelImpl;
     }
 
-    public AdminLoginModel getAdminLoginModel() {
+    public LoginModel getAdminLoginModel() {
         if(adminLoginModelImpl == null){
-            adminLoginModelImpl =  new AdminLoginModelImpl(clientFactory.getAdminLoginClient());
+            adminLoginModelImpl =  new LoginModelImpl(clientFactory.getAdminLoginClient());
         }
         return adminLoginModelImpl;
     }

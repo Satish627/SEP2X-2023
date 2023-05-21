@@ -1,8 +1,8 @@
 package EmployeeManagementSystem.server.DAO.Employee;
 
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
 import org.postgresql.Driver;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class EmployeeDAOImpl implements EmployeeDAO
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName, String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException {
+    public String  addEmployee(String firstName, String lastName, String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws SQLException {
         try (Connection connection = getConnection()) {
             PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
             newStatement.setString(1, firstName);
@@ -34,8 +34,31 @@ public class EmployeeDAOImpl implements EmployeeDAO
             newStatement.executeUpdate();
             connection.close();
             return "Employee added successfully";
-        }
 
+           /* PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee WHERE userid = ? ");
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int userId = resultSet.getInt("userid");
+                System.out.println(userId);
+                if (userId == UserId) {
+                    AlertBox.showAlert("Employee with " + UserId + " already exist");
+                }
+            }else {
+                PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
+                newStatement.setString(1, firstName);
+                newStatement.setString(2, lastName);
+                newStatement.setString(3, password);
+                newStatement.setInt(4, UserId);
+                newStatement.setString(5, email);
+                newStatement.setString(6, address);
+                newStatement.setInt(7, phoneNum);
+                newStatement.setString(8, DateOfBirth);
+                newStatement.executeUpdate();
+                connection.close();
+                AlertBox.showAlert("Employee with " + UserId + " already exist");
+                return "Employee added successfully";
+            }*/
+        }
     }
 
 
@@ -85,7 +108,6 @@ public class EmployeeDAOImpl implements EmployeeDAO
             connection.close();
             System.out.println("Employee information updated successfully");
         }
-
     }
 
     @Override
@@ -94,7 +116,6 @@ public class EmployeeDAOImpl implements EmployeeDAO
             PreparedStatement newStatement = connection.prepareStatement("DELETE FROM employee  WHERE userid=?");
             newStatement.setInt(1, UserId);
             newStatement.executeUpdate();
-            connection.close();
             System.out.println("Employee with employeeId" + UserId + " successfully deleted");
         }
     }

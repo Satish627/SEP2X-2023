@@ -35,4 +35,17 @@ public class LoginClientImpl implements LoginClient{
             }
     }
 
+    @Override
+    public Admin adminLogin(int id, String passwd) {
+        try
+        {
+            return server.getLoginServer().loginAdmin(id,passwd);
+        }
+        catch (RemoteException e){
+            e.printStackTrace();
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }    }
+
 }

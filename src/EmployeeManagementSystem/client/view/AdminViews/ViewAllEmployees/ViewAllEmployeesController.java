@@ -165,9 +165,8 @@ void getSelectedItem(MouseEvent mouseEvent) {
     }
 
    @FXML public void onAddEmployeeButtonClick(ActionEvent event) {
-       viewAllEmployeesViewModel.addEmployee();
-       clearTextInputs();
-
+        viewAllEmployeesViewModel.addEmployee();
+        clearTextInputs();
     }
 
    @FXML

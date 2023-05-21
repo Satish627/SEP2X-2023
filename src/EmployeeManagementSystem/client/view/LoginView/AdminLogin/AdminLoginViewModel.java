@@ -1,9 +1,7 @@
 package EmployeeManagementSystem.client.view.LoginView.AdminLogin;
 
-import EmployeeManagementSystem.client.model.LoginModel.AdminLoginModel;
 import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
 import EmployeeManagementSystem.shared.model.Admin;
-import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,17 +9,18 @@ import javafx.beans.property.StringProperty;
 
 public class AdminLoginViewModel {
 
-    private AdminLoginModel adminLoginModel;
+    private LoginModel loginModel;
     private IntegerProperty adminId;
-    private StringProperty adminPW,messageText;
+    private StringProperty adminPW, messageText;
 
-    public AdminLoginViewModel(AdminLoginModel adminLoginModel) {
-        this.adminLoginModel = adminLoginModel;
+    public AdminLoginViewModel(LoginModel adminLoginModel) {
+        this.loginModel = adminLoginModel;
         initializeAllProperty();
     }
+
     private void initializeAllProperty() {
-        adminId=new SimpleIntegerProperty();
-        adminPW=new SimpleStringProperty();
+        adminId = new SimpleIntegerProperty();
+        adminPW = new SimpleStringProperty();
         messageText = new SimpleStringProperty();
     }
 
@@ -29,7 +28,7 @@ public class AdminLoginViewModel {
         return adminId;
     }
 
-    public  StringProperty getAdminPW() {
+    public StringProperty getAdminPW() {
         return adminPW;
     }
 
@@ -39,13 +38,15 @@ public class AdminLoginViewModel {
 
 
     public Admin adminLogin() {
-        if (adminPW.get() == null) {
+       /* if (adminPW.get() == null) {
             messageText.set("Please enter your password ");
 
         } else {
             adminPW.set("Tried to access the system");
-            return adminLoginModel.adminLogin(adminId.get(), adminPW.get());
         }
         return null;
+    }*/
+        return loginModel.adminLogin(adminId.get(), adminPW.get());
+
     }
 }
