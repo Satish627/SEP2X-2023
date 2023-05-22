@@ -53,7 +53,7 @@ private PropertyChangeSupport propertyChangeSupport;
     public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
         try {
             server.getEmployeeServer().updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
-            propertyChangeSupport.firePropertyChange("updateEmployee", null, new Employee(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth));
+            propertyChangeSupport.firePropertyChange("employeeUpdated", null, new Employee(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth));
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -63,9 +63,7 @@ private PropertyChangeSupport propertyChangeSupport;
     public void deleteEmployee(int uId) {
         try {
             server.getEmployeeServer().deleteEmployeeById(uId);
-            propertyChangeSupport.firePropertyChange("removeEmployee", null, new Employee());
-            System.out.println("Event fired from employee client");
-
+            propertyChangeSupport.firePropertyChange("employeeRemoved", null, new Employee());
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }

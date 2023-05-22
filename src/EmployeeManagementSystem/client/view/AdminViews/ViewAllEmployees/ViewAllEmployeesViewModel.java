@@ -30,33 +30,15 @@ public class ViewAllEmployeesViewModel {
     int pwLength= 10;
 
     String newPassword ;
-    private AlertBox alert;
 
 
     public ViewAllEmployeesViewModel(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
         employeeList = FXCollections.observableList(employeeModel.viewAllEmployees());
         employeeModel.addListener("newEmployeeAdded",this::newEmployee);
-      //  employeeModel.addListener("employeeRemoved",this::removeEmployee);
-        //employeeModel.addListener("employeeUpdated",this::updateEmployee);
+       employeeModel.addListener("employeeRemoved",this::removeEmployee);
+        employeeModel.addListener("employeeUpdated",this::updateEmployee);
         initialiseAllProperty();
-    }
-
-   /* private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
-        Employee newUser = (Employee) propertyChangeEvent.getNewValue();
-        employeeList.add(newUser);
-        System.out.println("Employeelist from viewModel updated");
-    }
-
-    private void removeEmployee(PropertyChangeEvent propertyChangeEvent) {
-        employeeList.remove(propertyChangeEvent.getNewValue());
-        System.out.println("Employee from viewModel removed");
-    }*/
-
-    private void newEmployee(PropertyChangeEvent propertyChangeEvent) {
-        Employee newEmp = (Employee) propertyChangeEvent.getNewValue();
-        employeeList.add(newEmp);
-        System.out.println("Employeelist from viewModel added");
     }
 
     private void initialiseAllProperty() {
@@ -156,5 +138,20 @@ public class ViewAllEmployeesViewModel {
             }
         }
         return "Problem while adding employee";
+    }
+    private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
+        Employee newUser = (Employee) propertyChangeEvent.getNewValue();
+        employeeList.add(newUser);
+        employeeList.setAll(employeeModel.viewAllEmployees());
+    }
+
+    private void removeEmployee(PropertyChangeEvent propertyChangeEvent) {
+        employeeList.remove((Employee) propertyChangeEvent.getNewValue());
+        employeeList.setAll(employeeModel.viewAllEmployees());
+    }
+
+    private void newEmployee(PropertyChangeEvent propertyChangeEvent) {
+        Employee newEmp = (Employee) propertyChangeEvent.getNewValue();
+        employeeList.add(newEmp);
     }
 }

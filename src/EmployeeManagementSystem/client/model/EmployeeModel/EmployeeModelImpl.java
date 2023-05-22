@@ -20,18 +20,16 @@ public class EmployeeModelImpl implements EmployeeModel
         this.employeeClient = employeeClient;
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         employeeClient.addListener("newEmployeeAdded",this::newEmployeeAdded);
-        employeeClient.addListener("removeEmployee",this::employeeRemoved);
-        employeeClient.addListener("updateEmployee",this::employeeUpdated);
+        employeeClient.addListener("employeeRemoved",this::employeeRemoved);
+        employeeClient.addListener("employeeUpdated",this::employeeUpdated);
     }
 
     private void employeeUpdated(PropertyChangeEvent propertyChangeEvent) {
         propertyChangeSupport.firePropertyChange(propertyChangeEvent);
-        System.out.println("Employee updated from employee model");
     }
 
     private void employeeRemoved(PropertyChangeEvent propertyChangeEvent) {
         propertyChangeSupport.firePropertyChange(propertyChangeEvent);
-        System.out.println("Employee removed from employee model");
     }
 
     @Override

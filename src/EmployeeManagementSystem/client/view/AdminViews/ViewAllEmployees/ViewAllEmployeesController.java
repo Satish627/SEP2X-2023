@@ -4,14 +4,11 @@ import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -118,19 +115,11 @@ public class ViewAllEmployeesController implements ViewController
         viewHandler.openAddShiftView();
     }
 
-
-    @FXML
-    void onEditEmployeeButtonClick(ActionEvent event) {
-        viewAllEmployeesViewModel.editEmployee(Integer.parseInt(uId.getText()),fname.getText(),lname.getText(),dob.getText(),Address.getText(),Integer.parseInt(pNum.getText()),Email.getText());
-        clearTextInputs();
-    }
     @FXML
     void menuBarClick(ActionEvent event) {
         if (event.getSource() == addShiftBtn) {
             viewHandler.openAddShiftView();
-        }
-
-    }
+        }}
 
 @FXML
 void getSelectedItem(MouseEvent mouseEvent) {
@@ -145,7 +134,6 @@ void getSelectedItem(MouseEvent mouseEvent) {
     Address.setText(address.getCellData(index));
     pNum.setText(phoneNumber.getCellData(index).toString());
     Email.setText(email.getCellData(index));
-
 }
 
     @FXML
@@ -156,6 +144,11 @@ void getSelectedItem(MouseEvent mouseEvent) {
 
    @FXML public void onAddEmployeeButtonClick(ActionEvent event) {
         viewAllEmployeesViewModel.addEmployee();
+        clearTextInputs();
+    }
+    @FXML
+    void onEditEmployeeButtonClick(ActionEvent event) {
+        viewAllEmployeesViewModel.editEmployee(Integer.parseInt(uId.getText()),fname.getText(),lname.getText(),dob.getText(),Address.getText(),Integer.parseInt(pNum.getText()),Email.getText());
         clearTextInputs();
     }
 
