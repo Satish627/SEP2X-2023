@@ -3,6 +3,7 @@ package EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModel;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
+import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +13,8 @@ public class LeaveRequestViewModel
 {
     private LeaveRequestModel leaveRequestModel;
     private ObservableList<LeaveRequest> leaveRequests;
+
+    private IntegerProperty userID;
 
     public LeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel)
     {

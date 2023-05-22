@@ -34,11 +34,24 @@ public class ShiftServerImpl implements ShiftServer {
     }
 
     @Override
+    public ArrayList<Shift> viewAllShiftByUserID(int userID) throws RemoteException, SQLException {
+        return shiftDAO.viewAllShiftByUserID(userID);
+    }
+
+    @Override
     public void deleteShiftById(int shiftID) throws RemoteException, SQLException {
         shiftDAO.deleteShiftById(shiftID);
 
     }
 
+    @Override
+    public void checkIn(int shiftID, int userID) throws RemoteException, SQLException {
+        shiftDAO.checkIn(shiftID,userID);
+    }
 
+    @Override
+    public void checkOut(int shiftID, int userID) throws RemoteException, SQLException {
+        shiftDAO.checkOut(shiftID,userID);
+    }
 }
 

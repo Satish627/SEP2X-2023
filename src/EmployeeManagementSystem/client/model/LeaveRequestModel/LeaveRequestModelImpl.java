@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class LeaveRequestModelImpl implements LeaveRequestModel{
     private LeaveRequestClient leaveRequestClient;
     public LeaveRequestModelImpl(LeaveRequestClient leaveRequestClient)
+
     {
         this.leaveRequestClient=leaveRequestClient;
     }
@@ -24,6 +25,11 @@ public class LeaveRequestModelImpl implements LeaveRequestModel{
     @Override
     public void rejectLeave(int shiftID) {
         leaveRequestClient.rejectLeave(shiftID);
+    }
+
+    @Override
+    public void requestLeave(int shiftID, String reason) {
+        leaveRequestClient.requestLeave(shiftID,reason);
     }
 
     @Override

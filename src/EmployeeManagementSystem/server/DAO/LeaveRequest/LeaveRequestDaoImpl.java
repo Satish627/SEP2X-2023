@@ -43,6 +43,20 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
         }
     }
 
+public void requestLeave(int shiftID,String reason) throws SQLException{
+        try(Connection connection=DataBaseConnection.getConnection())
+        {
+            PreparedStatement statement=connection.prepareStatement("INSERT INTO leaverequest(shiftid,reason) VALUES (?,?);");
+            statement.setInt(1,shiftID);
+            statement.setString(2,reason);
+            statement.executeUpdate();
+            connection.close();
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+}
+
     public ArrayList<LeaveRequest> viewAllLeaveRequests() throws SQLException{
         ArrayList<LeaveRequest> leaveRequests=new ArrayList<>();
         try (Connection connection = DataBaseConnection.getConnection())

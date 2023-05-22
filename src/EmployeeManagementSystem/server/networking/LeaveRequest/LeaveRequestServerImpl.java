@@ -31,6 +31,10 @@ public class LeaveRequestServerImpl implements LeaveRequestServer
         leaveRequestDao.rejectLeave(shiftID);
     }
 
+    public void requestLeave(int shiftID,String reason) throws RemoteException,SQLException{
+        leaveRequestDao.requestLeave(shiftID,reason);
+    }
+
     @Override
     public ArrayList<LeaveRequest> viewAllLeaveRequests() throws RemoteException, SQLException {
         return leaveRequestDao.viewAllLeaveRequests();

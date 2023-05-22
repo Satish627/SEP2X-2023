@@ -85,7 +85,7 @@ public class ViewHandler {
     public void openEmployeeViewShifts() {
         if(employeeShiftViewScene == null)
         {
-            Parent root = loadFXMLFile("../view/EmployeeViews/ViewShift/ViewShift.fxml");
+            Parent root = loadFXMLFile("../view/EmployeeViews/ViewShift/EmployeeViewShift.fxml");
             employeeShiftViewScene = new Scene(root);
             stage.setTitle("Welcome to Employee Shifts");
 

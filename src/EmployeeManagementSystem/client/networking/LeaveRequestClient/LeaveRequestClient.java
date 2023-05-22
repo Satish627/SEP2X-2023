@@ -9,5 +9,7 @@ public interface LeaveRequestClient
 {
     void approveLeave(int shiftID);
     void rejectLeave(int shiftID);
+
+    void requestLeave(int shiftID,String reason);
     ArrayList<LeaveRequest> viewAllLeaveRequests();
 }

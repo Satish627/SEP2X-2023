@@ -15,4 +15,9 @@ public interface ShiftClient extends Subject {
     ArrayList<Shift> viewAllShift();
 
     void deleteShift(int eId);
+    ArrayList<Shift> viewAllShiftByUserID(int userID);
+
+    void checkIn(int shiftID, int userID);
+
+    void checkOut(int shiftID, int userID);
 }

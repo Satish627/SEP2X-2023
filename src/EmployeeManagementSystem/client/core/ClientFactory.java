@@ -13,8 +13,7 @@ import EmployeeManagementSystem.client.networking.LoginClient.LoginClientImpl;
 public class ClientFactory {
 
     public EmployeeClient employeeClient;
-    private LoginClient loginClient,adminClient;
-
+    private LoginClient loginClient;
     private LeaveRequestClient leaveRequestClient;
     public ShiftClient shiftClient;
 
@@ -41,23 +40,10 @@ public class ClientFactory {
         }
         return leaveRequestClient;
     }
-    public ShiftClient getAddShiftClient() {
+    public ShiftClient getShiftClient() {
         if (shiftClient == null) {
             shiftClient = new ShiftClientImpl();
         }
         return shiftClient;
-    }
-
-    public EmployeeClient getEditEmployeeClient() {
-        if (employeeClient == null) {
-            employeeClient = new EmployeeClientImpl();
-        }
-        return employeeClient;    }
-
-    public LoginClient getAdminLoginClient() {
-        if (adminClient == null){
-            adminClient = new LoginClientImpl();
-        }
-        return adminClient;
     }
 }

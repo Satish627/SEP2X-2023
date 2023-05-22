@@ -4,6 +4,7 @@ import EmployeeManagementSystem.client.view.AdminViews.AddShift.AddShiftViewMode
 import EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees.ViewAllEmployeesViewModel;
 import EmployeeManagementSystem.client.view.EmployeeViews.EmployeeLeaveRequestPage.EmployeeLeaveRequestViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView.LeaveRequestViewModel;
+import EmployeeManagementSystem.client.view.EmployeeViews.ViewShift.EmployeeViewShiftViewModel;
 import EmployeeManagementSystem.client.view.LoginView.AdminLogin.AdminLoginViewModel;
 import EmployeeManagementSystem.client.view.LoginView.EmployeeLogin.EmployeeLoginViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.MainView.MainViewModel;
@@ -25,19 +26,21 @@ public class ViewModelFactory {
 
     private EmployeeLeaveRequestViewModel employeeLeaveRequestViewModel;
 
+    private EmployeeViewShiftViewModel employeeViewShiftViewModel;
+
     public ViewModelFactory(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
     }
 
-    public EmployeeLoginViewModel getLoginViewModel(){
-        if(employeeLoginViewModel == null){
+    public EmployeeLoginViewModel getLoginViewModel() {
+        if (employeeLoginViewModel == null) {
             employeeLoginViewModel = new EmployeeLoginViewModel(modelFactory.getLoginModel());
         }
         return employeeLoginViewModel;
     }
 
     public MainViewModel getMainViewModel() {
-        if(mainViewModel == null){
+        if (mainViewModel == null) {
             mainViewModel = new MainViewModel(modelFactory.getEmployeeModel());
         }
         return mainViewModel;
@@ -45,26 +48,22 @@ public class ViewModelFactory {
 
 
     public ViewAllEmployeesViewModel getEmployeeViewModel() {
-        if(viewAllEmployeesViewModel == null)
-        {
+        if (viewAllEmployeesViewModel == null) {
             viewAllEmployeesViewModel = new ViewAllEmployeesViewModel(modelFactory.getEmployeeModel());
         }
         return viewAllEmployeesViewModel;
     }
 
-    public ViewShiftViewModel getShiftViewModel()
-    {
-        if(viewShiftViewModel == null)
-        {
-            viewShiftViewModel = new ViewShiftViewModel(modelFactory.getViewShiftImpl());
+    public ViewShiftViewModel getShiftViewModel() {
+        if (viewShiftViewModel == null) {
+            viewShiftViewModel = new ViewShiftViewModel(modelFactory.getShiftModelImpl());
         }
         return viewShiftViewModel;
     }
-    public AddShiftViewModel getAddShiftViewModel()
-    {
-        if(addShiftViewModel== null)
-        {
-            addShiftViewModel= new AddShiftViewModel(modelFactory.getAddShiftModelImpl());
+
+    public AddShiftViewModel getAddShiftViewModel() {
+        if (addShiftViewModel == null) {
+            addShiftViewModel = new AddShiftViewModel(modelFactory.getShiftModelImpl());
         }
         return addShiftViewModel;
     }
@@ -72,9 +71,8 @@ public class ViewModelFactory {
 
     public EmployeeLeaveRequestViewModel getEmployeeLeaveRequestViewModel() {
 
-        if(employeeLeaveRequestViewModel== null)
-        {
-            employeeLeaveRequestViewModel= new EmployeeLeaveRequestViewModel(modelFactory.getLeaveRequest());
+        if (employeeLeaveRequestViewModel == null) {
+            employeeLeaveRequestViewModel = new EmployeeLeaveRequestViewModel(modelFactory.getLeaveRequest());
         }
         return employeeLeaveRequestViewModel;
     }
@@ -89,10 +87,16 @@ public class ViewModelFactory {
 
     public AdminLoginViewModel getAdminLoginViewModel() {
         if (adminLoginViewModel == null) {
-            adminLoginViewModel = new AdminLoginViewModel(modelFactory.getAdminLoginModel());
+            adminLoginViewModel = new AdminLoginViewModel(modelFactory.getLoginModel());
         }
         return adminLoginViewModel;
     }
 
+    public EmployeeViewShiftViewModel getEmployeeViewShiftViewModel() {
+        if (employeeViewShiftViewModel == null) {
+            employeeViewShiftViewModel = new EmployeeViewShiftViewModel(modelFactory.getShiftModelImpl());
+        }
+        return employeeViewShiftViewModel;
+    }
 
 }

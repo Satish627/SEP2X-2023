@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="1055.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftController">
    <children>
-      <TableView fx:id="shiftListView" layoutX="342.0" layoutY="84.0" maxWidth="900.0" onMouseClicked="#getSelectedItem" prefHeight="319.0" prefWidth="661.0">
+      <TableView fx:id="shiftListView" layoutX="344.0" layoutY="84.0" maxWidth="900.0" onMouseClicked="#getSelectedItem" prefHeight="319.0" prefWidth="661.0">
         <columns>
           <TableColumn fx:id="shiftID" prefWidth="74.66668701171875" text="Shift ID" />
           <TableColumn fx:id="ename" minWidth="0.0" prefWidth="120.0" text="Employee Name" />

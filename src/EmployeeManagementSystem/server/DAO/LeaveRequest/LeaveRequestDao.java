@@ -13,5 +13,7 @@ public interface LeaveRequestDao
 
     ArrayList<LeaveRequest> viewAllLeaveRequests() throws SQLException;
 
+    void requestLeave(int shiftID,String reason) throws SQLException;
+
 
 }

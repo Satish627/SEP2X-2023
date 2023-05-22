@@ -42,6 +42,14 @@ public class LeaveRequestClientImpl implements LeaveRequestClient
         }
     }
 
+    public void requestLeave(int shiftID,String reason){
+        try {
+            server.getLeaveRequestServer().requestLeave(shiftID,reason);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public ArrayList<LeaveRequest> viewAllLeaveRequests() {
         try {

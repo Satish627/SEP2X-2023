@@ -41,10 +41,25 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
+    public ArrayList<Shift> viewAllShiftByUserID(int userID) {
+        return shiftClient.viewAllShiftByUserID(userID);
+    }
+
+    @Override
     public void deleteShift(int sId)
     {
         shiftClient.deleteShift(sId);
 
+    }
+
+    @Override
+    public void checkIn(int shiftID, int userID) {
+        shiftClient.checkIn(shiftID,userID);
+    }
+
+    @Override
+    public void checkOut(int shiftID, int userID) {
+        shiftClient.checkOut(shiftID,userID);
     }
 
     @Override

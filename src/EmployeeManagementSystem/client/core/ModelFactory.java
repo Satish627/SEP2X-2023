@@ -8,11 +8,10 @@ import EmployeeManagementSystem.client.model.LoginModel.LoginModelImpl;
 
 public class ModelFactory {
     private final ClientFactory clientFactory;
-    public LoginModelImpl loginModelImpl,adminLoginModelImpl;
-    public EmployeeModelImpl employeeModelImpl,editEmployeeModelImpl;
-    public ShiftModelImpl viewShiftModelImpl;
+    public LoginModelImpl loginModelImpl;
+    public EmployeeModelImpl employeeModelImpl;
+    public ShiftModelImpl shiftModelImpl;
     public LeaveRequestModelImpl leaveRequestImpl;
-    public ShiftModelImpl addShiftModelImpl;
 
 
 
@@ -35,13 +34,13 @@ public class ModelFactory {
     }
 
 
-    public ShiftModelImpl getViewShiftImpl()
+    public ShiftModelImpl getShiftModelImpl()
     {
-        if(viewShiftModelImpl == null)
+        if(shiftModelImpl == null)
         {
-            viewShiftModelImpl = new ShiftModelImpl(clientFactory.getAddShiftClient());
+            shiftModelImpl = new ShiftModelImpl(clientFactory.getShiftClient());
         }
-        return viewShiftModelImpl;
+        return shiftModelImpl;
     }
     public LeaveRequestModelImpl getLeaveRequest()
     {
@@ -50,26 +49,5 @@ public class ModelFactory {
         }
         return leaveRequestImpl;
     }
-    public ShiftModelImpl getAddShiftModelImpl()
-    {
-        if (addShiftModelImpl == null) {
-            addShiftModelImpl = new ShiftModelImpl(clientFactory.getAddShiftClient());
-        }
-        return addShiftModelImpl;
-    }
 
-
-    public EmployeeModelImpl getEditEmployee() {
-        if (editEmployeeModelImpl == null) {
-            editEmployeeModelImpl = new EmployeeModelImpl(clientFactory.getEditEmployeeClient());
-        }
-        return editEmployeeModelImpl;
-    }
-
-    public LoginModel getAdminLoginModel() {
-        if(adminLoginModelImpl == null){
-            adminLoginModelImpl =  new LoginModelImpl(clientFactory.getAdminLoginClient());
-        }
-        return adminLoginModelImpl;
-    }
 }

@@ -54,6 +54,34 @@ public class ShiftClientImpl implements ShiftClient
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public ArrayList<Shift> viewAllShiftByUserID(int userID) {
+        try {
+            return server.getShiftServer().viewAllShiftByUserID(userID);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void checkIn(int shiftID, int userID) {
+        try {
+            server.getShiftServer().checkIn(shiftID,userID);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void checkOut(int shiftID, int userID) {
+        try {
+            server.getShiftServer().checkOut(shiftID,userID);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void addListener( String eventName,PropertyChangeListener listener) {
         propertyChangeSupport.addPropertyChangeListener(eventName,listener);

@@ -14,6 +14,10 @@ public interface ShiftServer  extends Remote
 {
     Shift addShift(int shiftID, int  employeeID, String employeeName, LocalDate date, String startTIme, String endTime) throws RemoteException, SQLException;
     ArrayList<Shift> viewAllShift() throws RemoteException, SQLException;
+    ArrayList<Shift> viewAllShiftByUserID(int userID) throws RemoteException,SQLException;
 
     void deleteShiftById(int shiftID) throws RemoteException, SQLException;
+
+    void checkIn(int shiftID, int userID) throws RemoteException,SQLException;
+    void checkOut(int shiftID, int userID) throws RemoteException,SQLException;
 }

@@ -88,6 +88,39 @@ public class ShiftDAOImpl implements ShiftDAO
         return shiftList;
     }
 
+    public ArrayList<Shift> viewAllShiftByUserID(int userID)
+    {
+        ArrayList<Shift> shiftList = new ArrayList<>();
+        {try{
+            Connection connection = getConnection();
+            {
+                PreparedStatement statement = connection.prepareStatement("SELECT  * FROM shift WHERE userid=?");
+                statement.setInt(1,userID);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+
+                    int shiftID =resultSet.getInt("shiftid");
+                    int employeeID=resultSet.getInt("userid");
+                    String employeeName = resultSet.getString("employeeName");
+                    LocalDate date = resultSet.getDate("date").toLocalDate();
+                    Time startTime = resultSet.getTime("checkintime");
+                    Time endTime = resultSet.getTime("checkouttime");
+                    int totalHours=resultSet.getInt("totalhours");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+                    String startTimeString = startTime.toLocalTime().format(formatter);
+                    String endTimeString = endTime.toLocalTime().format(formatter);
+                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTimeString,endTimeString,totalHours);
+                    shiftList.add(shifts);
+                    System.out.println(shiftList);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        }
+        return shiftList;
+    }
+
     @Override
     public void deleteShiftById(int shiftID) throws SQLException
     {
@@ -116,7 +149,51 @@ public class ShiftDAOImpl implements ShiftDAO
                 throw new RuntimeException();
             }
         }
+
+    @Override
+    public void checkIn(int shiftID, int userID) throws SQLException {
+        try (Connection connection = getConnection()) {
+            LocalTime currentTime = LocalTime.now();
+
+            // Update the check-in time for the specified shift and user
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE shift SET checkInTime = ? WHERE shiftID = ? AND userID = ?"
+            );
+            statement.setTime(1,Time.valueOf(currentTime) );
+            statement.setInt(2, shiftID);
+            statement.setInt(3, userID);
+            statement.executeUpdate();
+
+            connection.close();
+            System.out.println("Check-in time set successfully");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    @Override
+    public void checkOut(int shiftID, int userID) throws SQLException
+    {
+        try (Connection connection = getConnection()) {
+            LocalTime currentTime = LocalTime.now();
+
+            // Update the check-in time for the specified shift and user
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE shift SET checkOutTime = ? WHERE shiftID = ? AND userID = ?"
+            );
+            statement.setTime(1,Time.valueOf(currentTime) );
+            statement.setInt(2, shiftID);
+            statement.setInt(3, userID);
+            statement.executeUpdate();
+
+            connection.close();
+            System.out.println("Check-out time set successfully");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+
 
 
 
