@@ -154,4 +154,5 @@ public class ViewAllEmployeesViewModel {
         Employee newEmp = (Employee) propertyChangeEvent.getNewValue();
         employeeList.add(newEmp);
     }
+
 }

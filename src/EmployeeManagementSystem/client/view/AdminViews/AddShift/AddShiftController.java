@@ -74,7 +74,6 @@ public class AddShiftController implements ViewController {
     @FXML
     private void onSaveClicked(ActionEvent event) throws Exception
     {
-
         try {
             addShiftViewModel.addShift();
             clearTextInputs();

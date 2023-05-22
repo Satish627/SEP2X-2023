@@ -12,6 +12,8 @@ public class LeaveRequest implements Serializable
         this.reason = reason;
     }
 
+
+
     public int getShiftID() {
         return shiftID;
     }
@@ -23,5 +25,9 @@ public class LeaveRequest implements Serializable
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+    public void setShiftID(int shiftID)
+    {
+        this.shiftID = shiftID;
     }
 }

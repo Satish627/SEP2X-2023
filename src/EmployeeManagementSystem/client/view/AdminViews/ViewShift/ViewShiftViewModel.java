@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class ViewShiftViewModel {
 
     private ShiftModel shiftModel;
-    private ObservableList<Shift> shiftObservableList;
+    private final ObservableList<Shift> shiftObservableList;
     private StringProperty employeeName,checkInTime,checkOutTime;
     private IntegerProperty shiftID,employeeID;
     ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
@@ -84,12 +84,6 @@ public class ViewShiftViewModel {
 
     }
 
-
-
-    public void editShift(int shiftId, int employeeId, String employeeName, LocalDate date, String checkInTime, String checkOutTime)
-    {
-
-    }
 
     public void deleteShift(int sId)
     {

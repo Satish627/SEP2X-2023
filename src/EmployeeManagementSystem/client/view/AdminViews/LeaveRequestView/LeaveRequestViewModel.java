@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.rmi.RemoteException;
+import java.util.List;
 
 public class LeaveRequestViewModel
 {
@@ -16,10 +17,20 @@ public class LeaveRequestViewModel
 
     private IntegerProperty userID;
 
-    public LeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel)
-    {
-        this.leaveRequestModel=leaveRequestModel;
-        leaveRequests= FXCollections.observableList(leaveRequestModel.viewAllLeaveRequests());
+//    public LeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel)
+//    {
+//        this.leaveRequestModel=leaveRequestModel;
+//        leaveRequests= FXCollections.observableList(leaveRequestModel.viewAllLeaveRequests());
+//    }
+    public LeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel) {
+        this.leaveRequestModel = leaveRequestModel;
+
+        List<LeaveRequest> requestList = leaveRequestModel.viewAllLeaveRequests();
+        if (requestList != null) {
+            leaveRequests = FXCollections.observableList(requestList);
+        } else {
+            leaveRequests = FXCollections.observableArrayList();
+        }
     }
 
 

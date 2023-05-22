@@ -34,6 +34,8 @@ public class Shift implements Serializable
         this.checkOutTime = checkOutTime;
     }
 
+
+
     public int  getShiftID() {
         return shiftID;
     }

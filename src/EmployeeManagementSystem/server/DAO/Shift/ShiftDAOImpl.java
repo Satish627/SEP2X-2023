@@ -124,29 +124,15 @@ public class ShiftDAOImpl implements ShiftDAO
     @Override
     public void deleteShiftById(int shiftID) throws SQLException
     {
-        PreparedStatement newStatement = connection.prepareStatement("DELETE FROM shift  WHERE shiftid=?");
-        newStatement.setInt(1, shiftID);
-        newStatement.executeUpdate();
-        connection.close();
-        System.out.println("Shift with " + shiftID+ " successfully deleted");
-    }
+        try
+            (Connection connection = getConnection())
+            {
 
-    public void updateShiftInfo(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws SQLException
-    {
-            try (Connection connection = getConnection()) {
-                PreparedStatement newStatement = connection.prepareStatement("UPDATE  shift SET shiftId=?,employeeId=?,employeeName=?,date=?,checkInTime=?,checkOutTime=?");
+                PreparedStatement newStatement = connection.prepareStatement("DELETE FROM shift  WHERE shiftid=?");
                 newStatement.setInt(1, shiftID);
-                newStatement.setInt(2, employeeID);
-                newStatement.setString(3, employeeName);
-                newStatement.setDate(4, Date.valueOf(date));
-                newStatement.setTime(5,Time.valueOf(checkInTime));
-                newStatement.setTime(6, Time.valueOf(checkOutTime));
                 newStatement.executeUpdate();
                 connection.close();
-                System.out.println("Shift updated successfully");
-            }
-            catch (SQLException e){
-                throw new RuntimeException();
+                System.out.println("Shift with " + shiftID + " successfully deleted");
             }
         }
 

@@ -22,6 +22,13 @@ public class ShiftModelImpl implements ShiftModel
         this.shiftClient = shiftClient;
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         shiftClient.addListener("newShiftAdded",this:: newShiftAdded);
+        shiftClient.addListener("shiftRemoved", this:: shiftRemoved);
+    }
+
+    private void shiftRemoved(PropertyChangeEvent propertyChangeEvent)
+    {
+        propertyChangeSupport.firePropertyChange(propertyChangeEvent);
+        System.out.println("Shift has been removed from Shift Model");
     }
 
     private void newShiftAdded(PropertyChangeEvent propertyChangeEvent)
@@ -31,8 +38,10 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws SQLException, RemoteException {
-        return shiftClient.addShift(shiftID, employeeID, employeeName,date, startTime, endTime);
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws SQLException, RemoteException
+    {
+       return shiftClient.addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+
     }
 
     @Override

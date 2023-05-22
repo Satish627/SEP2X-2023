@@ -129,6 +129,7 @@ public class ViewShiftController implements ViewController
     void removeShiftBtn(ActionEvent event)
     {
         viewShiftViewModel.deleteShift(Integer.parseInt(sId.getText()));
+        clearTextInput();
     }
     private void bindTextFieldValues() {
         sId.textProperty().bindBidirectional(viewShiftViewModel.getShiftID(), new NumberStringConverter());
@@ -140,17 +141,6 @@ public class ViewShiftController implements ViewController
     }
 
 
-//    @FXML
-//    void editShiftClickBtn(ActionEvent event) {
-//    int shiftId = Integer.parseInt(sId.getText());
-//    int employeeId = Integer.parseInt(employeeID.getText());
-//    String employeeName = eName.getText();
-//    LocalDate date = datePicker.getValue();
-//    String checkInTime = checkIn.getText();
-//    String checkOutTime = checkOut.getText();
-//
-//    shiftViewModel.editShift(shiftId, employeeId, employeeName, date, checkInTime, checkOutTime);
-//}
 
 
 }
