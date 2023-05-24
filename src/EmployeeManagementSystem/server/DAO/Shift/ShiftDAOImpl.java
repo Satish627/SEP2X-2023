@@ -135,45 +135,99 @@ public class ShiftDAOImpl implements ShiftDAO
                 System.out.println("Shift with " + shiftID + " successfully deleted");
             }
         }
-
     @Override
     public void checkIn(int shiftID, int userID) throws SQLException {
         try (Connection connection = getConnection()) {
+            LocalDate currentDate = LocalDate.now();
             LocalTime currentTime = LocalTime.now();
 
-            // Update the check-in time for the specified shift and user
-            PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE shift SET checkInTime = ? WHERE shiftID = ? AND userID = ?"
+            // Get the shift date for the specified shift
+            PreparedStatement shiftDateStatement = connection.prepareStatement(
+                    "SELECT date FROM shift WHERE shiftID = ?"
             );
-            statement.setTime(1,Time.valueOf(currentTime) );
-            statement.setInt(2, shiftID);
-            statement.setInt(3, userID);
-            statement.executeUpdate();
+            shiftDateStatement.setInt(1, shiftID);
+            ResultSet shiftDateResult = shiftDateStatement.executeQuery();
 
-            connection.close();
-            System.out.println("Check-in time set successfully");
+            if (shiftDateResult.next()) {
+                LocalDate shiftDate = shiftDateResult.getDate("date").toLocalDate();
+
+                // Compare shift date with current date
+                if (currentDate.equals(shiftDate)) {
+                    // Update the check-in time for the specified shift and user
+                    PreparedStatement statement = connection.prepareStatement(
+                            "UPDATE shift SET checkInTime = ? WHERE shiftID = ? AND userID = ?"
+                    );
+                    statement.setTime(1, Time.valueOf(currentTime));
+                    statement.setInt(2, shiftID);
+                    statement.setInt(3, userID);
+                    statement.executeUpdate();
+
+                    connection.close();
+                    System.out.println("Check-in time set successfully");
+                } else {
+                    System.out.println("Cannot check in on a different day than the shift");
+                }
+            } else {
+                System.out.println("Shift not found");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
     @Override
-    public void checkOut(int shiftID, int userID) throws SQLException
-    {
+    public void checkOut(int shiftID, int userID) throws SQLException {
         try (Connection connection = getConnection()) {
+            LocalDate currentDate = LocalDate.now();
             LocalTime currentTime = LocalTime.now();
 
-            // Update the check-in time for the specified shift and user
-            PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE shift SET checkOutTime = ? WHERE shiftID = ? AND userID = ?"
+            // Get the shift date for the specified shift
+            PreparedStatement shiftDateStatement = connection.prepareStatement(
+                    "SELECT date FROM shift WHERE shiftID = ?"
             );
-            statement.setTime(1,Time.valueOf(currentTime) );
-            statement.setInt(2, shiftID);
-            statement.setInt(3, userID);
-            statement.executeUpdate();
+            shiftDateStatement.setInt(1, shiftID);
+            ResultSet shiftDateResult = shiftDateStatement.executeQuery();
 
-            connection.close();
-            System.out.println("Check-out time set successfully");
+            if (shiftDateResult.next()) {
+                LocalDate shiftDate = shiftDateResult.getDate("date").toLocalDate();
+
+                // Compare shift date with current date
+                if (currentDate.equals(shiftDate)) {
+                    // Get the check-in time for the specified shift and user
+                    PreparedStatement checkInTimeStatement = connection.prepareStatement(
+                            "SELECT checkInTime FROM shift WHERE shiftID = ? AND userID = ?"
+                    );
+                    checkInTimeStatement.setInt(1, shiftID);
+                    checkInTimeStatement.setInt(2, userID);
+                    ResultSet checkInTimeResult = checkInTimeStatement.executeQuery();
+
+                    if (checkInTimeResult.next()) {
+                        Time checkInTime = checkInTimeResult.getTime("checkInTime");
+                        LocalTime checkInLocalTime = checkInTime.toLocalTime();
+
+                        // Compare check-in time with current time
+                        if (currentTime.isAfter(checkInLocalTime)) {
+                            // Update the check-out time for the specified shift and user
+                            PreparedStatement statement = connection.prepareStatement(
+                                    "UPDATE shift SET checkOutTime = ? WHERE shiftID = ? AND userID = ?"
+                            );
+                            statement.setTime(1, Time.valueOf(currentTime));
+                            statement.setInt(2, shiftID);
+                            statement.setInt(3, userID);
+                            statement.executeUpdate();
+                            connection.close();
+                            System.out.println("Check-out time set successfully");
+                        } else {
+                            System.out.println("Cannot check out before check-in");
+                        }
+                    } else {
+                        System.out.println("No check-in time found for the specified shift and user");
+                    }
+                } else {
+                    System.out.println("Cannot check out on a different day than the shift");
+                }
+            } else {
+                System.out.println("Shift not found");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

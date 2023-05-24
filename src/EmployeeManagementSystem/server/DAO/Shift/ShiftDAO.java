@@ -17,7 +17,6 @@ public interface ShiftDAO
     ArrayList<Shift> viewAllShiftByUserID(int userID);
 
     void deleteShiftById(int shiftID)throws SQLException;
-    void updateShiftInfo(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws SQLException;
 
     void checkIn(int shiftID,int userID) throws SQLException;
 

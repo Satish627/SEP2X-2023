@@ -71,20 +71,19 @@ public class EmployeeViewShiftController implements ViewController {
 
     @FXML
     void onCheckInBtnClicked(ActionEvent event) {
-
-        openCheckInAlert();
-        int shiftID=employeeShiftView.getSelectionModel().getSelectedItem().getShiftID();
-        int userID= employeeLoginViewModel.login().getUserId();
-        if(userID==employeeShiftView.getSelectionModel().getSelectedItem().getEmployeeID())
-        {
-            employeeViewShiftViewModel.checkIn(shiftID,userID);
-        }
-        else
-        {
+        Shift selectedShift = employeeShiftView.getSelectionModel().getSelectedItem();
+        if (selectedShift != null && selectedShift.getEmployeeID() == employeeLoginViewModel.login().getUserId()) {
+            LocalDate currentDate = LocalDate.now();
+            if (selectedShift.getDate().isEqual(currentDate)) {
+                openCheckInAlert();
+                employeeViewShiftViewModel.checkIn(selectedShift.getShiftID(), selectedShift.getEmployeeID());
+            } else {
+                System.out.println("You can only check in on the same day as the shift.");
+            }
+        } else {
             System.out.println("Unauthorized access");
         }
     }
-
     private void openCheckInAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Shift Check-In");
@@ -95,19 +94,18 @@ public class EmployeeViewShiftController implements ViewController {
 
     @FXML
     void onCheckOutBtnClicked(ActionEvent event) {
-
-        openCheckOutAlert();
-        int shiftID=employeeShiftView.getSelectionModel().getSelectedItem().getShiftID();
-        int userID= employeeLoginViewModel.login().getUserId();
-        if(userID==employeeShiftView.getSelectionModel().getSelectedItem().getEmployeeID())
-        {
-            employeeViewShiftViewModel.checkOut(shiftID,userID);
-        }
-        else
-        {
+        Shift selectedShift = employeeShiftView.getSelectionModel().getSelectedItem();
+        if (selectedShift != null && selectedShift.getEmployeeID() == employeeLoginViewModel.login().getUserId()) {
+            LocalDate currentDate = LocalDate.now();
+            if (selectedShift.getDate().isEqual(currentDate) && selectedShift.getCheckInTime() != null) {
+                openCheckOutAlert();
+                employeeViewShiftViewModel.checkOut(selectedShift.getShiftID(), selectedShift.getEmployeeID());
+            } else {
+                System.out.println("You can only check out on the same day as the shift and after checking in.");
+            }
+        } else {
             System.out.println("Unauthorized access");
         }
-
     }
 
     private void openCheckOutAlert() {
@@ -125,8 +123,4 @@ public class EmployeeViewShiftController implements ViewController {
         viewHandler.openEmployeeLeaveRequestPage();
 
     }
-
-
-
-
 }
