@@ -1,31 +1,33 @@
 package Login;
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import EmployeeManagementSystem.client.view.LoginView.EmployeeLogin.EmployeeLoginViewModel;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.Mockito;
+
 
 import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
 import EmployeeManagementSystem.shared.model.Employee;
 
-public class EmployeeLoginViewModelTest {
+class EmployeeLoginViewModelTest {
 
     @Mock
     private LoginModel mockLoginModel;
 
     private EmployeeLoginViewModel viewModel;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @BeforeEach
+    void setUp() {
+        mockLoginModel= Mockito.mock(LoginModel.class);
         viewModel = new EmployeeLoginViewModel(mockLoginModel);
     }
 
     @Test
-    public void testLogin_InvalidCredentials() {
+    void testLogin_InvalidCredentials() {
         viewModel.getId().set(0);
         viewModel.getPasswd().set(null);
 
@@ -36,7 +38,7 @@ public class EmployeeLoginViewModelTest {
     }
 
     @Test
-    public void testLogin_MissingId() {
+    void testLogin_MissingId() {
         viewModel.getId().set(0);
         viewModel.getPasswd().set("password");
 
@@ -47,7 +49,7 @@ public class EmployeeLoginViewModelTest {
     }
 
     @Test
-    public void testLogin_MissingPassword() {
+    void testLogin_MissingPassword() {
         viewModel.getId().set(1);
         viewModel.getPasswd().set(null);
 
@@ -58,7 +60,7 @@ public class EmployeeLoginViewModelTest {
     }
 
     @Test
-    public void testLogin_ValidCredentials() {
+    void testLogin_ValidCredentials() {
         int userId = 1;
         String password = "password";
         Employee expectedEmployee = new Employee(userId, password);
