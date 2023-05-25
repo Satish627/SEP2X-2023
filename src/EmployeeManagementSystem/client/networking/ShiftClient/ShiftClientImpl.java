@@ -28,9 +28,15 @@ public class ShiftClientImpl implements ShiftClient
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException {
-        propertyChangeSupport.firePropertyChange("newShiftAdded",null,new Shift(shiftID,employeeID,employeeName,date,startTime,endTime));
-        return server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)  {
+        try {
+
+            Shift shift=   server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+            propertyChangeSupport.firePropertyChange("newShiftAdded",null,new Shift(shiftID,employeeID,employeeName,date,startTime,endTime));
+            return shift;
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -45,10 +51,21 @@ public class ShiftClientImpl implements ShiftClient
     }
 
     @Override
+    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime){
+        try{
+            server.getShiftServer().updateShift(shiftID,employeeID,employeeName,date,startTime,endTime);
+            propertyChangeSupport.firePropertyChange("shiftUpdated",null,new Shift(shiftID,employeeID,employeeName,date,startTime,endTime));
+        } catch (SQLException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void deleteShift(int sId)
     {
         try {
             server.getShiftServer().deleteShiftById(sId);
+            propertyChangeSupport.firePropertyChange("shiftRemoved",null,new Shift(sId));
 
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);

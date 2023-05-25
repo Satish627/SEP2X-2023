@@ -11,12 +11,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
-import javax.swing.*;
-import java.rmi.RemoteException;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class AddShiftController implements ViewController {
 
     private ViewHandler viewHandler;
@@ -55,19 +49,9 @@ public class AddShiftController implements ViewController {
 
     }
 
-    public void onDateSelected(ActionEvent actionEvent) {
-    }
-  /*  @FXML
-    public void datePicker(ActionEvent event) {
-        LocalDate localDate = datePicker.getValue();
-        System.out.println(localDate.toString());
-        String pattern = "MMMM, dd,YYYY";
-        String datePattern = localDate.format(DateTimeFormatter.ofPattern(pattern));
-    }*/
-
     @FXML
     public void openBackPage(ActionEvent event) {
-        viewHandler.openBackPage();
+        viewHandler.backPage();
     }
 
 
@@ -92,5 +76,8 @@ public class AddShiftController implements ViewController {
         datePicker.setValue(null);
         startTime.setText(null);
         endTime.setText(null);
+    }
+
+    public void onDateSelected(ActionEvent event) {
     }
 }

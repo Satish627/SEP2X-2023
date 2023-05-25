@@ -1,5 +1,7 @@
 package EmployeeManagementSystem.shared.model;
 
+import EmployeeManagementSystem.shared.AlertBox;
+
 import java.io.Serializable;
 
 public class Employee extends Users implements Serializable {
@@ -30,9 +32,7 @@ public class Employee extends Users implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Employee() {
-
-    }
+    public Employee() {}
 
     public Employee(int employeeId , String password) {
         super(employeeId,password);

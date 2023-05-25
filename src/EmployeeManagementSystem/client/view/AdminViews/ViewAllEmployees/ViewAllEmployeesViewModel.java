@@ -1,18 +1,13 @@
 package EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees;
 
 import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModel;
-import EmployeeManagementSystem.client.view.AlertBox;
+import EmployeeManagementSystem.shared.AlertBox;
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.util.converter.NumberStringConverter;
 
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
@@ -21,7 +16,7 @@ import java.util.Random;
 public class ViewAllEmployeesViewModel {
     private EmployeeModel employeeModel;
     private ObservableList<Employee> employeeList;
-    private StringProperty FirstName,LastName,Email,Address,DateOfBirth,SearchText;
+    private StringProperty FirstName,LastName,Email,Address,DateOfBirth;
     private IntegerProperty UserId,PhNumber;
     String upper="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     String lower = "abcdefghijklmnopqrstuvwxyz";
@@ -30,11 +25,12 @@ public class ViewAllEmployeesViewModel {
     int pwLength= 10;
 
     String newPassword ;
-
+    private final NumberStringConverter numberStringConverter;
 
     public ViewAllEmployeesViewModel(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
         employeeList = FXCollections.observableList(employeeModel.viewAllEmployees());
+        this.numberStringConverter = new NumberStringConverter();
         employeeModel.addListener("newEmployeeAdded",this::newEmployee);
        employeeModel.addListener("employeeRemoved",this::removeEmployee);
         employeeModel.addListener("employeeUpdated",this::updateEmployee);
@@ -49,7 +45,6 @@ public class ViewAllEmployeesViewModel {
         Address = new SimpleStringProperty();
         PhNumber = new SimpleIntegerProperty();
         DateOfBirth = new SimpleStringProperty();
-        SearchText = new SimpleStringProperty();
     }
 
     public IntegerProperty getUserId() {
@@ -132,16 +127,18 @@ public class ViewAllEmployeesViewModel {
         }else {
             try {
                 generatePassword();
-                return employeeModel.addEmployee(FirstName.get(),LastName.get() ,newPassword, UserId.get(),Email.get(),Address.get(),PhNumber.get(),DateOfBirth.get());
+                employeeModel.addEmployee(FirstName.get(),LastName.get() ,newPassword, UserId.get(),Email.get(),Address.get(),PhNumber.get(),DateOfBirth.get()); {
+                    return null;
+                }
             } catch (SQLException | RemoteException e) {
                 throw new RuntimeException(e);
             }
         }
-        return "Problem while adding employee";
+        return null;
     }
     private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
         Employee newUser = (Employee) propertyChangeEvent.getNewValue();
-        employeeList.add(newUser);
+        employeeList.addAll(newUser);
         employeeList.setAll(employeeModel.viewAllEmployees());
     }
 
@@ -153,6 +150,9 @@ public class ViewAllEmployeesViewModel {
     private void newEmployee(PropertyChangeEvent propertyChangeEvent) {
         Employee newEmp = (Employee) propertyChangeEvent.getNewValue();
         employeeList.add(newEmp);
+        employeeList.setAll(employeeModel.viewAllEmployees());
+
+
     }
 
 }

@@ -2,13 +2,10 @@ package EmployeeManagementSystem.client.model.EmployeeModel;
 
 import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeModelImpl implements EmployeeModel
@@ -61,11 +58,9 @@ public class EmployeeModelImpl implements EmployeeModel
     @Override
     public void removeListener(String eventName, PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(eventName,listener);
-
     }
     private void newEmployeeAdded (PropertyChangeEvent event){
         propertyChangeSupport.firePropertyChange(event);
-        System.out.println("Employee added from employee model");
     }
 
 }

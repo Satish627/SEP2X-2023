@@ -1,5 +1,7 @@
 package EmployeeManagementSystem.shared.model;
 
+import EmployeeManagementSystem.shared.AlertBox;
+
 import java.io.Serializable;
 
 public abstract class Users implements Serializable {
@@ -18,6 +20,7 @@ public abstract class Users implements Serializable {
 
     public Users(int userId) {
        this.userId = userId;
+      // checkUserID(userId);
     }
 
     public Users() {}
@@ -29,6 +32,11 @@ public abstract class Users implements Serializable {
         return password;
     }
 
+   /* private void checkUserID(int userId){
+        if (userId<4){
+            AlertBox.showAlert("Id should be of length 4 or more");
+        }
+    }*/
 
     @Override
     public String toString() {

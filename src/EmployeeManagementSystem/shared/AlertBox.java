@@ -1,4 +1,4 @@
-package EmployeeManagementSystem.client.view;
+package EmployeeManagementSystem.shared;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class AlertBox {
 
-    public static void showAlert(String text) {
+    public static void showAlert(String text)  {
         Stage popUpWindow = new Stage();
 
         popUpWindow.initModality(Modality.WINDOW_MODAL);

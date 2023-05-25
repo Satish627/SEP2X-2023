@@ -13,6 +13,7 @@ public interface ShiftClient extends Subject {
     Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException;
 
     ArrayList<Shift> viewAllShift();
+    void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException;
 
     void deleteShift(int eId);
     ArrayList<Shift> viewAllShiftByUserID(int userID);

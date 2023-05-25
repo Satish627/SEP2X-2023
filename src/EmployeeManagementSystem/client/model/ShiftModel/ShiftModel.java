@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public interface ShiftModel extends Subject
 {
 
-    Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws SQLException, RemoteException;
+    Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) ;
 
     ArrayList<Shift> viewAllShift();
 
@@ -23,5 +23,5 @@ public interface ShiftModel extends Subject
     void checkIn(int shiftID, int userID);
     void checkOut(int shiftID, int userID);
 
-//    void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime);
+  void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime);
 }

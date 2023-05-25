@@ -60,7 +60,7 @@ public class ViewAllEmployeesController implements ViewController
         employeeList.setItems(viewAllEmployeesViewModel.viewAllEmployees());
         SearchBar();
     }
-    private void bindTextFieldValues() {
+    private void bindTextFieldValues() throws RuntimeException{
        uId.textProperty().bindBidirectional(viewAllEmployeesViewModel.getUserId(), new NumberStringConverter());
         fname.textProperty().bindBidirectional(viewAllEmployeesViewModel.getFirstName());
         lname.textProperty().bindBidirectional(viewAllEmployeesViewModel.getLastName());

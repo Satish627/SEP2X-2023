@@ -23,6 +23,13 @@ public class ShiftModelImpl implements ShiftModel
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         shiftClient.addListener("newShiftAdded",this:: newShiftAdded);
         shiftClient.addListener("shiftRemoved", this:: shiftRemoved);
+        shiftClient.addListener("shiftUpdated", this:: shiftUpdated);
+    }
+
+    private void shiftUpdated(PropertyChangeEvent propertyChangeEvent) {
+        propertyChangeSupport.firePropertyChange(propertyChangeEvent);
+        System.out.println("Shift has been updated from Shift Model");
+
     }
 
     private void shiftRemoved(PropertyChangeEvent propertyChangeEvent)
@@ -34,13 +41,16 @@ public class ShiftModelImpl implements ShiftModel
     private void newShiftAdded(PropertyChangeEvent propertyChangeEvent)
     {
         propertyChangeSupport.firePropertyChange(propertyChangeEvent);
-        System.out.println("Shift added from ShiftModelImpl.");
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws SQLException, RemoteException
+    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)
     {
-       return shiftClient.addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+        try {
+            return shiftClient.addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -72,6 +82,15 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
+    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) {
+        try {
+            shiftClient.updateShift(shiftID,employeeID,employeeName,date,checkInTime,checkOutTime);
+        } catch (RemoteException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void addListener(String eventName, PropertyChangeListener listener)
     {
         propertyChangeSupport.addPropertyChangeListener(eventName,listener);
@@ -85,8 +104,4 @@ public class ShiftModelImpl implements ShiftModel
 
     }
 
-//    @Override
-//    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) {
-//        shiftClient.updateShiftInfo(shiftID,employeeID,employeeName,date,checkInTime,checkOutTime);
-//    }
 }

@@ -39,6 +39,11 @@ public class ShiftServerImpl implements ShiftServer {
     }
 
     @Override
+    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws RemoteException, SQLException {
+         shiftDAO.updateShiftInfo(shiftID,employeeID,employeeName,date,checkInTime,checkOutTime);
+    }
+
+    @Override
     public void deleteShiftById(int shiftID) throws RemoteException, SQLException {
         shiftDAO.deleteShiftById(shiftID);
 

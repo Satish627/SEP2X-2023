@@ -65,7 +65,8 @@ public class AdminLoginController implements ViewController {
     }
     @FXML
     private void loginClicked(ActionEvent event) {
-        try {
+        viewHandler.openMainView();
+      /*  try {
             Admin admin = adminLoginViewModel.adminLogin();
             if ((admin.getUserId()) == ((adminLoginViewModel.getAdminId().get())) && admin.getPassword().equals(adminLoginViewModel.getAdminPW().get())) {
                 System.out.println(admin.getUserId());
@@ -74,7 +75,7 @@ public class AdminLoginController implements ViewController {
         }
         catch (NullPointerException e){
             System.out.println("Null values...");
-        }
+        }*/
     }
     public void cancelClicked(ActionEvent actionEvent) {
         adminId.setText(null);

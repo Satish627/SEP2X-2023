@@ -122,6 +122,26 @@ public class ShiftDAOImpl implements ShiftDAO
     }
 
     @Override
+    public void updateShiftInfo(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws SQLException {
+        try (Connection connection = getConnection()) {
+                    PreparedStatement newStatement = connection.prepareStatement("UPDATE  shift SET  shiftid=?,userid=?,employeename=?, date=?, checkintime=?, checkouttime=? where employeename=?");
+                    newStatement.setInt(1, shiftID);
+                    newStatement.setInt(2, employeeID);
+                    newStatement.setString(3, employeeName);
+                    newStatement.setDate(4, Date.valueOf(date));
+                    newStatement.setTime(5, Time.valueOf(checkInTime));
+                    newStatement.setTime(6, Time.valueOf(checkOutTime));
+                    newStatement.setString(7, employeeName);
+                    newStatement.executeUpdate();
+                    connection.close();
+                    System.out.println("Shift has been updated");
+                }
+
+        }
+
+
+
+    @Override
     public void deleteShiftById(int shiftID) throws SQLException
     {
         try

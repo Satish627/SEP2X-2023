@@ -102,7 +102,7 @@ public class ViewShiftController implements ViewController
 
 
     @FXML
-    void onVIewShiftBackBtnClicked(ActionEvent event)
+    void onViewShiftBackBtnClicked(ActionEvent event)
     {
         viewHandler.openMainView();
 
@@ -141,6 +141,8 @@ public class ViewShiftController implements ViewController
     }
 
 
-
-
+    public void onUpdateBtnClicked(ActionEvent event) {
+        viewShiftViewModel.updateShift(Integer.parseInt(sId.getText()),Integer.parseInt(eId.getText()),ename.getText(),datePicker.getValue(),checkIn.getText(),checkOut.getText());
+        clearTextInput();
+    }
 }

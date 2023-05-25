@@ -2,7 +2,6 @@ package EmployeeManagementSystem.client.networking.EmployeeClient;
 
 import EmployeeManagementSystem.client.networking.GetServer;
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
 import EmployeeManagementSystem.shared.networking.Server;
 
 import java.beans.PropertyChangeListener;
@@ -37,15 +36,11 @@ private PropertyChangeSupport propertyChangeSupport;
     public String addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) {
          try{
            String msg = server.getEmployeeServer().addEmployee(firstName, lastName,password, userId, emailId, address, phoneNum, dateOfBirth);
-            if (msg.equals("Employee added successfully")) {
                 propertyChangeSupport.firePropertyChange("newEmployeeAdded", null, new Employee(userId,password,firstName,lastName,emailId,address,phoneNum,dateOfBirth));
-            }
             return msg;
-
          } catch (RemoteException | SQLException e) {
             e.printStackTrace();
          }
-
         return null;
     }
 
@@ -78,6 +73,5 @@ private PropertyChangeSupport propertyChangeSupport;
     @Override
     public void removeListener(String eventName, PropertyChangeListener listener) {
         propertyChangeSupport.removePropertyChangeListener(eventName,listener);
-
     }
 }

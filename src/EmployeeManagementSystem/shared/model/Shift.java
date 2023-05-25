@@ -34,6 +34,9 @@ public class Shift implements Serializable
         this.checkOutTime = checkOutTime;
     }
 
+    public Shift(int shiftID) {
+        this.shiftID = shiftID;
+    }
 
 
     public int  getShiftID() {
@@ -76,16 +79,6 @@ public class Shift implements Serializable
     public void setDate() {
         this.date = date;
 
-    }
-
-    public void setCheckInTime()
-    {
-        this.checkInTime = checkInTime;
-    }
-
-    public void setCheckOutTime()
-    {
-        this.checkOutTime=checkOutTime;
     }
 
     public int getTotalHours() {
