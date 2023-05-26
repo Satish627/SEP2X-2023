@@ -39,16 +39,19 @@ public class ShiftDAOImpl implements ShiftDAO
             newStatement.setTime(5, Time.valueOf(localStartTime));
             newStatement.setTime(6, Time.valueOf(localEndTime));
             newStatement.executeUpdate();
-            PreparedStatement totalHoursStatement = connection.prepareStatement("SELECT totalhours FROM shift WHERE shiftid = ?");
+            PreparedStatement totalHoursStatement = connection.prepareStatement("SELECT totalhours,status FROM shift WHERE shiftid = ?");
             totalHoursStatement.setInt(1, shiftID);
             ResultSet resultSet = totalHoursStatement.executeQuery();
             int totalHours = 0; // Assuming totalHours is of int type
+            String status=null;
+
             if (resultSet.next()) {
                 totalHours = resultSet.getInt("totalhours");
+                status=resultSet.getString("status");
             }
             connection.close();
             System.out.println("Shift added successfully");
-            return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime,totalHours);
+            return new Shift(shiftID, employeeID,employeeName, date, startTime, endTime,totalHours,status);
         }
          catch (SQLException e) {
             throw new RuntimeException(e);
@@ -73,10 +76,11 @@ public class ShiftDAOImpl implements ShiftDAO
                     Time startTime = resultSet.getTime("checkintime");
                     Time endTime = resultSet.getTime("checkouttime");
                     int totalHours=resultSet.getInt("totalhours");
+                    String status=resultSet.getString("status");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     String startTimeString = startTime.toLocalTime().format(formatter);
                     String endTimeString = endTime.toLocalTime().format(formatter);
-                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTimeString,endTimeString,totalHours);
+                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTimeString,endTimeString,totalHours,status);
                     shiftList.add(shifts);
                     System.out.println(shiftList);
                 }
@@ -106,10 +110,11 @@ public class ShiftDAOImpl implements ShiftDAO
                     Time startTime = resultSet.getTime("checkintime");
                     Time endTime = resultSet.getTime("checkouttime");
                     int totalHours=resultSet.getInt("totalhours");
+                    String status=resultSet.getString("status");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                     String startTimeString = startTime.toLocalTime().format(formatter);
                     String endTimeString = endTime.toLocalTime().format(formatter);
-                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTimeString,endTimeString,totalHours);
+                    Shift shifts = new Shift(shiftID,employeeID,employeeName,date,startTimeString,endTimeString,totalHours,status);
                     shiftList.add(shifts);
                     System.out.println(shiftList);
                 }
@@ -161,7 +166,7 @@ public class ShiftDAOImpl implements ShiftDAO
             LocalDate currentDate = LocalDate.now();
             LocalTime currentTime = LocalTime.now();
 
-            // Get the shift date for the specified shift
+
             PreparedStatement shiftDateStatement = connection.prepareStatement(
                     "SELECT date FROM shift WHERE shiftID = ?"
             );
@@ -171,9 +176,9 @@ public class ShiftDAOImpl implements ShiftDAO
             if (shiftDateResult.next()) {
                 LocalDate shiftDate = shiftDateResult.getDate("date").toLocalDate();
 
-                // Compare shift date with current date
+
                 if (currentDate.equals(shiftDate)) {
-                    // Update the check-in time for the specified shift and user
+
                     PreparedStatement statement = connection.prepareStatement(
                             "UPDATE shift SET checkInTime = ? WHERE shiftID = ? AND userID = ?"
                     );
@@ -200,7 +205,7 @@ public class ShiftDAOImpl implements ShiftDAO
             LocalDate currentDate = LocalDate.now();
             LocalTime currentTime = LocalTime.now();
 
-            // Get the shift date for the specified shift
+
             PreparedStatement shiftDateStatement = connection.prepareStatement(
                     "SELECT date FROM shift WHERE shiftID = ?"
             );
@@ -210,9 +215,9 @@ public class ShiftDAOImpl implements ShiftDAO
             if (shiftDateResult.next()) {
                 LocalDate shiftDate = shiftDateResult.getDate("date").toLocalDate();
 
-                // Compare shift date with current date
+
                 if (currentDate.equals(shiftDate)) {
-                    // Get the check-in time for the specified shift and user
+
                     PreparedStatement checkInTimeStatement = connection.prepareStatement(
                             "SELECT checkInTime FROM shift WHERE shiftID = ? AND userID = ?"
                     );
@@ -224,9 +229,9 @@ public class ShiftDAOImpl implements ShiftDAO
                         Time checkInTime = checkInTimeResult.getTime("checkInTime");
                         LocalTime checkInLocalTime = checkInTime.toLocalTime();
 
-                        // Compare check-in time with current time
+
                         if (currentTime.isAfter(checkInLocalTime)) {
-                            // Update the check-out time for the specified shift and user
+
                             PreparedStatement statement = connection.prepareStatement(
                                     "UPDATE shift SET checkOutTime = ? WHERE shiftID = ? AND userID = ?"
                             );

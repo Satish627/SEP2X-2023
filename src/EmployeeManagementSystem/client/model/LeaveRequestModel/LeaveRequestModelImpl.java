@@ -1,11 +1,6 @@
 package EmployeeManagementSystem.client.model.LeaveRequestModel;
-
 import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClient;
-
 import EmployeeManagementSystem.shared.model.LeaveRequest;
-import EmployeeManagementSystem.shared.model.Shift;
-
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class LeaveRequestModelImpl implements LeaveRequestModel{

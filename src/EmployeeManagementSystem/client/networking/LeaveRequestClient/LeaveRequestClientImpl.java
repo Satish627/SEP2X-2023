@@ -2,8 +2,6 @@ package EmployeeManagementSystem.client.networking.LeaveRequestClient;
 
 import EmployeeManagementSystem.client.networking.GetServer;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
-import EmployeeManagementSystem.shared.model.Shift;
-import EmployeeManagementSystem.shared.networking.LeaveRequestServer;
 import EmployeeManagementSystem.shared.networking.Server;
 
 import java.rmi.RemoteException;
@@ -20,7 +18,7 @@ public class LeaveRequestClientImpl implements LeaveRequestClient
             server= GetServer.getRMIServer();
         }
         catch (Exception e){
-            throw e;
+            throw new RuntimeException();
         }
     }
 

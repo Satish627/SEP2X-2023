@@ -11,11 +11,12 @@ public class Shift implements Serializable
     private LocalDate date;
     private String checkInTime;
     private String checkOutTime;
+    private String status;
 
     private int totalHours;
 
-    public Shift(int shiftID, int employeeID,String employeeName, LocalDate date, String checkInTime, String checkOutTime,int totalHours)
-    {
+    public Shift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime, int totalHours, String status) {
+
         this.shiftID= shiftID;
         this.employeeID= employeeID;
         this.employeeName = employeeName;
@@ -23,6 +24,7 @@ public class Shift implements Serializable
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
         this.totalHours=totalHours;
+        this.status=status;
     }
 
     public Shift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) {
@@ -83,6 +85,10 @@ public class Shift implements Serializable
 
     public int getTotalHours() {
         return totalHours;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     @Override

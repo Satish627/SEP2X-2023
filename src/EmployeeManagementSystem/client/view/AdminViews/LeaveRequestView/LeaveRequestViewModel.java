@@ -3,7 +3,7 @@ package EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModel;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
-import javafx.beans.property.IntegerProperty;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,17 +15,16 @@ public class LeaveRequestViewModel
     private LeaveRequestModel leaveRequestModel;
     private ObservableList<LeaveRequest> leaveRequests;
 
-    private IntegerProperty userID;
 
-//    public LeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel)
-//    {
-//        this.leaveRequestModel=leaveRequestModel;
-//        leaveRequests= FXCollections.observableList(leaveRequestModel.viewAllLeaveRequests());
-//    }
-    public LeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel) {
+    public LeaveRequestViewModel(LeaveRequestModel leaveRequestModel) {
         this.leaveRequestModel = leaveRequestModel;
 
-        List<LeaveRequest> requestList = leaveRequestModel.viewAllLeaveRequests();
+        List<LeaveRequest> requestList = null;
+        try {
+            requestList = leaveRequestModel.viewAllLeaveRequests();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
         if (requestList != null) {
             leaveRequests = FXCollections.observableList(requestList);
         } else {
@@ -36,11 +35,19 @@ public class LeaveRequestViewModel
 
 
     public void approveLeave(int shiftID) throws RemoteException {
-       leaveRequestModel.approveLeave(shiftID);
+        if (shiftID==0) {
+            System.out.println("ShiftID is null");
+        } else {
+            leaveRequestModel.approveLeave(shiftID);
+        }
     }
 
     public void rejectLeave(int shiftID) throws RemoteException {
+        if (shiftID==0) {
+            System.out.println("ShiftID is null");
+        } else {
             leaveRequestModel.rejectLeave(shiftID);
+        }
     }
 
     public ObservableList<LeaveRequest> viewAllLeaveRequests(){

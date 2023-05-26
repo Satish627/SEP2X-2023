@@ -1,6 +1,4 @@
 package EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView;
-
-import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModel;
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
 import EmployeeManagementSystem.client.networking.LeaveRequestClient.LeaveRequestClient;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
@@ -23,8 +21,7 @@ class LeaveRequestViewModelTest
     private LeaveRequest leaveRequest;
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() throws RemoteException {
         leaveRequestModelTest = mock(LeaveRequestModelImpl.class);
         leaveRequestViewModelTest = new LeaveRequestViewModel(leaveRequestModelTest);
 
@@ -45,7 +42,7 @@ class LeaveRequestViewModelTest
     public void test_RejectLeave_by_ShiftID() throws RemoteException
     {
         // Arrange
-        int shiftID = 0;
+        int shiftID = 1;
 
         // Act
         leaveRequestViewModelTest.rejectLeave(shiftID);

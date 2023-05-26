@@ -7,10 +7,8 @@ import javafx.util.converter.NumberStringConverter;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.SimpleTimeZone;
+
 
 public class AddShiftViewModel {
     private ShiftModel addShiftModel;
@@ -61,19 +59,14 @@ public class AddShiftViewModel {
 
     public Shift addShift() throws SQLException, RemoteException
     {
-        Shift addShift = addShiftModel.addShift(shiftID.get(), employeeID.get(), employeeName.get(), date.get(), startTime.get(), endTime.get());
-        return  addShift;
+        if (shiftID.get()==0||employeeID.get()==0||employeeName.get()==null||date.get()==null||startTime.get()==null||endTime.get()==null)
+        {
+            System.out.println("Please fill in all the information.");
+            return null;
+        } else {
+            Shift addShift = addShiftModel.addShift(shiftID.get(), employeeID.get(), employeeName.get(), date.get(), startTime.get(), endTime.get());
+            return  addShift;
+        }
 
     }
-
-//    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)
-//    {
-//        if(shiftID == 0 || employeeID==0 || employeeName==null || employeeName.isEmpty()|| date == null || startTime== null ||startTime.isEmpty() || endTime == null || endTime.isEmpty())
-//        {
-//           return null;
-//        }
-//        return addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
-//    }
-
-
 }

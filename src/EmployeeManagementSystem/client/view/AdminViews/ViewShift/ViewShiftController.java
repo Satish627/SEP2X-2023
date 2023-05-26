@@ -57,6 +57,9 @@ public class ViewShiftController implements ViewController
 
     @FXML
     private TableColumn<Shift,Integer> totalHours;
+
+    @FXML
+    private TableColumn<Shift,String> status;
     @FXML
     private TableView<Shift> shiftListView;
 
@@ -79,6 +82,7 @@ public class ViewShiftController implements ViewController
         checkInTime.setCellValueFactory(new PropertyValueFactory<>("checkInTime"));
         checkOutTime.setCellValueFactory(new PropertyValueFactory<>("checkOutTime"));
         totalHours.setCellValueFactory(new PropertyValueFactory<>("totalHours"));
+        status.setCellValueFactory(new PropertyValueFactory<>("status"));
 
        shiftListView.setItems(viewShiftViewModel.viewAllShift());
     }
