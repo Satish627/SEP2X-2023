@@ -3,6 +3,7 @@ package EmployeeManagementSystem.client.view.LoginView.EmployeeLogin;
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
+import EmployeeManagementSystem.shared.AlertBox;
 import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Users;
 import javafx.collections.FXCollections;
@@ -32,7 +33,7 @@ public class EmployeeLoginController implements ViewController {
     @FXML
     private Label message;
     @FXML
-    private ComboBox<?> selectUserType;
+    private ComboBox<String> selectUserType;
     private EmployeeLoginViewModel employeeLoginViewModel;
 
     @Override
@@ -42,29 +43,32 @@ public class EmployeeLoginController implements ViewController {
         bindValues();
         selectUsers();
     }
-    public void selectUsers(){
+
+    public void selectUsers() {
         List<String> userList = new ArrayList<>();
         Collections.addAll(userList, Users.userType);
-        ObservableList  list = FXCollections.observableList(userList);
+        ObservableList<String> list = FXCollections.observableList(userList);
         selectUserType.setItems(list);
     }
+
     private void bindValues() {
-        id.textProperty().bindBidirectional(employeeLoginViewModel.getId(),new NumberStringConverter());
+        id.textProperty().bindBidirectional(employeeLoginViewModel.getId(), new NumberStringConverter());
         password.textProperty().bindBidirectional(employeeLoginViewModel.getPasswd());
         message.textProperty().bindBidirectional(employeeLoginViewModel.getMessage());
     }
 
-    public void switchLoginViews(){
+    public void switchLoginViews() {
         try {
-            if (selectUserType.getSelectionModel().getSelectedItem().equals("EMPLOYEE")){
+            if (selectUserType.getSelectionModel().getSelectedItem().equals("EMPLOYEE")) {
                 viewHandler.openLoginView();
-            }else {
+            } else {
                 viewHandler.openAdminLoginView();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void loginClicked(ActionEvent event) {
         try {
@@ -73,10 +77,12 @@ public class EmployeeLoginController implements ViewController {
                 System.out.println(newEmployee);
                 viewHandler.openEmployeeViewShifts();
             }
-        }catch (NullPointerException e){
-            System.out.println("Null values");
+        } catch (Exception e) {
+            AlertBox.showAlert(e.getMessage());
         }
+
     }
+
     public void cancelClicked(ActionEvent actionEvent) {
         id.setText(null);
         password.setText(null);

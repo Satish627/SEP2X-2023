@@ -20,7 +20,7 @@ public class ViewShiftViewModel {
     public ViewShiftViewModel(ShiftModel shiftModel)
     {
         this.shiftModel = shiftModel;
-        shiftObservableList= FXCollections.observableList(fetchAllShifts());
+        shiftObservableList= FXCollections.observableArrayList();
         initialiseAllProperty();
         shiftModel.addListener("newShiftAdded",this:: newShiftAdded);
         shiftModel.addListener("shiftUpdated",this:: shiftUpdated);
@@ -57,6 +57,7 @@ public class ViewShiftViewModel {
         date = new SimpleObjectProperty<>();
         checkInTime = new SimpleStringProperty();
         checkOutTime = new SimpleStringProperty();
+        shiftObservableList.setAll(fetchAllShifts());
 
     }
     public IntegerProperty getShiftID()
@@ -89,36 +90,12 @@ public class ViewShiftViewModel {
         return shiftObservableList;
     }
 
-    public Shift addShift()
-    {
-        if ((shiftID.get()== 0 || shiftID.toString() == null) && (employeeName.get()==null || employeeName.get().isEmpty()) && (employeeID.get()== 00 || employeeID.toString().isEmpty())  && (date.get()== null || date.toString().isEmpty()) && (checkInTime.get()==null|| checkInTime.get().isEmpty()) && (checkOutTime.get()==null || checkOutTime.get().isEmpty()))
-        {
-            throw new RuntimeException ("Please fill in all the information");
-        } else if (shiftID.toString() == null||shiftID.get() == 0  ) {
-            throw new RuntimeException ("SHift id cannot be empty or zero");
-        } else if (employeeName.get() == null || employeeName.get().isEmpty()) {
-            throw new RuntimeException ("Employee name cannot be empty");
-        } else if (employeeID.toString() == null||employeeID.get()==0) {
-            throw new RuntimeException ("Employee ID  cannot be empty or zero");
-        }
-        else if (date.get() == null || date.toString().isEmpty()) {
-            throw new RuntimeException ("Date cannot be empty");
-        } else if (checkInTime.get() == null||checkInTime.get().isEmpty()) {
-            throw new RuntimeException ("CheckIn time cannot be empty");
-        }else if ( checkOutTime.toString()==null||checkOutTime.get().isEmpty()) {
-            throw new RuntimeException ("CheckOut time cannot be empty or zero");
-        }else {
-                return shiftModel.addShift(shiftID.get(), employeeID.get(), employeeName.get(), date.getValue(), checkInTime.get(), checkOutTime.get());
-        }
-    }
-
-
     public void deleteShift(int sId)
     {
         shiftModel.deleteShift(sId);
     }
 
-    public void updateShift(int sId, int eId, String ename, LocalDate datePicker, String checkIn, String checkOut) {
-        shiftModel.updateShift(sId,eId,ename,datePicker,checkIn,checkOut);
+    public void updateShift(Shift shift) {
+        shiftModel.setSelectedShift(shift);
     }
 }

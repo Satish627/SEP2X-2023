@@ -11,8 +11,13 @@ import java.sql.SQLException;
 
 public class LoginClientImpl implements LoginClient{
     private Server server;
+    private boolean hasConnectedToServer;
 
     public LoginClientImpl() {
+
+    }
+
+    private void connectToServer() {
         try {
             server= GetServer.getRMIServer();
         }catch (Exception e){
@@ -23,7 +28,8 @@ public class LoginClientImpl implements LoginClient{
 
     @Override
     public Employee login(int id, String passwd)  {
-            try
+        checkServerConnection();
+        try
             {
                 return server.getLoginServer().login(id,passwd);
             }
@@ -35,8 +41,16 @@ public class LoginClientImpl implements LoginClient{
             }
     }
 
+    private void checkServerConnection() {
+        if (!hasConnectedToServer){
+            connectToServer();
+            hasConnectedToServer = true;
+        }
+    }
+
     @Override
     public Admin adminLogin(int id, String passwd) {
+        checkServerConnection();
         try
         {
             return server.getLoginServer().loginAdmin(id,passwd);

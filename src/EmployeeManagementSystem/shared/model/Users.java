@@ -28,6 +28,10 @@ public abstract class Users implements Serializable {
         return userId;
     }
 
+    protected void setUserId(int userId){
+        this.userId = userId;
+    }
+
     public String getPassword() {
         return password;
     }

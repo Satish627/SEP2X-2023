@@ -1,19 +1,20 @@
 package EmployeeManagementSystem.server.DAO.Employee;
 
-import EmployeeManagementSystem.shared.AlertBox;
 import EmployeeManagementSystem.shared.model.Employee;
 import org.postgresql.Driver;
 
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static EmployeeManagementSystem.server.DataBaseConnection.getConnection;
+import static EmployeeManagementSystem.server.DAO.DataBaseConnection.getConnection;
 
-public class EmployeeDAOImpl implements EmployeeDAO
-{
+public class EmployeeDAOImpl implements EmployeeDAO {
     public EmployeeDAOImpl() {
-        try{
+        try {
             DriverManager.registerDriver(new Driver());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -21,84 +22,87 @@ public class EmployeeDAOImpl implements EmployeeDAO
     }
 
     @Override
-    public String  addEmployee(String firstName, String lastName, String password, int UserId, String email, String address, int phoneNum, String DateOfBirth)  {
-        try {
-            try (Connection connection = getConnection()) {
-               PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee WHERE userid = ? ");
-                statement.setInt(1, UserId);
-                ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
-                    int userId = resultSet.getInt("userid");
-                    System.out.println(userId);
-                    if (userId == UserId) {
-                        System.out.println("Employee with ID" + UserId + " already exist");
-                    }
-                }else {
-                    PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd,userid,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?,?);");
-                    newStatement.setString(1, firstName);
-                    newStatement.setString(2, lastName);
-                    newStatement.setString(3, password);
-                    newStatement.setInt(4, UserId);
-                    newStatement.setString(5, email);
-                    newStatement.setString(6, address);
-                    newStatement.setInt(7, phoneNum);
-                    newStatement.setString(8, DateOfBirth);
-                    newStatement.executeUpdate();
-                    connection.close();
-                    return "Employee added successfully";
+    public Employee addEmployee(String firstName, String lastName, String password, String email, String address, int phoneNum, String dateOfBirth) {
+        try (Connection connection = getConnection()) {
+            PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?);");
+            newStatement.setString(1, firstName);
+            newStatement.setString(2, lastName);
+            newStatement.setString(3, password);
+            newStatement.setString(4, email);
+            newStatement.setString(5, address);
+            newStatement.setInt(6, phoneNum);
+            newStatement.setDate(7, stringToDate(dateOfBirth));
+           int affectedRows= newStatement.executeUpdate();
+           Employee employee = new Employee(firstName, lastName, dateOfBirth, address, phoneNum, email);
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = newStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int employeeId = generatedKeys.getInt(1);
+                    employee.setEmployeeId(employeeId);
                 }
             }
-            return null;
+            return employee;
+
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Date stringToDate(String dateOfBirth) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            return new Date(dateFormat.parse(dateOfBirth).getTime());
+        } catch (ParseException e) {
             throw new RuntimeException(e);
         }
     }
 
 
     @Override
-    public ArrayList<Employee> viewAllEmployees()  {
-            ArrayList<Employee> employeeList = new ArrayList<>();
-            {try {
-                Connection connection = getConnection();
+    public ArrayList<Employee> viewAllEmployees() {
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        {
+            try(Connection connection = getConnection()) {
+
                 {
                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee ");
 
                     ResultSet resultSet = statement.executeQuery();
                     while (resultSet.next()) {
 
-                        int userId =resultSet.getInt("userid");
-                        String firstName=resultSet.getString("firstname");
+                        int employeeid = resultSet.getInt("employeeid");
+                        String firstName = resultSet.getString("firstname");
                         String lastName = resultSet.getString("lastname");
                         String birthDate = resultSet.getString("dateofbirth");
                         String address = resultSet.getString("address");
                         int phoneNumber = resultSet.getInt("phonenumber");
-                        String email =resultSet.getString("email");
-                        Employee employee = new Employee(userId,firstName,lastName,birthDate,address,phoneNumber,email);
+                        String email = resultSet.getString("email");
+                        Employee employee = new Employee(employeeid, firstName, lastName, birthDate, address, phoneNumber, email);
                         employeeList.add(employee);
                         System.out.println(employeeList);
-                        connection.close();
                     }
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            }
-            return employeeList;
+
         }
+        return employeeList;
+    }
 
     @Override
-    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth)  {
+    public void updateEmployeeInfo(int employeeid, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
         try {
             try (Connection connection = getConnection()) {
-                PreparedStatement newStatement = connection.prepareStatement("UPDATE  employee SET userid=? ,firstname=?,lastname=?,address=?,email=?,phonenumber=?, dateofbirth=? where userid=?");
-                newStatement.setInt(1, UserId);
-                newStatement.setString(2, firstName);
-                newStatement.setString(3, lastName);
-                newStatement.setString(4, address);
-                newStatement.setString(5, email);
-                newStatement.setInt(6,phoneNum);
-                newStatement.setString(7, DateOfBirth);
-                newStatement.setInt(8, UserId);
+                PreparedStatement newStatement = connection.prepareStatement("UPDATE  employee SET firstname=?,lastname=?,address=?,email=?,phonenumber=?, dateofbirth=? where employeeid=?");
+                newStatement.setString(1, firstName);
+                newStatement.setString(2, lastName);
+                newStatement.setString(3, address);
+                newStatement.setString(4, email);
+                newStatement.setInt(5, phoneNum);
+                newStatement.setString(6, DateOfBirth);
+                newStatement.setInt(7, employeeid);
                 newStatement.executeUpdate();
                 connection.close();
                 System.out.println("Employee information updated successfully");
@@ -109,13 +113,13 @@ public class EmployeeDAOImpl implements EmployeeDAO
     }
 
     @Override
-    public void deleteEmployeeByID(int UserId)  {
+    public void deleteEmployeeByID(int employeeid) {
         try {
             try (Connection connection = getConnection()) {
-                PreparedStatement newStatement = connection.prepareStatement("DELETE FROM employee  WHERE userid=?");
-                newStatement.setInt(1, UserId);
+                PreparedStatement newStatement = connection.prepareStatement("DELETE FROM employee  WHERE employeeid=?");
+                newStatement.setInt(1, employeeid);
                 newStatement.executeUpdate();
-                System.out.println("Employee with employeeId" + UserId + " successfully deleted");
+                System.out.println("Employee with employeeId" + employeeid + " successfully deleted");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

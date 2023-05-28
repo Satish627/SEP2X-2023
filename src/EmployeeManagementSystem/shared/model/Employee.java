@@ -38,6 +38,15 @@ public class Employee extends Users implements Serializable {
         super(employeeId,password);
     }
 
+    public Employee(String firstName, String lastName, String dateOfBirth, String address, int phoneNum, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNum;
+        this.dateOfBirth = dateOfBirth;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -65,5 +74,9 @@ public class Employee extends Users implements Serializable {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    public void setEmployeeId(int employeeId) {
+       setUserId(employeeId);
     }
 }

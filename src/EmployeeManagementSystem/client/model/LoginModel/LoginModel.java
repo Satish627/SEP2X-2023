@@ -11,4 +11,8 @@ public interface LoginModel {
     Employee login(int id, String passwd) ;
     Admin adminLogin(int id, String passwd);
 
+    void setCurrentUser(Employee login);
+
+    int getCurrentUserId();
+
 }

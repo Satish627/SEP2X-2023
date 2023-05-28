@@ -14,7 +14,7 @@ public class ViewHandler {
     private Stage stage;
     private final ViewModelFactory viewModelFactory;
 
-    private Scene loginScene, adminLoginScene,mainScene,employeeScene, addEmployeeScene, editEmployeeScene, viewShiftScene,
+    private Scene loginScene, adminLoginScene,mainScene,employeeScene, updateShiftScene, editEmployeeScene, viewShiftScene,
             leaveRequestScene,addShiftScene,employeeShiftViewScene, employeeRequestPageScene;
 
     public ViewHandler(Stage stage, ViewModelFactory viewModelFactory) {
@@ -188,6 +188,16 @@ public class ViewHandler {
         }
         stage.setScene(employeeShiftViewScene);
         stage.show();
+    }
+
+    public void openUpdateShift() {
+        if (updateShiftScene == null) {
+            Parent root=loadFXMLFile("../view/AdminViews/UpdateShift/UpdateShift.fxml");
+            updateShiftScene = new Scene(root);
+        }
+        stage.setScene(updateShiftScene);
+        stage.show();
+
     }
 }
 

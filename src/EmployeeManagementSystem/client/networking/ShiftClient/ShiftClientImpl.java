@@ -11,72 +11,79 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-public class ShiftClientImpl implements ShiftClient
-{
+public class ShiftClientImpl implements ShiftClient {
     private Server server;
     private PropertyChangeSupport propertyChangeSupport;
+
 
     public ShiftClientImpl() {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
         try {
             System.out.println("Hello from  addShift client networking!!");
-            server= GetServer.getRMIServer();
-        }catch (Exception e){
+            server = GetServer.getRMIServer();
+        } catch (Exception e) {
             throw e;
         }
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)  {
+    public Shift addShift(int employeeID, LocalDate date, String startTime, String endTime) {
         try {
 
-            Shift shift=   server.getShiftServer().addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
-            propertyChangeSupport.firePropertyChange("newShiftAdded",null,new Shift(shiftID,employeeID,employeeName,date,startTime,endTime));
+            Shift shift = server.getShiftServer().addShift(employeeID, date, startTime, endTime);
+            propertyChangeSupport.firePropertyChange("newShiftAdded", null, shift);
             return shift;
-        } catch (RemoteException | SQLException e) {
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public ArrayList<Shift> viewAllShift()
-    {
-        try{
+    public ArrayList<Shift> viewAllShift() {
+
+        try {
             return server.getShiftServer().viewAllShift();
         } catch (SQLException | RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return null; // Return null in case of exceptions
     }
 
+
     @Override
-    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime){
-        try{
-            server.getShiftServer().updateShift(shiftID,employeeID,employeeName,date,startTime,endTime);
-            propertyChangeSupport.firePropertyChange("shiftUpdated",null,new Shift(shiftID,employeeID,employeeName,date,startTime,endTime));
+    public void updateShift(Shift shift) {
+
+        try {
+            Shift shift1 = server.getShiftServer().updateShift(shift);
+            propertyChangeSupport.firePropertyChange("shiftUpdated", null, shift1);
         } catch (SQLException | RemoteException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
     @Override
-    public void deleteShift(int sId)
-    {
+    public void deleteShift(int sId) {
         try {
             server.getShiftServer().deleteShiftById(sId);
-            propertyChangeSupport.firePropertyChange("shiftRemoved",null,new Shift(sId));
-
+            propertyChangeSupport.firePropertyChange("shiftRemoved", null, new Shift(sId));
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
     public ArrayList<Shift> viewAllShiftByUserID(int userID) {
         try {
             return server.getShiftServer().viewAllShiftByUserID(userID);
-        } catch (RemoteException | SQLException e) {
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
@@ -84,7 +91,7 @@ public class ShiftClientImpl implements ShiftClient
     @Override
     public void checkIn(int shiftID, int userID) {
         try {
-            server.getShiftServer().checkIn(shiftID,userID);
+            server.getShiftServer().checkIn(shiftID, userID);
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,23 +100,23 @@ public class ShiftClientImpl implements ShiftClient
     @Override
     public void checkOut(int shiftID, int userID) {
         try {
-            server.getShiftServer().checkOut(shiftID,userID);
+            server.getShiftServer().checkOut(shiftID, userID);
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void addListener( String eventName,PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(eventName,listener);
+    public void addListener(String eventName, PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(eventName, listener);
     }
 
     @Override
     public void removeListener(String eventName, PropertyChangeListener listener) {
-        propertyChangeSupport.removePropertyChangeListener(eventName,listener);
+        propertyChangeSupport.removePropertyChangeListener(eventName, listener);
 
     }
 
-    }
+}
 
 

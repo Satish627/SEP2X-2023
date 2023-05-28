@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface EmployeeClient extends Subject
 {
-    String addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) ;
+    String addEmployee(String firstName, String lastName,String password, String emailId, String address, int phoneNum, String dateOfBirth) ;
 
     ArrayList<Employee> viewAllEmployees();
 

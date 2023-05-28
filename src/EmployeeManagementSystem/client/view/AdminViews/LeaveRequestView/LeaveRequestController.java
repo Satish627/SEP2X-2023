@@ -10,8 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.rmi.RemoteException;
-
 public class LeaveRequestController implements ViewController {
         private ViewHandler viewHandler;
         private LeaveRequestViewModel leaveRequestViewModel;
@@ -34,7 +32,7 @@ public class LeaveRequestController implements ViewController {
         }
 
         @FXML
-        void backbtnClick(ActionEvent event) {
+        void bacBtnClick(ActionEvent event) {
             viewHandler.backPage();
         }
 

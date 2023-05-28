@@ -1,35 +1,46 @@
 package EmployeeManagementSystem.client.view.EmployeeViews.ViewShift;
 
+import EmployeeManagementSystem.client.model.LoginModel.LoginModel;
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModel;
 import EmployeeManagementSystem.shared.model.Shift;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
+import java.time.LocalDate;
+import java.util.List;
 
 public class EmployeeViewShiftViewModel
 {
     private ShiftModel shiftModel;
-    private ObservableList<Shift> shiftObservableList;
+    private List<Shift> allShifts;
+    private ObservableList<Shift> shiftsToShow;
+    private StringProperty totalHours;
+    private LoginModel loginModel;
 
     private int userID;
 
-    public EmployeeViewShiftViewModel(ShiftModel shiftModel) {
+    public EmployeeViewShiftViewModel(ShiftModel shiftModel, LoginModel loginModel) {
         this.shiftModel = shiftModel;
-        this.shiftObservableList = FXCollections.observableArrayList();
+        this.loginModel = loginModel;
+        allShifts = shiftModel.viewAllShiftByUserID(loginModel.getCurrentUserId());
+        totalHours = new SimpleStringProperty();
+        this.shiftsToShow = FXCollections.observableArrayList(allShifts);
+        calculateTotalHours();
+
     }
 
-    public ObservableList<Shift> viewAllShiftsByUserID(int uID){
-        shiftObservableList.clear();
-        shiftObservableList.addAll(shiftModel.viewAllShiftByUserID(uID));
-        shiftModel.addListener("newShiftAdded",this::newShiftAdded);
-        return shiftObservableList;
+    public ObservableList<Shift> getShiftsToShow() {
+        return shiftsToShow;
     }
 
     private void newShiftAdded(PropertyChangeEvent propertyChangeEvent) {
         Shift newShift = (Shift) propertyChangeEvent.getNewValue();
-        shiftObservableList.add(newShift);
-       shiftObservableList.setAll(shiftModel.viewAllShiftByUserID(userID));
+        shiftsToShow.add(newShift);
+       shiftsToShow.setAll(shiftModel.viewAllShiftByUserID(userID));
     }
 
     public int getUserID() {
@@ -47,5 +58,34 @@ public class EmployeeViewShiftViewModel
     public void checkOut(int shiftID,int userId)
     {
         shiftModel.checkOut(shiftID,userId);
+    }
+
+    public void allSelected() {
+        shiftsToShow.setAll(allShifts);
+        calculateTotalHours();
+    }
+
+    public void upcomingSelected() {
+        List<Shift> upcomingShifts = allShifts.stream().filter(shift -> !shift.getDate().isBefore(LocalDate.now())).toList();
+        shiftsToShow.setAll(upcomingShifts);
+        calculateTotalHours();
+
+    }
+
+    public void pastSelected() {
+        List<Shift> pastShifts = allShifts.stream().filter(shift -> shift.getDate().isBefore(LocalDate.now())).toList();
+        shiftsToShow.setAll(pastShifts);
+        calculateTotalHours();
+
+
+    }
+
+    private void calculateTotalHours() {
+        int totalHoursInt = shiftsToShow.stream().mapToInt(Shift::getTotalHours).sum();
+        totalHours.setValue(String.valueOf(totalHoursInt));
+    }
+
+    public StringProperty getTotalHours() {
+        return totalHours;
     }
 }

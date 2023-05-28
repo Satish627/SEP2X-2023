@@ -5,17 +5,18 @@ import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.LoginView.EmployeeLogin.EmployeeLoginViewModel;
 import EmployeeManagementSystem.client.view.ViewController;
 import EmployeeManagementSystem.shared.model.Shift;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class EmployeeViewShiftController implements ViewController {
 
@@ -39,6 +40,8 @@ public class EmployeeViewShiftController implements ViewController {
 
         @FXML
         private TableColumn<Shift, String> shiftID;
+        @FXML
+        private TableColumn<Shift, String> statusColumn;
 
         @FXML
         private TableColumn<Shift, Integer> totalHours;
@@ -46,14 +49,41 @@ public class EmployeeViewShiftController implements ViewController {
         @FXML
         private TableView<Shift> employeeShiftView;
 
+        @FXML
+        private ComboBox<String> filterBox;
+
+        @FXML
+        private TextField totalHoursTF;
+
+
+
     @Override
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
 
         this.viewHandler = viewHandler;
         employeeViewShiftViewModel = viewModelFactory.getEmployeeViewShiftViewModel();
         employeeLoginViewModel=viewModelFactory.getLoginViewModel();
+        filterBox.setItems(FXCollections.observableArrayList("ALL","UPCOMING", "PAST"));
+        filterBox.setValue("ALL");
+        filterBox.setOnAction(this::updateList);
+
+        totalHoursTF.textProperty().bind(employeeViewShiftViewModel.getTotalHours());
         initializeTableView();
 
+    }
+
+    private void updateList(ActionEvent actionEvent) {
+        switch (filterBox.getSelectionModel().getSelectedItem()){
+            case  "ALL" :
+                employeeViewShiftViewModel.allSelected();
+                break;
+            case "UPCOMING" :
+                employeeViewShiftViewModel.upcomingSelected();
+                break;
+            case "PAST" :
+                employeeViewShiftViewModel.pastSelected();
+
+        }
     }
 
     private void initializeTableView()
@@ -65,7 +95,10 @@ public class EmployeeViewShiftController implements ViewController {
         checkInTime.setCellValueFactory(new PropertyValueFactory<>("checkInTime"));
         checkOutTime.setCellValueFactory(new PropertyValueFactory<>("checkOutTime"));
         totalHours.setCellValueFactory(new PropertyValueFactory<>("totalHours"));
-        employeeShiftView.setItems(employeeViewShiftViewModel.viewAllShiftsByUserID(employeeLoginViewModel.login().getUserId()));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        employeeShiftView.setItems(employeeViewShiftViewModel.getShiftsToShow());
+
+
 
     }
 

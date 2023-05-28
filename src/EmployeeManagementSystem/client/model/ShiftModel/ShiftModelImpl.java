@@ -16,6 +16,8 @@ public class ShiftModelImpl implements ShiftModel
 {
     private ShiftClient shiftClient;
     private PropertyChangeSupport propertyChangeSupport;
+    private Shift selectedShift;
+
     public ShiftModelImpl(ShiftClient shiftClient)
 
     {
@@ -44,11 +46,11 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime)
+    public Shift addShift( int employeeID, LocalDate date, String startTime, String endTime)
     {
         try {
-            return shiftClient.addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
-        } catch (RemoteException | SQLException e) {
+            return shiftClient.addShift(employeeID,date, startTime, endTime);
+        } catch (RemoteException e)  {
             throw new RuntimeException(e);
         }
 
@@ -82,12 +84,22 @@ public class ShiftModelImpl implements ShiftModel
     }
 
     @Override
-    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) {
+    public void updateShift(Shift shift) {
         try {
-            shiftClient.updateShift(shiftID,employeeID,employeeName,date,checkInTime,checkOutTime);
-        } catch (RemoteException | SQLException e) {
+            shiftClient.updateShift(shift);
+        } catch (RemoteException  e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Shift getSelectedShift() {
+        return this.selectedShift;
+    }
+
+    @Override
+    public void setSelectedShift(Shift shift) {
+        this.selectedShift = shift;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface EmployeeModel extends Subject
 {
-    String addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) throws SQLException, RemoteException;
+    String addEmployee(String firstName, String lastName,String password,  String emailId, String address, int phoneNum, String dateOfBirth) throws SQLException, RemoteException;
     ArrayList<Employee> viewAllEmployees();
 
     void updateEmployee(int UserId,String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth);

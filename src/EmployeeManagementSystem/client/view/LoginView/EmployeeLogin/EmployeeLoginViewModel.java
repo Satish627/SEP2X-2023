@@ -9,11 +9,11 @@ import javafx.beans.property.StringProperty;
 
 public class EmployeeLoginViewModel {
 
-    private LoginModel loginModelImpl;
+    private LoginModel loginModel;
     private StringProperty passwd,message;
     private IntegerProperty id;
-    public EmployeeLoginViewModel(LoginModel loginModelImpl) {
-        this.loginModelImpl=loginModelImpl;
+    public EmployeeLoginViewModel(LoginModel loginModel) {
+        this.loginModel = loginModel;
         initializeAllProperty();
     }
 
@@ -23,8 +23,8 @@ public class EmployeeLoginViewModel {
         message = new SimpleStringProperty();
     }
 
-    public LoginModel getLoginModelImpl() {
-        return loginModelImpl;
+    public LoginModel getLoginModel() {
+        return loginModel;
     }
 
     public IntegerProperty getId() {
@@ -51,7 +51,10 @@ public class EmployeeLoginViewModel {
 
         } else {
             message.set("Tried to login");
-            return loginModelImpl.login(id.get(), passwd.get());
+            Employee login = loginModel.login(id.get(), passwd.get());
+            loginModel.setCurrentUser(login);
+            return login;
+
         }
         return null;
     }
