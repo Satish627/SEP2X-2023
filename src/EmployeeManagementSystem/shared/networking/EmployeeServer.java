@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public interface EmployeeServer extends Remote {
-    String addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException ;
+    Employee addEmployee(String firstName, String lastName,String password,String email, String address, int phoneNum, String DateOfBirth) throws RemoteException ;
 
     ArrayList<Employee> viewAllEmployees() throws RemoteException;
 

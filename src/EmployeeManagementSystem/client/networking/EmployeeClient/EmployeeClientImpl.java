@@ -33,11 +33,11 @@ private PropertyChangeSupport propertyChangeSupport;
         return null;
     }
     @Override
-    public String addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth) {
+    public String addEmployee(String firstName, String lastName,String password,String emailId, String address, int phoneNum, String dateOfBirth) {
          try{
-           String msg = server.getEmployeeServer().addEmployee(firstName, lastName,password, userId, emailId, address, phoneNum, dateOfBirth);
-                propertyChangeSupport.firePropertyChange("newEmployeeAdded", null, new Employee(userId,password,firstName,lastName,emailId,address,phoneNum,dateOfBirth));
-            return msg;
+          Employee employee= server.getEmployeeServer().addEmployee(firstName, lastName,password, emailId, address, phoneNum, dateOfBirth);
+                propertyChangeSupport.firePropertyChange("newEmployeeAdded", null, employee);
+            return "Added employee";
          } catch (RemoteException e) {
             e.printStackTrace();
          }

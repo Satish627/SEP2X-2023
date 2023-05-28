@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.EmployeeViews.ViewShift.EmployeeViewShiftController">
+<AnchorPane prefHeight="512.0" prefWidth="697.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="EmployeeManagementSystem.client.view.EmployeeViews.ViewShift.EmployeeViewShiftController">
    <children>
-      <AnchorPane prefHeight="428.0" prefWidth="600.0">
+      <AnchorPane layoutY="-3.0" prefHeight="479.0" prefWidth="707.0">
          <children>
-            <TableView fx:id="employeeShiftView" layoutX="16.0" layoutY="76.0" prefHeight="265.0" prefWidth="564.0">
+            <TableView fx:id="employeeShiftView" layoutX="44.0" layoutY="52.0" prefHeight="265.0" prefWidth="635.0">
               <columns>
                 <TableColumn fx:id="shiftID" prefWidth="57.0" text="ShiftID" />
                 <TableColumn fx:id="eID" prefWidth="75.5" text="EmployeeID" />
-                  <TableColumn fx:id="employeeName" prefWidth="94.0" text="EmployeeName" />
-                  <TableColumn fx:id="date" prefWidth="92.0" text="Date" />
+                  <TableColumn fx:id="employeeName" prefWidth="97.5" text="EmployeeName" />
+                  <TableColumn fx:id="date" prefWidth="88.5" text="Date" />
                   <TableColumn fx:id="checkInTime" prefWidth="85.5" text="CheckInTime" />
                   <TableColumn fx:id="checkOutTime" prefWidth="89.0" text="CheckOutTime" />
                   <TableColumn fx:id="totalHours" prefWidth="70.0" text="TotalHours" />
+                  <TableColumn fx:id="statusColumn" prefWidth="70.0" text="Status" />
               </columns>
             </TableView>
-            <Button layoutX="42.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCheckInBtnClicked" prefHeight="38.0" prefWidth="68.0" text="Check In" />
-            <Button layoutX="264.0" layoutY="359.0" mnemonicParsing="false" onAction="#onCheckOutBtnClicked" prefHeight="38.0" prefWidth="85.0" text="Check Out" />
-            <Button layoutX="457.0" layoutY="359.0" mnemonicParsing="false" onAction="#onLeaveRequestBtnClicked" prefHeight="38.0" prefWidth="107.0" text="Leave Request" />
-            <HBox alignment="CENTER_RIGHT" layoutY="28.0" prefHeight="38.0" prefWidth="600.0" style="-fx-background-color: blue;">
+            <Button layoutX="372.0" layoutY="397.0" mnemonicParsing="false" onAction="#onCheckInBtnClicked" prefHeight="38.0" prefWidth="68.0" text="Check In" />
+            <Button layoutX="453.0" layoutY="397.0" mnemonicParsing="false" onAction="#onCheckOutBtnClicked" prefHeight="38.0" prefWidth="85.0" text="Check Out" />
+            <Button layoutX="555.0" layoutY="397.0" mnemonicParsing="false" onAction="#onLeaveRequestBtnClicked" prefHeight="38.0" prefWidth="107.0" text="Leave Request" />
+            <HBox alignment="CENTER_RIGHT" layoutX="8.0" layoutY="14.0" prefHeight="38.0" prefWidth="600.0" style="-fx-background-color: blue;">
                <children>
-                  <Text fill="#f21616" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee View " textAlignment="CENTER" wrappingWidth="599.7367553710938">
+                  <Text fill="#f21616" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee View " textAlignment="CENTER" wrappingWidth="689.7367553710938">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
                </children>
             </HBox>
+            <Label layoutX="427.0" layoutY="332.0" text="Total hours : " />
+            <TextField fx:id="totalHoursTF" layoutX="496.0" layoutY="328.0" />
+            <ComboBox fx:id="filterBox" layoutX="62.0" layoutY="328.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </children>

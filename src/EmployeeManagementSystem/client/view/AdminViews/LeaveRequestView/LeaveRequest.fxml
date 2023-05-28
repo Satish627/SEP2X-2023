@@ -27,6 +27,6 @@
       </TableView>
       <Button  layoutX="103.0" layoutY="358.0" mnemonicParsing="false" onAction="#approveClick" prefHeight="25.0" prefWidth="70.0" text="Approve" />
       <Button  layoutX="247.0" layoutY="358.0" mnemonicParsing="false" onAction="#rejectClick" prefHeight="25.0" prefWidth="61.0" text="Reject" />
-      <Button  layoutX="398.0" layoutY="358.0" mnemonicParsing="false" onAction="#backbtnClick" prefHeight="25.0" prefWidth="49.0" text="Back" />
+      <Button layoutX="398.0" layoutY="358.0" mnemonicParsing="false" onAction="#bacBtnClick" prefHeight="25.0" prefWidth="49.0" text="Back" />
    </children>
 </AnchorPane>

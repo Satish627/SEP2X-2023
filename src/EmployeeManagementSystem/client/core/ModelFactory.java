@@ -8,10 +8,10 @@ import EmployeeManagementSystem.client.model.LoginModel.LoginModelImpl;
 
 public class ModelFactory {
     private final ClientFactory clientFactory;
-    public LoginModelImpl loginModelImpl;
-    public EmployeeModelImpl employeeModelImpl;
-    public ShiftModelImpl shiftModelImpl;
-    public LeaveRequestModelImpl leaveRequestImpl;
+    private LoginModelImpl loginModelImpl;
+    private EmployeeModelImpl employeeModelImpl;
+    private ShiftModelImpl shiftModelImpl;
+    private LeaveRequestModelImpl leaveRequestImpl;
 
 
 
@@ -21,7 +21,7 @@ public class ModelFactory {
     }
     public LoginModel getLoginModel(){
         if(loginModelImpl == null){
-            loginModelImpl = (LoginModelImpl) new LoginModelImpl(clientFactory.getLoginClient());
+            loginModelImpl =  new LoginModelImpl(clientFactory.getLoginClient());
         }
         return loginModelImpl;
     }

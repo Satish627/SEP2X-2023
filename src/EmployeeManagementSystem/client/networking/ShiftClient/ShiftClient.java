@@ -10,10 +10,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface ShiftClient extends Subject {
-    Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException;
+    Shift addShift(int employeeID,LocalDate date, String startTime, String endTime) throws RemoteException;
 
     ArrayList<Shift> viewAllShift();
-    void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String startTime, String endTime) throws RemoteException, SQLException;
+    void updateShift(Shift shift) throws RemoteException;
 
     void deleteShift(int eId);
     ArrayList<Shift> viewAllShiftByUserID(int userID);

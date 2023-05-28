@@ -3,12 +3,11 @@ package EmployeeManagementSystem.client.view.AdminViews.AddShift;
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
+import EmployeeManagementSystem.shared.AlertBox;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.converter.NumberStringConverter;
 
 public class AddShiftController implements ViewController {
@@ -23,13 +22,7 @@ public class AddShiftController implements ViewController {
     @FXML
     private TextField endTime;
     @FXML
-    private TextField shiftId;
-    @FXML
     private TextField startTime;
-
-    @FXML private TextField employeeName;
-    @FXML
-    private Button saveBtn;
 
 
     @Override
@@ -40,9 +33,18 @@ public class AddShiftController implements ViewController {
     }
 
     private void bindValuesToTextField() {
-        shiftId.textProperty().bindBidirectional(addShiftViewModel.getShiftID(), new NumberStringConverter());
+        String regex = "[0-9]*";
+
+        // Create a TextFormatter with a filter that allows only numbers
+        TextFormatter<String> employeeIdTextFormatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches(regex)) {
+                return change;
+            }
+            return null;
+        });
+        employeeId.setTextFormatter(employeeIdTextFormatter);
         employeeId.textProperty().bindBidirectional(addShiftViewModel.getEmployeeID(), new NumberStringConverter());
-        employeeName.textProperty().bindBidirectional(addShiftViewModel.getEmployeeName());
         startTime.textProperty().bindBidirectional(addShiftViewModel.getStartTime());
         endTime.textProperty().bindBidirectional(addShiftViewModel.getEndTime());
         datePicker.valueProperty().bindBidirectional(addShiftViewModel.getDate());
@@ -51,7 +53,7 @@ public class AddShiftController implements ViewController {
 
     @FXML
     public void openBackPage(ActionEvent event) {
-        viewHandler.backPage();
+        viewHandler.openViewShift();
     }
 
 
@@ -60,24 +62,22 @@ public class AddShiftController implements ViewController {
     {
         try {
             addShiftViewModel.addShift();
+            AlertBox.showAlert("Shift Has Been Added Successfully");
             clearTextInputs();
+
         } catch (Exception e)
         {
-            e.printStackTrace();
+            AlertBox.showAlert(e.getMessage());
         }
     }
 
 
     private void clearTextInputs()
     {
-        shiftId.setText(null);
         employeeId.setText(null);
-        employeeName.setText(null);
         datePicker.setValue(null);
         startTime.setText(null);
         endTime.setText(null);
     }
 
-    public void onDateSelected(ActionEvent event) {
-    }
 }

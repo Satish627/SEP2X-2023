@@ -30,8 +30,8 @@ public class EmployeeModelImpl implements EmployeeModel
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName,String password, int userId, String emailId, String address, int phoneNum, String dateOfBirth)  {
-        return employeeClient.addEmployee(firstName,lastName,password,userId,emailId,address,phoneNum,dateOfBirth);
+    public String addEmployee(String firstName, String lastName,String password, String emailId, String address, int phoneNum, String dateOfBirth)  {
+        return employeeClient.addEmployee(firstName,lastName,password,emailId,address,phoneNum,dateOfBirth);
     }
 
     @Override

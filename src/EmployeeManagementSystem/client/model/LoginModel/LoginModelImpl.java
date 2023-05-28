@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class LoginModelImpl implements LoginModel{
     private LoginClient loginClient;
+    private Employee currentUser;
 
     public LoginModelImpl(LoginClient loginClient) {
         this.loginClient=loginClient;
@@ -23,6 +24,16 @@ public class LoginModelImpl implements LoginModel{
     @Override
     public Admin adminLogin(int id, String passwd) {
         return loginClient.adminLogin(id,passwd);
+    }
+
+    @Override
+    public void setCurrentUser(Employee login) {
+        this.currentUser = login;
+    }
+
+    @Override
+    public int getCurrentUserId() {
+        return currentUser.getUserId();
     }
 
 

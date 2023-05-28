@@ -3,6 +3,7 @@ package EmployeeManagementSystem.client.view.LoginView.AdminLogin;
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
+import EmployeeManagementSystem.shared.AlertBox;
 import EmployeeManagementSystem.shared.model.Admin;
 import EmployeeManagementSystem.shared.model.Users;
 import javafx.collections.FXCollections;
@@ -65,7 +66,11 @@ public class AdminLoginController implements ViewController {
     }
     @FXML
     private void loginClicked(ActionEvent event) {
-        viewHandler.openMainView();
+        try {
+            viewHandler.openMainView();
+        } catch (Exception e) {
+            AlertBox.showAlert(e.getMessage());
+        }
       /*  try {
             Admin admin = adminLoginViewModel.adminLogin();
             if ((admin.getUserId()) == ((adminLoginViewModel.getAdminId().get())) && admin.getPassword().equals(adminLoginViewModel.getAdminPW().get())) {

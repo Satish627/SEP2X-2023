@@ -24,18 +24,7 @@ public class ViewShiftController implements ViewController
 
     private ViewHandler viewHandler;
     private ViewShiftViewModel viewShiftViewModel;
-    @FXML
-    private TextField checkIn;
-    @FXML
-    private TextField checkOut;
-    @FXML
-    private TextField sId;
-    @FXML
-    private TextField eName;
-    @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextField eId;
+
 
 
     @FXML
@@ -71,8 +60,6 @@ public class ViewShiftController implements ViewController
         this.viewHandler = viewHandler;
         viewShiftViewModel = viewModelFactory.getShiftViewModel();
         initialiseTableView();
-        bindTextFieldValues();
-
 
     }
     private void initialiseTableView() {
@@ -84,27 +71,8 @@ public class ViewShiftController implements ViewController
         checkOutTime.setCellValueFactory(new PropertyValueFactory<>("checkOutTime"));
         totalHours.setCellValueFactory(new PropertyValueFactory<>("totalHours"));
         status.setCellValueFactory(new PropertyValueFactory<>("status"));
-
        shiftListView.setItems(viewShiftViewModel.viewAllShift());
     }
-    @FXML
-    void getSelectedItem(MouseEvent mouseEvent) {
-        int index = shiftListView.getSelectionModel().getSelectedIndex();
-        if (index <= -1){
-            return;
-        }
-        sId.setText(shiftID.getCellData(index).toString());
-        eId.setText(employeeID.getCellData(index).toString());
-        eName.setText(ename.getCellData(index));
-        datePicker.setValue(date.getCellData(index));
-        checkIn.setText(checkInTime.getCellData(index));
-        checkOut.setText(checkOutTime.getCellData(index).toString());
-
-
-
-    }
-
-
 
     @FXML
     void onViewShiftBackBtnClicked(ActionEvent event)
@@ -114,44 +82,35 @@ public class ViewShiftController implements ViewController
     }
     @FXML
     void OnAddShiftBtnClick(ActionEvent event) throws SQLException, RemoteException {
-        try {
-            viewShiftViewModel.addShift();
-            clearTextInput();
-        } catch (Exception e) {
-            AlertBox.showAlert(e.getMessage());
-        }
-
-    }
-
-    private void clearTextInput()
-    {
-        sId.setText(null);
-        eId.setText(null);
-        eName.setText(null);
-        datePicker.setValue(null);
-        checkIn.setText(null);
-        checkOut.setText(null);
+       viewHandler.openAddShiftView();
     }
 
 
     @FXML
     void removeShiftBtn(ActionEvent event)
     {
-        viewShiftViewModel.deleteShift(Integer.parseInt(sId.getText()));
-        clearTextInput();
-    }
-    private void bindTextFieldValues() {
-        sId.textProperty().bindBidirectional(viewShiftViewModel.getShiftID(), new NumberStringConverter());
-        eId.textProperty().bindBidirectional(viewShiftViewModel.getEmployeeID(), new NumberStringConverter());
-        eName.textProperty().bindBidirectional(viewShiftViewModel.getEmployeeName());
-        datePicker.valueProperty().bindBidirectional(viewShiftViewModel.getDate());
-        checkIn.textProperty().bindBidirectional(viewShiftViewModel.getCheckInTime());
-        checkOut.textProperty().bindBidirectional(viewShiftViewModel.getCheckOutTime());
+        try {
+            Shift selectedItem = shiftListView.getSelectionModel().getSelectedItem();
+            if (selectedItem == null) {
+                AlertBox.showAlert("Please select a shift to update");
+                return;
+            }
+            viewShiftViewModel.deleteShift(selectedItem.getShiftID());
+            AlertBox.showAlert("Deleted successfully");
+        } catch (Exception e) {
+            AlertBox.showAlert(e.getMessage());
+        }
+
     }
 
 
     public void onUpdateBtnClicked(ActionEvent event) {
-        viewShiftViewModel.updateShift(Integer.parseInt(sId.getText()),Integer.parseInt(eId.getText()),ename.getText(),datePicker.getValue(),checkIn.getText(),checkOut.getText());
-        clearTextInput();
+        Shift selectedItem = shiftListView.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            AlertBox.showAlert("Please select a shift to update");
+            return;
+        }
+        viewShiftViewModel.updateShift(selectedItem);
+        viewHandler.openUpdateShift();
     }
 }

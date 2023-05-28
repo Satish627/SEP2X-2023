@@ -16,11 +16,10 @@ public class AddShiftViewModel {
     private StringProperty startTime, endTime;
     private StringProperty employeeName;
     private ObjectProperty<LocalDate> date;
-    private final NumberStringConverter numberStringConverter;
+
 
     public AddShiftViewModel(ShiftModel addNewShiftModel) {
         this.addShiftModel = addNewShiftModel;
-        this.numberStringConverter = new NumberStringConverter();
         initialiseAllProperty();
     }
 
@@ -59,12 +58,12 @@ public class AddShiftViewModel {
 
     public Shift addShift() throws SQLException, RemoteException
     {
-        if (shiftID.get()==0||employeeID.get()==0||employeeName.get()==null||date.get()==null||startTime.get()==null||endTime.get()==null)
+        if (employeeID.get()==0||date.get()==null||startTime.get()==null||endTime.get()==null)
         {
             System.out.println("Please fill in all the information.");
             return null;
         } else {
-            Shift addShift = addShiftModel.addShift(shiftID.get(), employeeID.get(), employeeName.get(), date.get(), startTime.get(), endTime.get());
+            Shift addShift = addShiftModel.addShift(employeeID.get(), date.get(), startTime.get(), endTime.get());
             return  addShift;
         }
 

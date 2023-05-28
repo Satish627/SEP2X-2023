@@ -1,9 +1,10 @@
 package EmployeeManagementSystem.server.DAO.LeaveRequest;
 
-import EmployeeManagementSystem.server.DataBaseConnection;
+import EmployeeManagementSystem.server.DAO.DataBaseConnection;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
 import java.sql.*;
 import java.util.ArrayList;
+
 
 public class LeaveRequestDaoImpl implements LeaveRequestDao
 {
@@ -40,7 +41,6 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
             PreparedStatement statement=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
             statement.setInt(1,shiftID);
             statement.executeUpdate();
-            connection.close();
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

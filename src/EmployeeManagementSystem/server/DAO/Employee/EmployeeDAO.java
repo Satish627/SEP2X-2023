@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public interface EmployeeDAO {
 
 
-    String  addEmployee(String firstName, String lastName, String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) ;
+    Employee  addEmployee(String firstName, String lastName, String password, String email, String address, int phoneNum, String DateOfBirth) ;
 
     ArrayList<Employee> viewAllEmployees() ;
-    void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) ;
+    void updateEmployeeInfo(int userid,String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) ;
     void deleteEmployeeByID(int UserId) ;
 }

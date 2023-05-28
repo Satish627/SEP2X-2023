@@ -1,40 +1,46 @@
 package EmployeeManagementSystem.shared.model;
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Shift implements Serializable
 {
     private int shiftID;
-    private int employeeID;
+
     private String employeeName;
+    private int employeeID;
     private LocalDate date;
     private String checkInTime;
     private String checkOutTime;
-    private String status;
 
-    private int totalHours;
-
-    public Shift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime, int totalHours, String status) {
+    public Shift(int shiftID, int employeeID, LocalDate date, String checkInTime, String checkOutTime) {
 
         this.shiftID= shiftID;
         this.employeeID= employeeID;
-        this.employeeName = employeeName;
         this.date = date;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
-        this.totalHours=totalHours;
-        this.status=status;
+    }
+    public Shift( int employeeID, LocalDate date, String checkInTime, String checkOutTime, String employeeName) {
+
+        this.employeeID= employeeID;
+        this.date = date;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.employeeName = employeeName;
     }
 
-    public Shift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) {
-        this.shiftID = shiftID;
-        this.employeeID = employeeID;
-        this.employeeName = employeeName;
+    public Shift(int shiftID, int employeeID, LocalDate date, String checkInTime, String checkOutTime, String employeeName) {
+
+        this.shiftID= shiftID;
+        this.employeeID= employeeID;
         this.date = date;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;
+        this.employeeName= employeeName;
     }
+
 
     public Shift(int shiftID) {
         this.shiftID = shiftID;
@@ -43,10 +49,6 @@ public class Shift implements Serializable
 
     public int  getShiftID() {
         return shiftID;
-    }
-    public String getEmployeeName()
-    {
-        return employeeName;
     }
 
     public int getEmployeeID() {
@@ -59,6 +61,35 @@ public class Shift implements Serializable
 
     public String getCheckInTime() {
         return checkInTime;
+    }
+
+    public int getTotalHours() {
+        Duration between = Duration.between(LocalTime.parse(checkInTime), LocalTime.parse(checkOutTime));
+        return between.toHoursPart();
+    }
+
+    public String getStatus(){
+        return LocalDate.now().isBefore(date) ? "UPCOMING" : "PAST";
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setCheckInTime(String checkInTime) {
+        this.checkInTime = checkInTime;
+    }
+
+    public void setCheckOutTime(String checkOutTime) {
+        this.checkOutTime = checkOutTime;
     }
 
     public String getCheckOutTime() {
@@ -74,32 +105,18 @@ public class Shift implements Serializable
         this.employeeID = employeeID;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public void setDate() {
-        this.date = date;
-
-    }
-
-    public int getTotalHours() {
-        return totalHours;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
     @Override
     public String toString() {
         return "Shift{" +
                 "shiftID=" + shiftID +
                 ", employeeID=" + employeeID +
-                ", employeeName='" + employeeName + '\'' +
                 ", date=" + date +
                 ", startTime='" + checkInTime + '\'' +
                 ", endTime='" + checkOutTime + '\'' +
                 '}';
+    }
+
+    public Shift copy(){
+        return new Shift(shiftID, employeeID,date, checkInTime, checkOutTime, employeeName);
     }
 }

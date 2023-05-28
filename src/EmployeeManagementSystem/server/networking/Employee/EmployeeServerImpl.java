@@ -9,7 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class EmployeeServerImpl implements EmployeeServer {
-    private EmployeeDAO employeeDAO;
+    private final EmployeeDAO employeeDAO;
     public EmployeeServerImpl(EmployeeDAO employeeDAO) throws RemoteException {
         this.employeeDAO = employeeDAO;
         UnicastRemoteObject.exportObject(this,0);
@@ -17,9 +17,9 @@ public class EmployeeServerImpl implements EmployeeServer {
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException  {
+    public Employee addEmployee(String firstName, String lastName,String password, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException  {
 
-          return    employeeDAO.addEmployee(firstName,lastName,password,UserId,email,address,phoneNum,DateOfBirth);
+          return    employeeDAO.addEmployee(firstName,lastName,password,email,address,phoneNum,DateOfBirth);
 
     }
 

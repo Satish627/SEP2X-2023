@@ -7,7 +7,6 @@ import EmployeeManagementSystem.shared.networking.ShiftServer;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -22,9 +21,9 @@ public class ShiftServerImpl implements ShiftServer {
     }
 
     @Override
-    public Shift addShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws RemoteException,SQLException
+    public Shift addShift( int employeeID, LocalDate date, String checkInTime, String checkOutTime) throws RemoteException
     {
-        return shiftDAO.addShift(shiftID, employeeID, employeeName, date, checkInTime, checkOutTime);
+        return shiftDAO.addShift( employeeID, date, checkInTime, checkOutTime);
     }
 
     @Override
@@ -34,13 +33,13 @@ public class ShiftServerImpl implements ShiftServer {
     }
 
     @Override
-    public ArrayList<Shift> viewAllShiftByUserID(int userID) throws RemoteException, SQLException {
-        return shiftDAO.viewAllShiftByUserID(userID);
+    public ArrayList<Shift> viewAllShiftByUserID(int userID) throws RemoteException {
+        return shiftDAO.viewAllShiftByEmployeeId(userID);
     }
 
     @Override
-    public void updateShift(int shiftID, int employeeID, String employeeName, LocalDate date, String checkInTime, String checkOutTime) throws RemoteException, SQLException {
-         shiftDAO.updateShiftInfo(shiftID,employeeID,employeeName,date,checkInTime,checkOutTime);
+    public Shift updateShift(Shift shift) throws RemoteException, SQLException {
+        return shiftDAO.updateShiftInfo(shift);
     }
 
     @Override
