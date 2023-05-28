@@ -36,7 +36,7 @@ public class EmployeeLeaveRequestController implements ViewController{
     @FXML
     public void onEmployeeLeaveRequestBackBtnClicked(ActionEvent event)
     {
-        viewHandler.backPage();
+        viewHandler.EmployeeBackPage();
     }
 
     @FXML

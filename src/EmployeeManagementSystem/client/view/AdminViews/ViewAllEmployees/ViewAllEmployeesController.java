@@ -3,6 +3,7 @@ package EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees;
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
+import EmployeeManagementSystem.shared.AlertBox;
 import EmployeeManagementSystem.shared.model.Employee;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -143,8 +144,12 @@ void getSelectedItem(MouseEvent mouseEvent) {
     }
 
    @FXML public void onAddEmployeeButtonClick(ActionEvent event) {
-        viewAllEmployeesViewModel.addEmployee();
-        clearTextInputs();
+       try {
+           viewAllEmployeesViewModel.addEmployee();
+       } catch (Exception e) {
+           AlertBox.showAlert(e.getMessage());
+       }
+       clearTextInputs();
     }
     @FXML
     void onEditEmployeeButtonClick(ActionEvent event) {

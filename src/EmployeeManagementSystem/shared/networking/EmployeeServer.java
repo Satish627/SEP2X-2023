@@ -4,14 +4,13 @@ import EmployeeManagementSystem.shared.model.Employee;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface EmployeeServer extends Remote {
-    String addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException, SQLException;
+    String addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException ;
 
-    ArrayList<Employee> viewAllEmployees() throws RemoteException,SQLException;
+    ArrayList<Employee> viewAllEmployees() throws RemoteException;
 
-    void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException,SQLException;
-    void deleteEmployeeById(int UserId) throws RemoteException,SQLException;
+    void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException;
+    void deleteEmployeeById(int UserId) throws RemoteException;
 }

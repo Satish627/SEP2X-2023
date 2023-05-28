@@ -1,17 +1,11 @@
 package EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees;
-
 import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModel;
-import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModelImpl;
-import EmployeeManagementSystem.client.networking.EmployeeClient.EmployeeClient;
 import EmployeeManagementSystem.shared.model.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.stubbing.OngoingStubbing;
-
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,16 +20,8 @@ class ViewAllEmployeesViewModelTest
     private ViewAllEmployeesViewModel viewAllEmployeesViewModelTest;
     private EmployeeModel employeeModelTest;
 
-//    @BeforeEach
-//    void setUp()
-//    {
-//        EmployeeModelImpl employeeModelTest = mock(EmployeeModelImpl.class);
-//        viewAllEmployeesViewModelTest = new ViewAllEmployeesViewModel(employeeModelTest);
-//
-//    }
 @BeforeEach
 void setUp() {
-//    EmployeeClient employeeClientMock = Mockito.mock(EmployeeClient.class);
     employeeModelTest = Mockito.mock(EmployeeModel.class);
     viewAllEmployeesViewModelTest = new ViewAllEmployeesViewModel(employeeModelTest);
 }
@@ -43,17 +29,18 @@ void setUp() {
 
     @Test
     void test_ViewAllEmployee() {
-        Employee employee1 = new Employee();
-        Employee employee2 = new Employee();
 
-        List<Employee> expectedEmployees = Arrays.asList(employee1, employee2);
+
+        List<Employee> expectedEmployees = new ArrayList<>();
+        expectedEmployees.add(new Employee(111,"Abc123","Apurva","01-01-2002","Chowk Tira",84445343,"apurva234"));
+        expectedEmployees.add(new Employee(121,"Acc111","Aalu","01-02-2002","Chowk Tira Hoina",84445343,"apurva234"));
         ObservableList<Employee> expectedEmployeeList = FXCollections.observableArrayList(expectedEmployees);
        when(employeeModelTest.viewAllEmployees()).thenReturn(new ArrayList<>(expectedEmployees));
+       viewAllEmployeesViewModelTest=new ViewAllEmployeesViewModel(employeeModelTest);
 
         ObservableList<Employee> result = viewAllEmployeesViewModelTest.viewAllEmployees();
 
-        assertEquals(expectedEmployees, result);
-        verify(employeeModelTest).viewAllEmployees();
+        assertIterableEquals(expectedEmployees,result);
     }
 
 
@@ -95,14 +82,13 @@ void setUp() {
 
         viewAllEmployeesViewModelTest.getFirstName().set(null);
         viewAllEmployeesViewModelTest.getLastName().set("");
+        viewAllEmployeesViewModelTest.getUserId().set(0);
         viewAllEmployeesViewModelTest.getAddress().set("");
         viewAllEmployeesViewModelTest.getEmail().set("");
         viewAllEmployeesViewModelTest.getPhNumber().set(0);
         viewAllEmployeesViewModelTest.getDateOfBirth().set("");
 
-
-        String result = viewAllEmployeesViewModelTest.addEmployee();
-        assertNull(result);
+        assertThrows(RuntimeException.class, ()-> viewAllEmployeesViewModelTest.addEmployee());
 
 
     }

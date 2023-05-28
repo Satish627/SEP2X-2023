@@ -2,12 +2,10 @@ package EmployeeManagementSystem.server.networking.Employee;
 
 import EmployeeManagementSystem.server.DAO.Employee.EmployeeDAO;
 import EmployeeManagementSystem.shared.model.Employee;
-import EmployeeManagementSystem.shared.model.Users;
 import EmployeeManagementSystem.shared.networking.EmployeeServer;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeServerImpl implements EmployeeServer {
@@ -19,24 +17,24 @@ public class EmployeeServerImpl implements EmployeeServer {
     }
 
     @Override
-    public String addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException, SQLException {
+    public String addEmployee(String firstName, String lastName,String password, int UserId, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException  {
 
           return    employeeDAO.addEmployee(firstName,lastName,password,UserId,email,address,phoneNum,DateOfBirth);
 
     }
 
     @Override
-    public ArrayList<Employee> viewAllEmployees() throws RemoteException, SQLException {
+    public ArrayList<Employee> viewAllEmployees() throws RemoteException  {
         return employeeDAO.viewAllEmployees();
     }
 
     @Override
-    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException, SQLException {
+    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException {
         employeeDAO.updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
     }
 
     @Override
-    public void deleteEmployeeById(int UserId) throws RemoteException, SQLException {
+    public void deleteEmployeeById(int UserId) throws RemoteException  {
         employeeDAO.deleteEmployeeByID(UserId);
     }
 }

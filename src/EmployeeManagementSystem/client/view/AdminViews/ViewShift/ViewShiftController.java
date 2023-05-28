@@ -3,6 +3,7 @@ package EmployeeManagementSystem.client.view.AdminViews.ViewShift;
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
 import EmployeeManagementSystem.client.view.ViewController;
+import EmployeeManagementSystem.shared.AlertBox;
 import EmployeeManagementSystem.shared.model.Shift;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -113,8 +114,12 @@ public class ViewShiftController implements ViewController
     }
     @FXML
     void OnAddShiftBtnClick(ActionEvent event) throws SQLException, RemoteException {
-        viewShiftViewModel.addShift();
-        clearTextInput();
+        try {
+            viewShiftViewModel.addShift();
+            clearTextInput();
+        } catch (Exception e) {
+            AlertBox.showAlert(e.getMessage());
+        }
 
     }
 

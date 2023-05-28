@@ -20,11 +20,7 @@ public class LeaveRequestViewModel
         this.leaveRequestModel = leaveRequestModel;
 
         List<LeaveRequest> requestList = null;
-        try {
-            requestList = leaveRequestModel.viewAllLeaveRequests();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+        requestList = leaveRequestModel.viewAllLeaveRequests();
         if (requestList != null) {
             leaveRequests = FXCollections.observableList(requestList);
         } else {
@@ -34,7 +30,7 @@ public class LeaveRequestViewModel
 
 
 
-    public void approveLeave(int shiftID) throws RemoteException {
+    public void approveLeave(int shiftID) {
         if (shiftID==0) {
             System.out.println("ShiftID is null");
         } else {
@@ -42,7 +38,7 @@ public class LeaveRequestViewModel
         }
     }
 
-    public void rejectLeave(int shiftID) throws RemoteException {
+    public void rejectLeave(int shiftID)  {
         if (shiftID==0) {
             System.out.println("ShiftID is null");
         } else {

@@ -17,18 +17,16 @@ class LeaveRequestViewModelTest
 {
     private LeaveRequestViewModel leaveRequestViewModelTest;
     private LeaveRequestModelImpl leaveRequestModelTest;
-    private LeaveRequestClient leaveRequestClientTest;
-    private LeaveRequest leaveRequest;
+
 
     @BeforeEach
-    void setUp() throws RemoteException {
+    void setUp()  {
         leaveRequestModelTest = mock(LeaveRequestModelImpl.class);
         leaveRequestViewModelTest = new LeaveRequestViewModel(leaveRequestModelTest);
 
     }
     @Test
-    public void test_ApproveLeave_by_ShiftID() throws RemoteException
-    {
+    public void test_ApproveLeave_by_ShiftID() throws RemoteException {
         // Arrange
         int shiftID = 123;
 
@@ -39,7 +37,7 @@ class LeaveRequestViewModelTest
         verify(leaveRequestModelTest).approveLeave(shiftID);
     }
     @Test
-    public void test_RejectLeave_by_ShiftID() throws RemoteException
+    public void test_RejectLeave_by_ShiftID() 
     {
         // Arrange
         int shiftID = 1;
@@ -51,17 +49,18 @@ class LeaveRequestViewModelTest
         verify(leaveRequestModelTest).rejectLeave(shiftID);
     }
     @Test
-    public void testViewAllLeaveRequests() throws RemoteException
+    public void testViewAllLeaveRequests() 
     {
         // Arrange
         List<LeaveRequest> expectedLeaveRequests = new ArrayList<>();
-        expectedLeaveRequests.add(new LeaveRequest(leaveRequest.getShiftID(), leaveRequest.getReason()));
-        expectedLeaveRequests.add(new LeaveRequest(leaveRequest.getShiftID(), leaveRequest.getReason()));
+        expectedLeaveRequests.add(new LeaveRequest(1,"reason1"));
+        expectedLeaveRequests.add(new LeaveRequest(2, "reason2"));
 
 
         when(leaveRequestModelTest.viewAllLeaveRequests()).thenReturn(new ArrayList<>(expectedLeaveRequests));
 
         // Act
+        leaveRequestViewModelTest = new LeaveRequestViewModel(leaveRequestModelTest);
         ObservableList<LeaveRequest> result = leaveRequestViewModelTest.viewAllLeaveRequests();
 
         // Assert

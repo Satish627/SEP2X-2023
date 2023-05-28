@@ -30,11 +30,7 @@ public class LeaveRequestController implements ViewController {
 
             int shiftID = leaveRequestTable.getSelectionModel().getSelectedItem().getShiftID();
             System.out.println(shiftID);
-            try {
-                leaveRequestViewModel.approveLeave(shiftID);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+            leaveRequestViewModel.approveLeave(shiftID);
         }
 
         @FXML
@@ -45,11 +41,7 @@ public class LeaveRequestController implements ViewController {
         @FXML
         void rejectClick(ActionEvent event) {
             int shiftID=leaveRequestTable.getSelectionModel().getSelectedItem().getShiftID();
-            try {
-                leaveRequestViewModel.rejectLeave(shiftID);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
+            leaveRequestViewModel.rejectLeave(shiftID);
         }
 
 

@@ -2,10 +2,8 @@ package EmployeeManagementSystem.client.view.EmployeeViews.ViewShift;
 
 import EmployeeManagementSystem.client.core.ViewHandler;
 import EmployeeManagementSystem.client.core.ViewModelFactory;
-import EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees.ViewAllEmployeesViewModel;
 import EmployeeManagementSystem.client.view.LoginView.EmployeeLogin.EmployeeLoginViewModel;
 import EmployeeManagementSystem.client.view.ViewController;
-import EmployeeManagementSystem.shared.model.LeaveRequest;
 import EmployeeManagementSystem.shared.model.Shift;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,6 +13,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class EmployeeViewShiftController implements ViewController {
 
@@ -72,17 +73,14 @@ public class EmployeeViewShiftController implements ViewController {
     @FXML
     void onCheckInBtnClicked(ActionEvent event) {
         Shift selectedShift = employeeShiftView.getSelectionModel().getSelectedItem();
-        if (selectedShift != null && selectedShift.getEmployeeID() == employeeLoginViewModel.login().getUserId()) {
             LocalDate currentDate = LocalDate.now();
             if (selectedShift.getDate().isEqual(currentDate)) {
                 openCheckInAlert();
                 employeeViewShiftViewModel.checkIn(selectedShift.getShiftID(), selectedShift.getEmployeeID());
             } else {
-                System.out.println("You can only check in on the same day as the shift.");
+                showDateWarning();
             }
-        } else {
-            System.out.println("Unauthorized access");
-        }
+
     }
     private void openCheckInAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -95,18 +93,41 @@ public class EmployeeViewShiftController implements ViewController {
     @FXML
     void onCheckOutBtnClicked(ActionEvent event) {
         Shift selectedShift = employeeShiftView.getSelectionModel().getSelectedItem();
-        if (selectedShift != null && selectedShift.getEmployeeID() == employeeLoginViewModel.login().getUserId()) {
-            LocalDate currentDate = LocalDate.now();
-            if (selectedShift.getDate().isEqual(currentDate) && selectedShift.getCheckInTime() != null) {
+            LocalDateTime currentDate = LocalDateTime.now();
+            if (selectedShift.getDate().isEqual(currentDate.toLocalDate()) && selectedShift.getCheckInTime() != null) {
+                LocalTime checkOutDate = stringToLocalTime(selectedShift.getCheckOutTime());
+                if (LocalTime.now().isBefore(checkOutDate)){
+                    showWarning();
+                    return;
+                }
                 openCheckOutAlert();
                 employeeViewShiftViewModel.checkOut(selectedShift.getShiftID(), selectedShift.getEmployeeID());
             } else {
-                System.out.println("You can only check out on the same day as the shift and after checking in.");
+                showDateWarning();
             }
-        } else {
-            System.out.println("Unauthorized access");
-        }
     }
+
+    private void showWarning() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Shift Check-Out");
+        alert.setHeaderText("Error");
+        alert.setContentText("You cant checkout before the checkout time");
+        alert.showAndWait();
+    }
+
+    private void showDateWarning() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Shift Check-Out");
+        alert.setHeaderText("Error");
+        alert.setContentText("You can only check in on the same day as the shift.");
+        alert.showAndWait();
+    }
+
+    private LocalTime stringToLocalTime(String checkOutTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return LocalTime.parse(checkOutTime, formatter);
+    }
+
 
     private void openCheckOutAlert() {
 

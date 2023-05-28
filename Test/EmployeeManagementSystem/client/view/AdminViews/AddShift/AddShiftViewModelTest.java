@@ -38,7 +38,6 @@ public class AddShiftViewModelTest {
 
         Shift expectedShift = new Shift(shiftID, employeeID, employeeName, date, startTime, endTime);
         when(shiftModel.addShift(shiftID, employeeID, employeeName, date, startTime, endTime)).thenReturn(expectedShift);
-
         addShiftViewModel.getShiftID().set(shiftID);
         addShiftViewModel.getEmployeeID().set(employeeID);
         addShiftViewModel.getEmployeeName().set(employeeName);
@@ -52,7 +51,7 @@ public class AddShiftViewModelTest {
         // Assert
         assertNotNull(resultShift);
         assertEquals(expectedShift, resultShift);
-        verify(shiftModel, times(1)).addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+        verify(shiftModel).addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
     }
 
     @Test

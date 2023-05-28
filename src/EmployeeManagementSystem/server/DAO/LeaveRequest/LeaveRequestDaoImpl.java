@@ -7,11 +7,15 @@ import java.util.ArrayList;
 
 public class LeaveRequestDaoImpl implements LeaveRequestDao
 {
-    public LeaveRequestDaoImpl() throws SQLException {
-        DriverManager.registerDriver(new org.postgresql.Driver());
+    public LeaveRequestDaoImpl()  {
+        try {
+            DriverManager.registerDriver(new org.postgresql.Driver());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void approveLeave(int shiftID) throws SQLException {
+    public void approveLeave(int shiftID)  {
         try (Connection connection = DataBaseConnection.getConnection())
         {
             PreparedStatement statement2=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
@@ -30,7 +34,7 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
     }
 
     @Override
-    public void rejectLeave(int shiftID) throws SQLException{
+    public void rejectLeave(int shiftID){
         try (Connection connection = DataBaseConnection.getConnection())
         {
             PreparedStatement statement=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
@@ -43,7 +47,7 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
         }
     }
 
-public void requestLeave(int shiftID,String reason) throws SQLException{
+public void requestLeave(int shiftID,String reason) {
         try(Connection connection=DataBaseConnection.getConnection())
         {
             PreparedStatement statement=connection.prepareStatement("INSERT INTO leaverequest(shiftid,reason) VALUES (?,?);");
@@ -57,7 +61,7 @@ public void requestLeave(int shiftID,String reason) throws SQLException{
         }
 }
 
-    public ArrayList<LeaveRequest> viewAllLeaveRequests() throws SQLException{
+    public ArrayList<LeaveRequest> viewAllLeaveRequests() {
         ArrayList<LeaveRequest> leaveRequests=new ArrayList<>();
         try (Connection connection = DataBaseConnection.getConnection())
         {

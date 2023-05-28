@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public interface LeaveRequestDao
 {
-     void approveLeave(int shiftID) throws SQLException;
-    void rejectLeave(int shiftID) throws SQLException;
+     void approveLeave(int shiftID) ;
+    void rejectLeave(int shiftID) ;
 
-    ArrayList<LeaveRequest> viewAllLeaveRequests() throws SQLException;
+    ArrayList<LeaveRequest> viewAllLeaveRequests() ;
 
-    void requestLeave(int shiftID,String reason) throws SQLException;
+    void requestLeave(int shiftID,String reason) ;
 
 
 }

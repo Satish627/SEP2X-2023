@@ -179,6 +179,16 @@ public class ViewHandler {
         stage.setScene(editEmployeeScene);
         stage.show();
     }
+
+    public void EmployeeBackPage()
+    {
+        if (employeeShiftViewScene == null) {
+            Parent root=loadFXMLFile("../view/EmployeeViews/ViewShift/EmployeeViewShift.fxml");
+            employeeShiftViewScene = new Scene(root);
+        }
+        stage.setScene(employeeShiftViewScene);
+        stage.show();
+    }
 }
 
     

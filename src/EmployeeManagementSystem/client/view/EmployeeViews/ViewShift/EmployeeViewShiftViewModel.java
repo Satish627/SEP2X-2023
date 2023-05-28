@@ -1,7 +1,6 @@
 package EmployeeManagementSystem.client.view.EmployeeViews.ViewShift;
 
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModel;
-import EmployeeManagementSystem.shared.model.Employee;
 import EmployeeManagementSystem.shared.model.Shift;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -41,12 +40,12 @@ public class EmployeeViewShiftViewModel
         this.userID = userID;
     }
 
-    public void checkIn(int shiftID,int password)
+    public void checkIn(int shiftID,int userId)
     {
-        shiftModel.checkIn(shiftID,password);
+        shiftModel.checkIn(shiftID,userId);
     }
-    public void checkOut(int shiftID,int password)
+    public void checkOut(int shiftID,int userId)
     {
-        shiftModel.checkOut(shiftID,password);
+        shiftModel.checkOut(shiftID,userId);
     }
 }

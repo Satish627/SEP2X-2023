@@ -27,7 +27,7 @@ private PropertyChangeSupport propertyChangeSupport;
     public ArrayList<Employee> viewAllEmployees() {
         try{
             return server.getEmployeeServer().viewAllEmployees();
-        } catch (SQLException | RemoteException e) {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         return null;
@@ -38,7 +38,7 @@ private PropertyChangeSupport propertyChangeSupport;
            String msg = server.getEmployeeServer().addEmployee(firstName, lastName,password, userId, emailId, address, phoneNum, dateOfBirth);
                 propertyChangeSupport.firePropertyChange("newEmployeeAdded", null, new Employee(userId,password,firstName,lastName,emailId,address,phoneNum,dateOfBirth));
             return msg;
-         } catch (RemoteException | SQLException e) {
+         } catch (RemoteException e) {
             e.printStackTrace();
          }
         return null;
@@ -49,7 +49,7 @@ private PropertyChangeSupport propertyChangeSupport;
         try {
             server.getEmployeeServer().updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
             propertyChangeSupport.firePropertyChange("employeeUpdated", null, new Employee(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth));
-        } catch (RemoteException | SQLException e) {
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
@@ -59,7 +59,7 @@ private PropertyChangeSupport propertyChangeSupport;
         try {
             server.getEmployeeServer().deleteEmployeeById(uId);
             propertyChangeSupport.firePropertyChange("employeeRemoved", null, new Employee());
-        } catch (RemoteException | SQLException e) {
+        } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
