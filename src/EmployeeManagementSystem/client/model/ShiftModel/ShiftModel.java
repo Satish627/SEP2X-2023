@@ -28,4 +28,5 @@ public interface ShiftModel extends Subject
     Shift getSelectedShift();
     void setSelectedShift(Shift shift);
 
+
 }

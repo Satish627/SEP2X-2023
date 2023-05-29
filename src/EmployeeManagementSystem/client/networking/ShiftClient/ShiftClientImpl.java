@@ -92,6 +92,7 @@ public class ShiftClientImpl implements ShiftClient {
     public void checkIn(int shiftID, int userID) {
         try {
             server.getShiftServer().checkIn(shiftID, userID);
+            propertyChangeSupport.firePropertyChange("checkIn",null,new Shift(shiftID));
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -101,6 +102,7 @@ public class ShiftClientImpl implements ShiftClient {
     public void checkOut(int shiftID, int userID) {
         try {
             server.getShiftServer().checkOut(shiftID, userID);
+            propertyChangeSupport.firePropertyChange("checkOut",null,new Shift((shiftID)));
         } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }

@@ -26,6 +26,20 @@ public class ShiftModelImpl implements ShiftModel
         shiftClient.addListener("newShiftAdded",this:: newShiftAdded);
         shiftClient.addListener("shiftRemoved", this:: shiftRemoved);
         shiftClient.addListener("shiftUpdated", this:: shiftUpdated);
+        shiftClient.addListener("checkIn",this::checkIn);
+        shiftClient.addListener("checkOut",this::checkOut);
+    }
+
+    private void checkOut(PropertyChangeEvent event)
+    {
+        propertyChangeSupport.firePropertyChange(event);
+        System.out.println("Shift has been checked in from Shift Model");
+    }
+
+    private void checkIn(PropertyChangeEvent event)
+    {
+        propertyChangeSupport.firePropertyChange(event);
+        System.out.println("Shift has been checked out from Shift Model");
     }
 
     private void shiftUpdated(PropertyChangeEvent propertyChangeEvent) {

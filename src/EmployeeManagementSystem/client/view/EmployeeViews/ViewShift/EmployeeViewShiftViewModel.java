@@ -30,7 +30,25 @@ public class EmployeeViewShiftViewModel
         totalHours = new SimpleStringProperty();
         this.shiftsToShow = FXCollections.observableArrayList(allShifts);
         calculateTotalHours();
+        shiftModel.addListener("newShiftAdded",this::newShiftAdded);
+        shiftModel.addListener("checkIn",this::checkIn);
+        shiftModel.addListener("checkOut",this::checkOut);
 
+    }
+
+    private void checkOut(PropertyChangeEvent event)
+    {
+        Shift newShift= (Shift) event.getNewValue();
+        shiftsToShow.add(newShift);
+        shiftsToShow.setAll(shiftModel.viewAllShiftByUserID(loginModel.getCurrentUserId()));
+
+    }
+
+    private void checkIn(PropertyChangeEvent event)
+    {
+        Shift newShift= (Shift) event.getNewValue();
+        shiftsToShow.add(newShift);
+        shiftsToShow.setAll(shiftModel.viewAllShiftByUserID(loginModel.getCurrentUserId()));
     }
 
     public ObservableList<Shift> getShiftsToShow() {
