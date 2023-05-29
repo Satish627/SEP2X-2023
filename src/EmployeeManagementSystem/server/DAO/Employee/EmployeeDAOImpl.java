@@ -92,17 +92,51 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public void updateEmployeeInfo(int employeeid, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
+    public ArrayList<Employee> viewAllEmployeesWithPassWord() {
+        ArrayList<Employee> employeeList = new ArrayList<>();
+        {
+            try(Connection connection = getConnection()) {
+
+                {
+                    PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee ");
+
+                    ResultSet resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+
+                        int employeeid = resultSet.getInt("employeeid");
+                        String firstName = resultSet.getString("firstname");
+                        String lastName = resultSet.getString("lastname");
+                        String password = resultSet.getString("passwd");
+                        String birthDate = resultSet.getString("dateofbirth");
+                        String address = resultSet.getString("address");
+                        int phoneNumber = resultSet.getInt("phonenumber");
+                        String email = resultSet.getString("email");
+                        Employee employee = new Employee(employeeid, firstName, lastName, password,birthDate, address, phoneNumber, email);
+                        employeeList.add(employee);
+                        System.out.println(employeeList);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        return employeeList;
+    }
+
+    @Override
+    public void updateEmployeeInfo(int employeeid, String firstName, String lastName, String password,String email, String address, int phoneNum, String DateOfBirth) {
         try {
             try (Connection connection = getConnection()) {
                 PreparedStatement newStatement = connection.prepareStatement("UPDATE  employee SET firstname=?,lastname=?,address=?,email=?,phonenumber=?, dateofbirth=? where employeeid=?");
                 newStatement.setString(1, firstName);
                 newStatement.setString(2, lastName);
-                newStatement.setString(3, address);
-                newStatement.setString(4, email);
-                newStatement.setInt(5, phoneNum);
-                newStatement.setString(6, DateOfBirth);
-                newStatement.setInt(7, employeeid);
+                newStatement.setString(3, password);
+                newStatement.setString(4, address);
+                newStatement.setString(5, email);
+                newStatement.setInt(6, phoneNum);
+                newStatement.setString(7, DateOfBirth);
+                newStatement.setInt(8, employeeid);
                 newStatement.executeUpdate();
                 connection.close();
                 System.out.println("Employee information updated successfully");

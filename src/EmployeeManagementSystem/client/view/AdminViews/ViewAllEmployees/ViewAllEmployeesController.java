@@ -32,6 +32,9 @@ public class ViewAllEmployeesController implements ViewController {
     @FXML
     private TableColumn<Employee, String> lastName;
     @FXML
+    private TableColumn<Employee, String> password;
+
+    @FXML
     private TableColumn<Employee, String> dateOfBirth;
     @FXML
     private TableColumn<Employee, String> address;
@@ -46,6 +49,9 @@ public class ViewAllEmployeesController implements ViewController {
     private TextField fname;
     @FXML
     private TextField lname;
+    @FXML
+    private TextField passwd;
+
     @FXML
     private DatePicker dob;
     @FXML
@@ -71,6 +77,7 @@ public class ViewAllEmployeesController implements ViewController {
         userId.setCellValueFactory(new PropertyValueFactory<>("userId"));
         firstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        password.setCellValueFactory(new PropertyValueFactory<>("password"));
         dateOfBirth.setCellValueFactory(new PropertyValueFactory<>("dateOfBirth"));
         address.setCellValueFactory(new PropertyValueFactory<>("address"));
         phoneNumber.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
@@ -93,6 +100,7 @@ public class ViewAllEmployeesController implements ViewController {
         pNum.setTextFormatter(employeeIdTextFormatter);
         fname.textProperty().bindBidirectional(viewAllEmployeesViewModel.getFirstName());
         lname.textProperty().bindBidirectional(viewAllEmployeesViewModel.getLastName());
+        passwd.textProperty().bindBidirectional(viewAllEmployeesViewModel.getPassword());
         dob.valueProperty().bindBidirectional(viewAllEmployeesViewModel.getDateOfBirth());
         Address.textProperty().bindBidirectional(viewAllEmployeesViewModel.getAddress());
         pNum.textProperty().bindBidirectional(viewAllEmployeesViewModel.getPhNumber());
@@ -155,6 +163,7 @@ public class ViewAllEmployeesController implements ViewController {
         }
         fname.setText(firstName.getCellData(index));
         lname.setText(lastName.getCellData(index));
+        password.setText(password.getCellData(index));
         dob.setValue(stringToLocaleDate(dateOfBirth.getCellData(index)));
         Address.setText(address.getCellData(index));
         pNum.setText(phoneNumber.getCellData(index).toString());
@@ -180,21 +189,10 @@ public class ViewAllEmployeesController implements ViewController {
     }
 
     @FXML
-    public void onAddEmployeeButtonClick(ActionEvent event) {
-        try {
-            viewAllEmployeesViewModel.addEmployee();
-            AlertBox.showAlert("Employee added successfully");
-        } catch (Exception e) {
-            AlertBox.showAlert(e.getMessage());
-        }
-        clearTextInputs();
-    }
-
-    @FXML
     void onEditEmployeeButtonClick(ActionEvent event) {
         Employee selectedItem = employeeList.getSelectionModel().getSelectedItem();
         if (selectedItem == null) AlertBox.showAlert("Select employee to update");
-        viewAllEmployeesViewModel.editEmployee(selectedItem.getUserId(), fname.getText(), lname.getText(), dateToString(dob.getValue()), Address.getText(), Integer.parseInt(pNum.getText()), Email.getText());
+        viewAllEmployeesViewModel.editEmployee(selectedItem.getUserId(), fname.getText(), lname.getText(), passwd.getText(),  dateToString(dob.getValue()), Address.getText(), Integer.parseInt(pNum.getText()), Email.getText());
         clearTextInputs();
     }
 

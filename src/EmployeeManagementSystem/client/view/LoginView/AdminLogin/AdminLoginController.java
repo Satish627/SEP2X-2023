@@ -67,20 +67,15 @@ public class AdminLoginController implements ViewController {
     @FXML
     private void loginClicked(ActionEvent event) {
         try {
-            viewHandler.openMainView();
-        } catch (Exception e) {
-            AlertBox.showAlert(e.getMessage());
-        }
-      /*  try {
             Admin admin = adminLoginViewModel.adminLogin();
             if ((admin.getUserId()) == ((adminLoginViewModel.getAdminId().get())) && admin.getPassword().equals(adminLoginViewModel.getAdminPW().get())) {
                 System.out.println(admin.getUserId());
                 viewHandler.openMainView();
             }
         }
-        catch (NullPointerException e){
-            System.out.println("Null values...");
-        }*/
+        catch (Exception e){
+            AlertBox.showAlert(e.getMessage());
+        }
     }
     public void cancelClicked(ActionEvent actionEvent) {
         adminId.setText(null);

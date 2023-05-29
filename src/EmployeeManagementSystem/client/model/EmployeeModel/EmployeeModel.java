@@ -12,8 +12,9 @@ public interface EmployeeModel extends Subject
 {
     String addEmployee(String firstName, String lastName,String password,  String emailId, String address, int phoneNum, String dateOfBirth) throws SQLException, RemoteException;
     ArrayList<Employee> viewAllEmployees();
+    ArrayList<Employee> viewAllEmployeesWithPassword();
 
-    void updateEmployee(int UserId,String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth);
+    void updateEmployee(int UserId,String firstName, String lastName,String password, String email, String address, int phoneNum, String DateOfBirth);
 
     void deleteEmployee(int uId);
 }

@@ -38,10 +38,13 @@ public class EmployeeModelImpl implements EmployeeModel
     public ArrayList<Employee> viewAllEmployees() {
         return employeeClient.viewAllEmployees();
     }
+    public ArrayList<Employee> viewAllEmployeesWithPassword() {
+        return employeeClient.viewAllEmployeesWithPassword();
+    }
 
     @Override
-    public void updateEmployee(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
-        employeeClient.updateEmployeeInfo(UserId, firstName,lastName,email,address,phoneNum,DateOfBirth);
+    public void updateEmployee(int UserId, String firstName,String password, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
+        employeeClient.updateEmployeeInfo(UserId, firstName,lastName,password,email,address,phoneNum,DateOfBirth);
     }
 
     @Override

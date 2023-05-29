@@ -26,7 +26,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="316.0" prefHeight="550.0" prefWidth="534.0">
+      <AnchorPane layoutX="318.0" prefHeight="550.0" prefWidth="534.0">
          <children>
             <MenuBar layoutY="5.0" prefHeight="33.0" prefWidth="534.0">
               <menus>
@@ -43,10 +43,11 @@
                   </Menu>
               </menus>
             </MenuBar>
-            <Button layoutX="49.0" layoutY="162.0" mnemonicParsing="false" onAction="#viewEmployeeLink" prefHeight="46.0" prefWidth="155.0" style="-fx-background-color: e59d58;" text="Manage Employees" />
-            <Button layoutX="266.0" layoutY="162.0" mnemonicParsing="false" onAction="#addShiftLink" prefHeight="46.0" prefWidth="155.0" style="-fx-background-color: e59d58;" text="Add Shift" />
-            <Button layoutX="50.0" layoutY="275.0" mnemonicParsing="false" onAction="#ViewShiftLink" prefHeight="48.0" prefWidth="152.0" style="-fx-background-color: e59d58;" text="View Shift" />
-            <Button layoutX="268.0" layoutY="275.0" mnemonicParsing="false" onAction="#leaveRequestLink" prefHeight="48.0" prefWidth="152.0" style="-fx-background-color: e59d58;" text="Leave Request" />
+            <Button layoutX="274.0" layoutY="185.0" mnemonicParsing="false" onAction="#viewEmployeeLink" prefHeight="46.0" prefWidth="155.0" style="-fx-background-color: e59d58;" text="Manage Employees" />
+            <Button layoutX="60.0" layoutY="276.0" mnemonicParsing="false" onAction="#addShiftLink" prefHeight="46.0" prefWidth="155.0" style="-fx-background-color: e59d58;" text="Add Shift" />
+            <Button layoutX="275.0" layoutY="275.0" mnemonicParsing="false" onAction="#ViewShiftLink" prefHeight="48.0" prefWidth="152.0" style="-fx-background-color: e59d58;" text="View Shift" />
+            <Button layoutX="172.0" layoutY="360.0" mnemonicParsing="false" onAction="#leaveRequestLink" prefHeight="48.0" prefWidth="152.0" style="-fx-background-color: e59d58;" text="Leave Request" />
+            <Button layoutX="60.0" layoutY="185.0" mnemonicParsing="false" onAction="#onAddEmployeeClicked" prefHeight="46.0" prefWidth="155.0" style="-fx-background-color: e59d58;" text="Add Employee" />
          </children>
       </AnchorPane>
    </children>

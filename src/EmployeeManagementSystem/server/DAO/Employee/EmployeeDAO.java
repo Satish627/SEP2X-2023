@@ -11,6 +11,7 @@ public interface EmployeeDAO {
     Employee  addEmployee(String firstName, String lastName, String password, String email, String address, int phoneNum, String DateOfBirth) ;
 
     ArrayList<Employee> viewAllEmployees() ;
-    void updateEmployeeInfo(int userid,String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) ;
+    ArrayList<Employee> viewAllEmployeesWithPassWord() ;
+    void updateEmployeeInfo(int userid,String firstName, String lastName,String password, String email, String address, int phoneNum, String DateOfBirth) ;
     void deleteEmployeeByID(int UserId) ;
 }

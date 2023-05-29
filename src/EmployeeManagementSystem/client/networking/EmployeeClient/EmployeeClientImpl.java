@@ -7,7 +7,6 @@ import EmployeeManagementSystem.shared.networking.Server;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EmployeeClientImpl implements EmployeeClient
@@ -33,6 +32,15 @@ private PropertyChangeSupport propertyChangeSupport;
         return null;
     }
     @Override
+    public ArrayList<Employee> viewAllEmployeesWithPassword() {
+        try{
+            return server.getEmployeeServer().viewAllEmployeesWithPassword();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
     public String addEmployee(String firstName, String lastName,String password,String emailId, String address, int phoneNum, String dateOfBirth) {
          try{
           Employee employee= server.getEmployeeServer().addEmployee(firstName, lastName,password, emailId, address, phoneNum, dateOfBirth);
@@ -45,9 +53,9 @@ private PropertyChangeSupport propertyChangeSupport;
     }
 
     @Override
-    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) {
+    public void updateEmployeeInfo(int UserId, String firstName, String lastName,String password, String email, String address, int phoneNum, String DateOfBirth) {
         try {
-            server.getEmployeeServer().updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
+            server.getEmployeeServer().updateEmployeeInfo(UserId,firstName,lastName,email,password,address,phoneNum,DateOfBirth);
             propertyChangeSupport.firePropertyChange("employeeUpdated", null, new Employee(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth));
         } catch (RemoteException e) {
             throw new RuntimeException(e);

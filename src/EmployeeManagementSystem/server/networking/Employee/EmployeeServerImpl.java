@@ -29,8 +29,13 @@ public class EmployeeServerImpl implements EmployeeServer {
     }
 
     @Override
-    public void updateEmployeeInfo(int UserId, String firstName, String lastName, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException {
-        employeeDAO.updateEmployeeInfo(UserId,firstName,lastName,email,address,phoneNum,DateOfBirth);
+    public ArrayList<Employee> viewAllEmployeesWithPassword() throws RemoteException {
+        return employeeDAO.viewAllEmployeesWithPassWord();
+    }
+
+    @Override
+    public void updateEmployeeInfo(int UserId, String firstName, String lastName,String password, String email, String address, int phoneNum, String DateOfBirth) throws RemoteException {
+        employeeDAO.updateEmployeeInfo(UserId,firstName,lastName,password,email,address,phoneNum,DateOfBirth);
     }
 
     @Override

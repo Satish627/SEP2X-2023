@@ -17,21 +17,14 @@ import java.util.Random;
 public class ViewAllEmployeesViewModel {
     private EmployeeModel employeeModel;
     private ObservableList<Employee> employeeList;
-    private StringProperty FirstName, LastName, Email, Address;
+    private StringProperty FirstName, LastName,Password, Email, Address;
     private ObjectProperty<LocalDate> dob;
     private StringProperty PhNumber;
-    String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String lower = "abcdefghijklmnopqrstuvwxyz";
-    String digits = "0123456789";
-    String combination = upper + lower + digits;
-    int pwLength = 10;
-
-    String newPassword;
     private final NumberStringConverter numberStringConverter;
 
     public ViewAllEmployeesViewModel(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
-        employeeList = FXCollections.observableList(employeeModel.viewAllEmployees());
+        employeeList = FXCollections.observableList(employeeModel.viewAllEmployeesWithPassword());
         this.numberStringConverter = new NumberStringConverter();
         employeeModel.addListener("newEmployeeAdded", this::newEmployee);
         employeeModel.addListener("employeeRemoved", this::removeEmployee);
@@ -42,6 +35,7 @@ public class ViewAllEmployeesViewModel {
     private void initialiseAllProperty() {
         FirstName = new SimpleStringProperty();
         LastName = new SimpleStringProperty();
+        Password = new SimpleStringProperty();
         Email = new SimpleStringProperty();
         Address = new SimpleStringProperty();
         PhNumber = new SimpleStringProperty();
@@ -73,6 +67,10 @@ public class ViewAllEmployeesViewModel {
         return PhNumber;
     }
 
+    public StringProperty getPassword() {
+        return Password;
+    }
+
     public ObjectProperty<LocalDate> getDateOfBirth() {
         return dob;
     }
@@ -81,48 +79,13 @@ public class ViewAllEmployeesViewModel {
         return employeeList;
     }
 
-    private void generatePassword() {
-        Random random = new Random();
-        char[] com = new char[pwLength];
-        for (int i = 0; i < pwLength; i++) {
-            com[i] = (combination.charAt(random.nextInt(combination.length())));
-        }
-        newPassword = new String(com);
-        System.out.println("The generated password is : " + newPassword);
-    }
 
-
-    public void editEmployee(int userId, String firstName, String lastName, String dateOfBirth, String address, int phoneNumber, String email) {
-        employeeModel.updateEmployee(userId, firstName, lastName, dateOfBirth, address, phoneNumber, email);
+    public void editEmployee(int userId, String firstName, String lastName,String password, String dateOfBirth, String address, int phoneNumber, String email) {
+        employeeModel.updateEmployee(userId, firstName, lastName,password, dateOfBirth, address, phoneNumber, email);
     }
 
     public void deleteEmployee(int uId) {
         employeeModel.deleteEmployee(uId);
-    }
-
-    public void addEmployee() {
-        if (FirstName.get() == null || FirstName.get().isEmpty()) {
-            throw new RuntimeException("First name cannot be empty");
-        } else if (LastName.get() == null || LastName.get().isEmpty()) {
-            throw new RuntimeException("Last name cannot be empty");
-        } else if (dob.get() == null) {
-            throw new RuntimeException("Date of birth  cannot be empty");
-        } else if (Address.get() == null || Address.get().isEmpty()) {
-            throw new RuntimeException("Address cannot be empty");
-        } else if (PhNumber.toString() == null || PhNumber.get().isEmpty()) {
-            throw new RuntimeException("Phone number cannot be empty or zero");
-        } else if (Email.get() == null || Email.get().isEmpty()) {
-            throw new RuntimeException("Email name cannot be empty");
-        } else {
-            try {
-                generatePassword();
-                employeeModel.addEmployee(FirstName.get(), LastName.get(), newPassword, Email.get(), Address.get(), Integer.parseInt(PhNumber.get()), dateToString(dob.getValue()));
-                {
-                }
-            } catch (SQLException | RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 
     private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {

@@ -74,4 +74,8 @@ public class MainController implements ViewController {
         }
 
     }
+
+    public void onAddEmployeeClicked(ActionEvent event) {
+        viewHandler.openAddEmployeeView();
+    }
 }
