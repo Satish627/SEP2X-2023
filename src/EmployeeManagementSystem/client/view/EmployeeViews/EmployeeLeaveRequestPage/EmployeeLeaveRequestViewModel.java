@@ -14,7 +14,7 @@ public class EmployeeLeaveRequestViewModel {
     private LeaveRequestModel leaveRequestModel;
     private IntegerProperty shiftID;
     private StringProperty reason;
-    public EmployeeLeaveRequestViewModel(LeaveRequestModelImpl leaveRequestModel)
+    public EmployeeLeaveRequestViewModel(LeaveRequestModel leaveRequestModel)
     {
         this.leaveRequestModel=leaveRequestModel;
         initializeAllProperty();

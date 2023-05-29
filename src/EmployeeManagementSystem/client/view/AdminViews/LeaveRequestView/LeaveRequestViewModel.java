@@ -1,13 +1,8 @@
 package EmployeeManagementSystem.client.view.AdminViews.LeaveRequestView;
-
 import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModel;
-import EmployeeManagementSystem.client.model.LeaveRequestModel.LeaveRequestModelImpl;
 import EmployeeManagementSystem.shared.model.LeaveRequest;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.rmi.RemoteException;
 import java.util.List;
 
 public class LeaveRequestViewModel
