@@ -3,10 +3,6 @@ package EmployeeManagementSystem.client.view.AdminViews.AddShift;
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModel;
 import EmployeeManagementSystem.shared.model.Shift;
 import javafx.beans.property.*;
-import javafx.util.converter.NumberStringConverter;
-
-import java.rmi.RemoteException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -56,7 +52,7 @@ public class AddShiftViewModel {
         return employeeName;
     }
 
-    public Shift addShift() throws SQLException, RemoteException
+    public Shift addShift()
     {
         if (employeeID.get()==0||date.get()==null||startTime.get()==null||endTime.get()==null)
         {

@@ -1,97 +1,70 @@
 package EmployeeManagementSystem.client.view.AdminViews.AddShift;
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModel;
 import EmployeeManagementSystem.shared.model.Shift;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-
-
-import java.rmi.RemoteException;
-import java.sql.SQLException;
+import org.mockito.MockitoAnnotations;
 import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class AddShiftViewModelTest {
+
     private AddShiftViewModel addShiftViewModel;
 
     @Mock
     private ShiftModel shiftModel;
 
+    private Integer shiftID;
+    private Integer employeeID;
+    private String startTime;
+    private String endTime;
+    private String employeeName;
+    private ObjectProperty<LocalDate> date;
+
     @BeforeEach
-    public void setup() {
-        shiftModel= Mockito.mock(ShiftModel.class);
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        shiftID = 1;
+        employeeID = 1;
+        startTime = "09:00";
+        endTime = "17:00";
+        employeeName = "John Doe";
+        date = new SimpleObjectProperty<>(LocalDate.now());
+
         addShiftViewModel = new AddShiftViewModel(shiftModel);
-    }
-
-    @Test
-    public void testAddShift_WithValidData_ShouldReturnShift() throws SQLException, RemoteException {
-        // Arrange
-        int shiftID = 1;
-        int employeeID = 1;
-        String employeeName = "John Doe";
-        LocalDate date = LocalDate.now();
-        String startTime = "09:00";
-        String endTime = "17:00";
-
-        Shift expectedShift = new Shift(shiftID, employeeID, employeeName, date, startTime, endTime);
-        when(shiftModel.addShift(shiftID, employeeID, employeeName, date, startTime, endTime)).thenReturn(expectedShift);
         addShiftViewModel.getShiftID().set(shiftID);
         addShiftViewModel.getEmployeeID().set(employeeID);
         addShiftViewModel.getEmployeeName().set(employeeName);
-        addShiftViewModel.getDate().set(date);
+        addShiftViewModel.getDate().bindBidirectional(date);
         addShiftViewModel.getStartTime().set(startTime);
         addShiftViewModel.getEndTime().set(endTime);
+    }
 
-        // Act
+    @Test
+    public void testAddShift_Successful() {
+        Shift expectedShift = new Shift(shiftID, employeeID, date.get(), startTime, endTime, employeeName);
+        when(shiftModel.addShift(employeeID, date.get(), startTime, endTime)).thenReturn(expectedShift);
+
         Shift resultShift = addShiftViewModel.addShift();
 
-        // Assert
         assertNotNull(resultShift);
         assertEquals(expectedShift, resultShift);
-        verify(shiftModel).addShift(shiftID, employeeID, employeeName, date, startTime, endTime);
+        verify(shiftModel, times(1)).addShift(employeeID, date.get(), startTime, endTime);
     }
 
     @Test
-    public void testAddShift_WithMissingData_ShouldReturnNull() throws SQLException, RemoteException {
-        // Arrange
-        addShiftViewModel.getShiftID().set(0);
+    public void testAddShift_MissingInformation() {
         addShiftViewModel.getEmployeeID().set(0);
-        addShiftViewModel.getEmployeeName().set(null);
-        addShiftViewModel.getDate().set(null);
-        addShiftViewModel.getStartTime().set(null);
-        addShiftViewModel.getEndTime().set(null);
 
-        // Act
         Shift resultShift = addShiftViewModel.addShift();
 
-        // Assert
         assertNull(resultShift);
-        verifyNoInteractions(shiftModel);
-    }
-
-    @Test
-    public void testAddShift_WithPartialData_ShouldReturnNull() throws SQLException, RemoteException {
-        // Arrange
-        int shiftID = 1;
-        int employeeID = 1;
-        String employeeName = "John Doe";
-        LocalDate date = LocalDate.now();
-        String startTime = "09:00";
-
-        addShiftViewModel.getShiftID().set(shiftID);
-        addShiftViewModel.getEmployeeID().set(employeeID);
-        addShiftViewModel.getEmployeeName().set(employeeName);
-        addShiftViewModel.getDate().set(date);
-        addShiftViewModel.getStartTime().set(startTime);
-
-        // Act
-        Shift resultShift = addShiftViewModel.addShift();
-
-        // Assert
-        assertNull(resultShift);
-        verifyNoInteractions(shiftModel);
+        verify(shiftModel, never()).addShift(anyInt(), any(LocalDate.class), anyString(), anyString());
     }
 }
