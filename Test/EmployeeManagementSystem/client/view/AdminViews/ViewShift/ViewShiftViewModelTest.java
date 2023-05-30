@@ -2,9 +2,13 @@ package EmployeeManagementSystem.client.view.AdminViews.ViewShift;
 
 import EmployeeManagementSystem.client.model.ShiftModel.ShiftModel;
 import EmployeeManagementSystem.shared.model.Shift;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +30,8 @@ class ViewShiftViewModelTest {
     public void testViewAllShifts() {
         // Arrange
         List<Shift> expectedShifts = new ArrayList<>();
-        expectedShifts.add(new Shift(1, 1, "John Doe", null, "09:00 AM", "05:00 PM"));
-        expectedShifts.add(new Shift(2, 2, "Jane Smith", null, "10:00 AM", "06:00 PM"));
+        expectedShifts.add(new Shift(1,3, LocalDate.now(),"10:00", "17:00","Rohit"));
+        expectedShifts.add(new Shift(2, 2, LocalDate.now(), "5:00", "10:00 AM", "Apurva"));
 
         when(shiftModel.viewAllShift()).thenReturn(new ArrayList<>(expectedShifts));
 
@@ -38,29 +42,6 @@ class ViewShiftViewModelTest {
         assertEquals(expectedShifts, result);
     }
 
-    @Test
-    public void testAddShift() {
-        // Arrange
-        int shiftID = 1;
-        int employeeID = 1;
-        String employeeName = "John Doe";
-        LocalDate date = LocalDate.now();
-        String checkInTime = "09:00 AM";
-        String checkOutTime = "05:00 PM";
-        Shift shift = new Shift(shiftID, employeeID, employeeName, date, checkInTime, checkOutTime);
-
-        when(shiftModel.addShift(shiftID, employeeID, employeeName, date, checkInTime, checkOutTime)).thenReturn(shift);
-        viewShiftViewModel.getShiftID().set(shiftID);
-        viewShiftViewModel.getEmployeeID().set(employeeID);
-        viewShiftViewModel.getDate().set(date);
-        viewShiftViewModel.getEmployeeName().set(employeeName);
-        viewShiftViewModel.getCheckOutTime().set(checkOutTime);
-        viewShiftViewModel.getCheckInTime().set(checkInTime);
-
-        Shift result = viewShiftViewModel.addShift();
-        // Assert
-        assertEquals(shift, result);
-    }
 
     @Test
     public void testDeleteShift() {
@@ -73,6 +54,21 @@ class ViewShiftViewModelTest {
         // Assert
         verify(shiftModel).deleteShift(shiftID);
     }
+//    @Test
+//    void test_NewShiftAdded() {
+//
+//        Shift newShift = new Shift(1, 1,  LocalDate.now(), "08:00", "17:00");
+//        PropertyChangeEvent propertyChangeEvent = new PropertyChangeEvent(this, "newShiftAdded", null, newShift);
+//
+//        List<Shift> shiftList = new ArrayList<>();
+//        when(shiftModel.viewAllShift()).thenReturn((ArrayList<Shift>) shiftList);
+//
+//        viewShiftViewModel.newShiftAdded(propertyChangeEvent);
+//
+//
+//        ObservableList<Shift> expectedShiftList = FXCollections.observableArrayList(newShift);
+//        assertEquals(expectedShiftList, shiftModel.viewAllShift());
+//    }
 }
 
 

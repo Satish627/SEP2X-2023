@@ -51,7 +51,8 @@ public class EmployeeViewShiftViewModel
         shiftsToShow.setAll(shiftModel.viewAllShiftByUserID(loginModel.getCurrentUserId()));
     }
 
-    public ObservableList<Shift> getShiftsToShow() {
+    public ObservableList<Shift> getShiftsToShow()
+    {
         return shiftsToShow;
     }
 
@@ -61,7 +62,8 @@ public class EmployeeViewShiftViewModel
        shiftsToShow.setAll(shiftModel.viewAllShiftByUserID(userID));
     }
 
-    public int getUserID() {
+    public int getUserID()
+    {
         return userID;
     }
 
@@ -98,7 +100,7 @@ public class EmployeeViewShiftViewModel
 
     }
 
-    private void calculateTotalHours() {
+    public void calculateTotalHours() {
         int totalHoursInt = shiftsToShow.stream().mapToInt(Shift::getTotalHours).sum();
         totalHours.setValue(String.valueOf(totalHoursInt));
     }

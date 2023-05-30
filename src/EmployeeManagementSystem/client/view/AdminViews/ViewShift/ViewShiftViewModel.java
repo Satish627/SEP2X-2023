@@ -43,7 +43,7 @@ public class ViewShiftViewModel {
         shiftObservableList.setAll(shiftModel.viewAllShift());
     }
 
-    private void newShiftAdded(PropertyChangeEvent propertyChangeEvent)
+    void newShiftAdded(PropertyChangeEvent propertyChangeEvent)
     {
         Shift newShift = (Shift) propertyChangeEvent.getNewValue();
         shiftObservableList.add(newShift);

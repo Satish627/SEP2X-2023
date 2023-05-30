@@ -88,7 +88,7 @@ public class ViewAllEmployeesViewModel {
         employeeModel.deleteEmployee(uId);
     }
 
-    private void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
+    void updateEmployee(PropertyChangeEvent propertyChangeEvent) {
         Employee newUser = (Employee) propertyChangeEvent.getNewValue();
         employeeList.addAll(newUser);
         employeeList.setAll(employeeModel.viewAllEmployees());
@@ -104,7 +104,7 @@ public class ViewAllEmployeesViewModel {
         return value.format(formatter);
     }
 
-    private void newEmployee(PropertyChangeEvent propertyChangeEvent) {
+    void newEmployee(PropertyChangeEvent propertyChangeEvent) {
         Employee newEmp = (Employee) propertyChangeEvent.getNewValue();
         employeeList.add(newEmp);
         employeeList.setAll(employeeModel.viewAllEmployees());

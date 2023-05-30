@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 public class ViewHandler {
 
@@ -40,8 +41,12 @@ public class ViewHandler {
                 e.printStackTrace();
         }
             ViewController ctrl = loader.getController();
+        try {
             ctrl.init(this,viewModelFactory);
-                    return root;
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+        return root;
     }
     public void openLoginView() {
             if(loginScene == null){

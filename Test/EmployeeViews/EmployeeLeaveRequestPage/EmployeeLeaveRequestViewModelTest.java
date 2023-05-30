@@ -30,7 +30,8 @@ public class EmployeeLeaveRequestViewModelTest {
     }
 
     @Test
-    public void testRequestLeaveSuccess() throws SQLException, RemoteException {
+    public void testRequestLeaveSuccess()
+    {
         // Set up test data
         int shiftID = 1;
         String reason = "Vacation";
@@ -51,7 +52,8 @@ public class EmployeeLeaveRequestViewModelTest {
     }
 
     @Test
-    public void testRequestLeaveIncompleteData() throws SQLException, RemoteException {
+    public void testRequestLeaveIncompleteData()
+    {
         // Set up test data
         int shiftID = 0;
         String reason = "";
@@ -72,7 +74,8 @@ public class EmployeeLeaveRequestViewModelTest {
     }
 
     @Test
-    public void testRequestLeaveIncompleteReason() throws SQLException, RemoteException {
+    public void testRequestLeaveIncompleteReason()
+    {
         // Set up test data
         int shiftID = 1;
         String reason = null;

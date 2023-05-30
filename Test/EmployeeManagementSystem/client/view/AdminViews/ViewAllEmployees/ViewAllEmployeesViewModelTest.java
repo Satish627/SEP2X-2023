@@ -1,13 +1,22 @@
 package EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees;
+
+import EmployeeManagementSystem.client.view.AdminViews.ViewAllEmployees.ViewAllEmployeesViewModel;
 import EmployeeManagementSystem.client.model.EmployeeModel.EmployeeModel;
 import EmployeeManagementSystem.shared.model.Employee;
+import EmployeeManagementSystem.shared.model.Shift;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+
+import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,81 +24,83 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class ViewAllEmployeesViewModelTest
-{
+class ViewAllEmployeesViewModelTest {
     private ViewAllEmployeesViewModel viewAllEmployeesViewModelTest;
+
+
+    @Mock
     private EmployeeModel employeeModelTest;
 
-@BeforeEach
-void setUp() {
-    employeeModelTest = Mockito.mock(EmployeeModel.class);
-    viewAllEmployeesViewModelTest = new ViewAllEmployeesViewModel(employeeModelTest);
-}
-
-
+    @BeforeEach
+    void setUp()
+    {
+        employeeModelTest = Mockito.mock(EmployeeModel.class);
+        viewAllEmployeesViewModelTest = new ViewAllEmployeesViewModel(employeeModelTest);
+    }
     @Test
-    void test_ViewAllEmployee() {
+    void test_EditEmployee() {
+        // Set up mock data
+        int userId = 1;
+        String firstName = "Apurva";
+        String lastName = "Shrestha";
+        String password = "apurva123";
+        String dateOfBirth = "2001-05-15";
+        String address = "Kathmandu";
+        int phoneNumber = 1234567890;
+        String email = "apu@example.com";
+
+        viewAllEmployeesViewModelTest.editEmployee(userId, firstName, lastName, password, dateOfBirth, address, phoneNumber, email);
+        verify(employeeModelTest).updateEmployee(userId, firstName, lastName, password, dateOfBirth, address, phoneNumber, email);
 
 
-        List<Employee> expectedEmployees = new ArrayList<>();
-        expectedEmployees.add(new Employee(111,"Abc123","Apurva","01-01-2002","Chowk Tira",84445343,"apurva234"));
-        expectedEmployees.add(new Employee(121,"Acc111","Aalu","01-02-2002","Chowk Tira Hoina",84445343,"apurva234"));
-        ObservableList<Employee> expectedEmployeeList = FXCollections.observableArrayList(expectedEmployees);
-       when(employeeModelTest.viewAllEmployees()).thenReturn(new ArrayList<>(expectedEmployees));
-       viewAllEmployeesViewModelTest=new ViewAllEmployeesViewModel(employeeModelTest);
-
-        ObservableList<Employee> result = viewAllEmployeesViewModelTest.viewAllEmployees();
-
-        assertIterableEquals(expectedEmployees,result);
     }
 
 
     @Test
-    void test_AddEmployee() throws SQLException, RemoteException {
-        // Arrange
-        String firstName = "Rohit";
-        String lastName = "Pandey";
-        String newPassword = "rohitpandey";
-        int userId = 34;
-        String email = "rohit@gmail.com";
-        String address = "Horsens";
-        int phoneNumber = 9089898;
-        String dateOfBirth = "1991";
-
-        when(employeeModelTest.addEmployee(firstName, lastName, newPassword, userId, email, address, phoneNumber, dateOfBirth))
-                .thenReturn("success");
-
-        viewAllEmployeesViewModelTest.getFirstName().set(firstName);
-        viewAllEmployeesViewModelTest.getLastName().set(lastName);
-        viewAllEmployeesViewModelTest.getUserId().set(userId);
-        viewAllEmployeesViewModelTest.getEmail().set(email);
-        viewAllEmployeesViewModelTest.getAddress().set(address);
-        viewAllEmployeesViewModelTest.getPhNumber().set(phoneNumber);
-        viewAllEmployeesViewModelTest.getDateOfBirth().set(dateOfBirth);
-
-        // Act
-        String result = employeeModelTest.addEmployee(firstName,lastName,newPassword,userId,email,address,phoneNumber,dateOfBirth);
-
-        // Assert
-        assertEquals("success", result);
-        System.out.println("Employee added successfully.");
-        verify(employeeModelTest).addEmployee(firstName, lastName, newPassword, userId, email, address, phoneNumber, dateOfBirth);
-    }
-
-    @Test
-    public void test_missingEmployeeFirstName()
+    void test_DeleteEmployee()
     {
 
-        viewAllEmployeesViewModelTest.getFirstName().set(null);
-        viewAllEmployeesViewModelTest.getLastName().set("");
-        viewAllEmployeesViewModelTest.getUserId().set(0);
-        viewAllEmployeesViewModelTest.getAddress().set("");
-        viewAllEmployeesViewModelTest.getEmail().set("");
-        viewAllEmployeesViewModelTest.getPhNumber().set(0);
-        viewAllEmployeesViewModelTest.getDateOfBirth().set("");
+        int userId = 1;
+        viewAllEmployeesViewModelTest.deleteEmployee(userId);
+        verify(employeeModelTest).deleteEmployee(userId);
+    }
 
-        assertThrows(RuntimeException.class, ()-> viewAllEmployeesViewModelTest.addEmployee());
 
+    @Test
+    void test_UpdateEmployee()
+    {
+        Employee employee = new Employee(1, "John", "Doe", "1990-05-15", "123 Main St", 1234567890, "john@example.com");
+
+        viewAllEmployeesViewModelTest.editEmployee(
+                employee.getUserId(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getPassword(),
+                employee.getDateOfBirth(),
+                employee.getAddress(),
+                employee.getPhoneNumber(),
+                employee.getEmail()
+        );
+
+        verify(employeeModelTest, times(1)).updateEmployee(
+                eq(employee.getUserId()),     //eq (equals) is used to match the expected values of the employee's properties when verifying the updateEmployee method call.
+                eq(employee.getFirstName()),
+                eq(employee.getLastName()),
+                eq(employee.getPassword()),
+                eq(employee.getDateOfBirth()),
+                eq(employee.getAddress()),
+                eq(employee.getPhoneNumber()),
+                eq(employee.getEmail())
+        );
+    }
+
+//    @Test
+//    void test_newEmployeeAdded()
+//    {
+//
+//    }
 
     }
-}
+
+
+

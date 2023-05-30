@@ -12,6 +12,8 @@ import EmployeeManagementSystem.client.view.LoginView.EmployeeLogin.EmployeeLogi
 import EmployeeManagementSystem.client.view.AdminViews.MainView.MainViewModel;
 import EmployeeManagementSystem.client.view.AdminViews.ViewShift.ViewShiftViewModel;
 
+import java.rmi.RemoteException;
+
 public class ViewModelFactory {
 
     private final ModelFactory modelFactory;
@@ -82,7 +84,7 @@ public class ViewModelFactory {
         return employeeLeaveRequestViewModel;
     }
 
-    public LeaveRequestViewModel getLeaveRequestViewModel() {
+    public LeaveRequestViewModel getLeaveRequestViewModel() throws RemoteException {
         if (leaveRequestViewModel == null) {
             leaveRequestViewModel = new LeaveRequestViewModel(modelFactory.getLeaveRequest());
         }

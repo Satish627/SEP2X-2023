@@ -10,6 +10,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.rmi.RemoteException;
+
 public class LeaveRequestController implements ViewController {
         private ViewHandler viewHandler;
         private LeaveRequestViewModel leaveRequestViewModel;
@@ -45,7 +47,7 @@ public class LeaveRequestController implements ViewController {
 
 
     @Override
-    public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
+    public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) throws RemoteException, RemoteException {
         this.viewHandler=viewHandler;
         leaveRequestViewModel=viewModelFactory.getLeaveRequestViewModel();
         initializeTableView();
