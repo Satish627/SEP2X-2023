@@ -1,5 +1,6 @@
 package EmployeeManagementSystem.server.DAO.Employee;
 
+import EmployeeManagementSystem.server.DAO.DataBaseConnection;
 import EmployeeManagementSystem.shared.model.Employee;
 import org.postgresql.Driver;
 
@@ -10,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static EmployeeManagementSystem.server.DAO.DataBaseConnection.getConnection;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
     public EmployeeDAOImpl() {
@@ -22,9 +22,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName, String password, String email, String address, int phoneNum, String dateOfBirth) {
-        try (Connection connection = getConnection()) {
-            PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd,email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?);");
+    public Employee addEmployee(String firstName, String lastName, String password, String email,
+                                String address, int phoneNum, String dateOfBirth) {
+        try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
+            PreparedStatement newStatement = connection.prepareStatement("INSERT INTO employee ( firstname,lastname,passwd," +
+                    "email,address,phonenumber,dateofbirth) VALUES (?,?,?,?,?,?,?);");
             newStatement.setString(1, firstName);
             newStatement.setString(2, lastName);
             newStatement.setString(3, password);
@@ -63,7 +65,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public ArrayList<Employee> viewAllEmployees() {
         ArrayList<Employee> employeeList = new ArrayList<>();
         {
-            try(Connection connection = getConnection()) {
+            try(Connection connection = DataBaseConnection.getInstance().getConnection()) {
 
                 {
                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee ");
@@ -95,7 +97,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public ArrayList<Employee> viewAllEmployeesWithPassWord() {
         ArrayList<Employee> employeeList = new ArrayList<>();
         {
-            try(Connection connection = getConnection()) {
+            try(Connection connection = DataBaseConnection.getInstance().getConnection()) {
 
                 {
                     PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee ");
@@ -127,7 +129,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void updateEmployeeInfo(int employeeid, String firstName, String lastName, String password,String email, String address, int phoneNum, String DateOfBirth) {
         try {
-            try (Connection connection = getConnection()) {
+            try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
                 PreparedStatement newStatement = connection.prepareStatement("UPDATE  employee SET firstname=?,lastname=?,address=?,email=?,phonenumber=?, dateofbirth=? where employeeid=?");
                 newStatement.setString(1, firstName);
                 newStatement.setString(2, lastName);
@@ -149,7 +151,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public void deleteEmployeeByID(int employeeid) {
         try {
-            try (Connection connection = getConnection()) {
+            try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
                 PreparedStatement newStatement = connection.prepareStatement("DELETE FROM employee  WHERE employeeid=?");
                 newStatement.setInt(1, employeeid);
                 newStatement.executeUpdate();

@@ -1,5 +1,6 @@
 package EmployeeManagementSystem.server.DAO.Shift;
 
+import EmployeeManagementSystem.server.DAO.DataBaseConnection;
 import EmployeeManagementSystem.shared.model.Shift;
 import javafx.fxml.FXML;
 import org.postgresql.Driver;
@@ -10,7 +11,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static EmployeeManagementSystem.server.DAO.DataBaseConnection.getConnection;
 
 public class ShiftDAOImpl implements ShiftDAO {
 
@@ -24,7 +24,7 @@ public class ShiftDAOImpl implements ShiftDAO {
 
     @Override
     public Shift addShift(int employeeID, LocalDate date, String startTime, String endTime) {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
             PreparedStatement newStatement = connection.prepareStatement("INSERT INTO shift (employeeid, date, checkintime, checkouttime) VALUES (?, ?, ?, ?);");
             newStatement.setInt(1, employeeID);
             newStatement.setDate(2, Date.valueOf(date));
@@ -54,7 +54,7 @@ public class ShiftDAOImpl implements ShiftDAO {
     public ArrayList<Shift> viewAllShift() throws SQLException {
         ArrayList<Shift> shiftList = new ArrayList<>();
         {
-            try ( Connection connection = getConnection()){
+            try ( Connection connection =DataBaseConnection.getInstance().getConnection()){
 
                 {
                     PreparedStatement statement = connection.prepareStatement("SELECT  * FROM shift");
@@ -84,7 +84,7 @@ public class ShiftDAOImpl implements ShiftDAO {
     public ArrayList<Shift> viewAllShiftByemployeeid(int employeeid) {
         ArrayList<Shift> shiftList = new ArrayList<>();
         {
-            try(Connection connection = getConnection()) {
+            try(Connection connection = DataBaseConnection.getInstance().getConnection()) {
 
                 {
                     PreparedStatement statement = connection.prepareStatement("SELECT  * FROM shift WHERE employeeid=?");
@@ -113,7 +113,7 @@ public class ShiftDAOImpl implements ShiftDAO {
     }
 
     private String getEmployeeNameFromEmployeeId(int employeeid) {
-        try(Connection connection = getConnection()) {
+        try(Connection connection = DataBaseConnection.getInstance().getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT firstname FROM employee WHERE employeeid =?");
             statement.setInt(1, employeeid);
             ResultSet resultSet = statement.executeQuery();
@@ -130,7 +130,7 @@ public class ShiftDAOImpl implements ShiftDAO {
 
     @Override
     public Shift updateShiftInfo(Shift shift) {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
             PreparedStatement newStatement = connection.prepareStatement("UPDATE  shift SET date=?, checkintime=?, checkouttime=? where shiftid=?");
             newStatement.setDate(1, Date.valueOf(shift.getDate()));
             newStatement.setTime(2, Time.valueOf(shift.getCheckInTime()));
@@ -149,7 +149,7 @@ public class ShiftDAOImpl implements ShiftDAO {
     @Override
     public void deleteShiftById(int shiftID) throws SQLException {
         try
-                (Connection connection = getConnection()) {
+                (Connection connection = DataBaseConnection.getInstance().getConnection()) {
 
             PreparedStatement newStatement = connection.prepareStatement("DELETE FROM shift  WHERE shiftid=?");
             newStatement.setInt(1, shiftID);
@@ -161,7 +161,7 @@ public class ShiftDAOImpl implements ShiftDAO {
 
     @Override
     public void checkIn(int shiftID, int employeeid) throws SQLException {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
             LocalDate currentDate = LocalDate.now();
             LocalTime currentTime = LocalTime.now();
 
@@ -201,7 +201,7 @@ public class ShiftDAOImpl implements ShiftDAO {
 
     @Override
     public void checkOut(int shiftID, int employeeid) throws SQLException {
-        try (Connection connection = getConnection()) {
+        try (Connection connection = DataBaseConnection.getInstance().getConnection()) {
             LocalDate currentDate = LocalDate.now();
             LocalTime currentTime = LocalTime.now();
 
@@ -261,7 +261,7 @@ public class ShiftDAOImpl implements ShiftDAO {
     @Override
     public ArrayList<Shift> viewAllShiftByEmployeeId(int employeeId) {
         ArrayList<Shift> shiftList = new ArrayList<>();
-        try (Connection connection = getConnection()){
+        try (Connection connection = DataBaseConnection.getInstance().getConnection()){
             {
                 PreparedStatement statement = connection.prepareStatement("SELECT  * FROM shift WHERE employeeid=?");
                 statement.setInt(1, employeeId);

@@ -10,7 +10,7 @@ public class LoginDAOImpl implements LoginDAO {
 
    @Override
     public Employee login(int id, String passwd) throws SQLException  {
-       try( Connection connection= DataBaseConnection.getConnection()){
+       try( Connection connection= DataBaseConnection.getInstance().getConnection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM employee WHERE employeeid=? and passwd=?");
             statement.setInt(1, id);
            statement.setString(2,passwd);
@@ -28,7 +28,7 @@ public class LoginDAOImpl implements LoginDAO {
 
     @Override
     public Admin loginAdmin(int adminId, String password) throws SQLException {
-        try( Connection connection= DataBaseConnection.getConnection()){
+        try( Connection connection= DataBaseConnection.getInstance().getConnection()){
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM  admin WHERE userid=? and passwd=?");
             statement.setInt(1, adminId);
             statement.setString(2,password);

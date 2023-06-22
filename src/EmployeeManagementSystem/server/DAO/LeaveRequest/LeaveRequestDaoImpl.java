@@ -17,7 +17,7 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
     }
 
     public void approveLeave(int shiftID)  {
-        try (Connection connection = DataBaseConnection.getConnection())
+        try (Connection connection = DataBaseConnection.getInstance().getConnection())
         {
             PreparedStatement statement2=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
             PreparedStatement statement=connection.prepareStatement("DELETE FROM \"shift\" WHERE \"shiftid\"=?");
@@ -36,7 +36,7 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
 
     @Override
     public void rejectLeave(int shiftID){
-        try (Connection connection = DataBaseConnection.getConnection())
+        try (Connection connection = DataBaseConnection.getInstance().getConnection())
         {
             PreparedStatement statement=connection.prepareStatement("DELETE FROM \"leaverequest\" WHERE \"shiftid\"=?");
             statement.setInt(1,shiftID);
@@ -48,7 +48,7 @@ public class LeaveRequestDaoImpl implements LeaveRequestDao
     }
 
 public void requestLeave(int shiftID,String reason) {
-        try(Connection connection=DataBaseConnection.getConnection())
+        try(Connection connection=DataBaseConnection.getInstance().getConnection())
         {
             PreparedStatement statement=connection.prepareStatement("INSERT INTO leaverequest(shiftid,reason) VALUES (?,?);");
             statement.setInt(1,shiftID);
@@ -63,7 +63,7 @@ public void requestLeave(int shiftID,String reason) {
 
     public ArrayList<LeaveRequest> viewAllLeaveRequests() {
         ArrayList<LeaveRequest> leaveRequests=new ArrayList<>();
-        try (Connection connection = DataBaseConnection.getConnection())
+        try (Connection connection = DataBaseConnection.getInstance().getConnection())
         {
             PreparedStatement statement=connection.prepareStatement("SELECT * FROM \"leaverequest\"");
             ResultSet resultSet=statement.executeQuery();
